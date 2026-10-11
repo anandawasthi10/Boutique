@@ -192,6 +192,7 @@ describe('FE-19: Add-to-cart bar', () => {
     fireEvent.click(addButton);
 
     await waitFor(() => {
+      expect(addSpy).toHaveBeenCalled();
       expect(screen.getByTestId('add-to-cart-error')).toHaveTextContent(
         'Network timeout adding to cart'
       );

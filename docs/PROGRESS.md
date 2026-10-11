@@ -546,3 +546,24 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (122 tests across 21 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-20: Build Your Own entry
+
+- **Status**: done
+- **Files Changed**:
+  - `app/build-your-own/BuildYourOwnContent.tsx`
+  - `app/build-your-own/page.tsx`
+  - `tests/A/fe-20.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The picker shows only products from the API*: Verified. Product picker queries `productsApi.getProducts()` directly and renders available customizable accessories with base prices.
+  2. *Choosing a product shows the same configurator component used in FE-15 through FE-19*: Verified. Uses `ProductConfigurator` component (with option groups, real-time live quotes, selection breakdown, and add-to-cart bar).
+  3. *Changing the product resets the selections*: Verified. Selecting an alternate product from the picker replaces the active product key and instantiates a clean configurator session with reset option selections.
+  4. *Loading, empty and error states exist*: Verified. Features loading skeleton during catalogue fetch, empty state when 0 accessories return, and error state with retry button.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (126 tests across 22 test suites).
+  - `npm run build`: Production build succeeded (15 static pages prerendered).
+
