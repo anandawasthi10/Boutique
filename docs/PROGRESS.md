@@ -626,5 +626,26 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (139 tests across 24 test suites).
   - `npm run build`: Production build succeeded (16 static routes prerendered).
 
+---
 
+## FE-25: Sign up and login pages
 
+- **Status**: done
+- **Files Changed**:
+  - `components/ui/Input.tsx`
+  - `app/login/LoginContent.tsx`
+  - `app/login/page.tsx`
+  - `app/signup/SignupContent.tsx`
+  - `app/signup/page.tsx`
+  - `tests/A/fe-25.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Both pages validate required fields before sending and move focus to the first invalid field*: Verified. Validation checks required name, email format, minimum 8-char password, and phone formatting, placing immediate focus onto the first invalid input element.
+  2. *Failed login shows a general message that does not say which part was wrong*: Verified. Generic message "The email or password you entered is incorrect. Please try again." displayed without revealing whether account exists or password was mismatched.
+  3. *Successful login or sign up sends the user to the destination from the page address, or to the account page if none was given*: Verified. `sanitizeReturnUrl` extracts safe return destination and routes to `/account` by default when no `returnTo` is provided.
+  4. *A toggle button reveals the password in plain text and hides it again, with its state announced to screen readers*: Verified. Password inputs include accessible show/hide toggle buttons with `aria-label` ("Show password" / "Hide password") and `aria-pressed`.
+  5. *Second click during submission does nothing*: Verified. Buttons and inputs are disabled with `isSubmitting` flag and prevent duplicate requests while an active request is in-flight.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (148 tests across 25 test suites).
+  - `npm run build`: Production build succeeded (18 static routes prerendered).

@@ -8,6 +8,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   error?: string;
   helperText?: string;
   hideLabelVisually?: boolean;
+  endAdornment?: React.ReactNode;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -17,6 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       helperText,
       hideLabelVisually = false,
+      endAdornment,
       id,
       className = '',
       required,
@@ -64,10 +66,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               error
                 ? 'border-[var(--color-error)] pr-10'
                 : 'border-[var(--color-border)] hover:border-[var(--color-text-muted)]'
-            } ${className}`.trim()}
+            } ${endAdornment ? 'pr-12' : ''} ${className}`.trim()}
             {...props}
           />
-          {error && (
+          {endAdornment && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
+              {endAdornment}
+            </div>
+          )}
+          {!endAdornment && error && (
             <div
               className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-error)]"
               aria-hidden="true"
