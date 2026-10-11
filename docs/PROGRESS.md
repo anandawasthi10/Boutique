@@ -207,6 +207,35 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (44 tests across 7 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-08: Site layout shell
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/config/site.ts`
+  - `lib/hooks/useCartCount.ts`
+  - `lib/hooks/useCurrentUser.ts`
+  - `components/layout/Header.tsx`
+  - `components/layout/Footer.tsx`
+  - `components/layout/MobileNav.tsx`
+  - `components/layout/index.ts`
+  - `app/layout.tsx`
+  - `tests/A/fe-08.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Header and footer appear on every page through the root layout*: Verified. `app/layout.tsx` wraps every route with `<Header />`, `<main id="main-content">`, and `<Footer />`.
+  2. *The mobile navigation opens as a drawer with focus handling and closes on Escape*: Verified. Hamburger button opens `MobileNav` with `Drawer` focus trap, Escape key handling, and backdrop click dismiss.
+  3. *The cart count comes from the cart state and shows nothing when the cart is empty*: Verified. Header cart badge displays dynamic item count from `useCartCount` and is hidden when `count === 0`.
+  4. *The account link shows login when signed out and the account menu when signed in*: Verified. Shows "Log in" link when guest, and "Account" with user profile link when logged in.
+  5. *The brand name appears from one single configuration value*: Verified. Centralized in `lib/config/site.ts` (`SITE_CONFIG.brandName`).
+  6. *A skip-to-content link is the first focusable element*: Verified. `<a href="#main-content">` is rendered at the top of Header as the first focusable element.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (52 tests across 8 test suites).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 

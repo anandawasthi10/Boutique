@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, Caveat } from "next/font/google";
 import "./globals.css";
+import { Header, Footer } from "@/components/layout";
+import { SITE_CONFIG } from "@/lib/config/site";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -27,8 +29,8 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Brand Name | Handmade Accessories",
-  description: "Personalised fabric accessories crafted with care.",
+  title: `${SITE_CONFIG.brandName} | ${SITE_CONFIG.tagline}`,
+  description: "Personalised fabric accessories crafted with care by hand.",
 };
 
 export default function RootLayout({
@@ -41,8 +43,12 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${dmSans.variable} ${caveat.variable}`}
     >
-      <body className="bg-bg text-text antialiased min-h-screen">
-        {children}
+      <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased min-h-screen flex flex-col selection:bg-[var(--color-blush)] selection:text-[var(--color-text)]">
+        <Header />
+        <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
