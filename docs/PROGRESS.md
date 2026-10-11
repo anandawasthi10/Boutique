@@ -377,3 +377,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (88 tests across 14 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-15: Product detail page shell
+
+- **Status**: done
+- **Files Changed**:
+  - `app/product/[slug]/ProductDetailContent.tsx`
+  - `app/product/[slug]/page.tsx`
+  - `tests/A/fe-15.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Loads the product through the API layer using the route slug*: Verified. ProductDetailContent queries `productsApi.getProductBySlug(slug)` cleanly through the API layer.
+  2. *Two-column layout on desktop, stacked on mobile; sidebar sticky only if viewport allows*: Verified. Implemented CSS responsive grid (`grid-cols-1 lg:grid-cols-12`) with `lg:sticky lg:top-24 max-h-screen overflow-y-auto` sidebar.
+  3. *Description is plain text only; no HTML rendered*: Verified. Description is rendered directly as a text paragraph without `dangerouslySetInnerHTML`.
+  4. *Shows starting price until options are chosen*: Verified. Displays formatted starting price from `product.basePrice` with `Starting from` indicator.
+  5. *Reserved space for the configurator avoids layout shift*: Verified. Reserved slot `data-testid="configurator-slot"` with minimum height prevents layout shifts during configuration loading.
+  6. *Page title and breadcrumbs match the product*: Verified. Breadcrumbs show Home > Category > Product name; page title is dynamically synchronized.
+  7. *Unknown product slug triggers friendly not-found page*: Verified. ApiException with 404 or missing product calls Next.js `notFound()`.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (93 tests across 15 test suites).
+  - `npm run build`: Production build succeeded.
