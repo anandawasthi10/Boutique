@@ -671,3 +671,27 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (157 tests across 26 test suites).
   - `npm run build`: Production build succeeded (20 static routes prerendered).
+
+---
+
+## FE-27: Account and profile
+
+- **Status**: done
+- **Files Changed**:
+  - `components/auth/ProtectedRoute.tsx`
+  - `components/account/AccountNav.tsx`
+  - `components/account/AccountLayout.tsx`
+  - `components/account/index.ts`
+  - `app/account/ProfileContent.tsx`
+  - `app/account/page.tsx`
+  - `tests/A/fe-27.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Only signed-in customers can open the area*: Verified. `AccountLayout` wraps views in `ProtectedRoute`, which intercepts unauthenticated visits and redirects to `/login?returnTo=%2Faccount` while preserving return destination.
+  2. *The profile shows only the fields the API returns*: Verified. Views render `name`, `email`, optional `phone` (with friendly "Not provided" fallback), and account creation/reference date returned by the API contract.
+  3. *The navigation works on mobile and desktop, with the current page marked*: Verified. `AccountNav` lists Profile, Addresses, Orders and Sign Out, uses `usePathname` to mark active route with `aria-current="page"`, and responds responsively across mobile and desktop.
+  4. *Loading and error states exist*: Verified. `ProfileContent` renders skeleton placeholders during session fetch, and error card with retry button when user cannot be loaded.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (165 tests across 27 test suites).
+  - `npm run build`: Production build succeeded (21 static routes prerendered).
