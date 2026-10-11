@@ -8,8 +8,13 @@ import {
 } from '../../types';
 import { ApiException } from '../client';
 import { MOCK_USER } from './data';
+import { clearCartInternal } from './cart';
 
 let currentUserState: User | null = { ...MOCK_USER };
+
+export function setMockCurrentUser(user: User | null): void {
+  currentUserState = user ? { ...user } : null;
+}
 
 export async function getCurrentUser(): Promise<User | null> {
   return new Promise((resolve) => {
@@ -94,6 +99,7 @@ export async function logout(): Promise<SimpleSuccessResponse> {
   return new Promise((resolve) => {
     setTimeout(() => {
       currentUserState = null;
+      clearCartInternal();
       resolve({ success: true, message: 'Successfully signed out.' });
     }, 10);
   });

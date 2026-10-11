@@ -596,4 +596,35 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (132 tests across 23 test suites).
   - `npm run build`: Production build succeeded (16 static routes prerendered).
 
+---
+
+## FE-24: Auth state and protected pages
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/api/mock/auth.ts`
+  - `lib/hooks/useCart.tsx`
+  - `lib/utils/url.ts`
+  - `lib/utils/index.ts`
+  - `lib/hooks/useAuth.tsx`
+  - `lib/hooks/useCurrentUser.ts`
+  - `lib/hooks/index.ts`
+  - `components/auth/ProtectedRoute.tsx`
+  - `components/auth/index.ts`
+  - `app/layout.tsx`
+  - `tests/A/fe-20.test.tsx`
+  - `tests/A/fe-24.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The current user and a loading state are available to any component*: Verified. `AuthProvider` context in `lib/hooks/useAuth.tsx` wraps the app layout and provides `user`, `isLoading`, and `isAuthenticated` across all consumer components.
+  2. *Visiting a protected page signed out goes to login and returns to the original page after login*: Verified. `ProtectedRoute` intercepts unauthenticated visits, captures full current pathname and query params, and redirects to `/login?returnTo=...`.
+  3. *Only addresses on this site are accepted as return destinations*: Verified. `sanitizeReturnUrl` strictly enforces relative destinations, rejecting protocol-relative URLs (`//`), scheme injections (`http:`, `https:`, `javascript:`, `data:`), and backslashes (`\`).
+  4. *No password or session secret is stored in browser storage*: Verified. Validated that `localStorage` and `sessionStorage` are never written to with credentials, tokens, or session secrets.
+  5. *Logout clears the user and the cart state*: Verified. `logout()` clears `user` to `null`, resets backend/mock cart via `clearCartInternal()`, dispatches `auth:logout`, and clears the in-memory cart store state.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (139 tests across 24 test suites).
+  - `npm run build`: Production build succeeded (16 static routes prerendered).
+
+
 

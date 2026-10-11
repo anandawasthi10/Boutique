@@ -5,6 +5,7 @@ import { Header, Footer } from "@/components/layout";
 import { CartDrawer } from "@/components/cart";
 import { SITE_CONFIG } from "@/lib/config/site";
 import { PreferencesProvider } from "@/lib/hooks/usePreferences";
+import { AuthProvider } from "@/lib/hooks/useAuth";
 import { CartProvider } from "@/lib/hooks/useCart";
 
 const cormorant = Cormorant_Garamond({
@@ -48,14 +49,16 @@ export default function RootLayout({
     >
       <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased min-h-screen flex flex-col selection:bg-[var(--color-blush)] selection:text-[var(--color-text)]">
         <PreferencesProvider>
-          <CartProvider>
-            <Header />
-            <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
-              {children}
-            </main>
-            <Footer />
-            <CartDrawer />
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Header />
+              <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
+                {children}
+              </main>
+              <Footer />
+              <CartDrawer />
+            </CartProvider>
+          </AuthProvider>
         </PreferencesProvider>
       </body>
     </html>

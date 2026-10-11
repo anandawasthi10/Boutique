@@ -25,6 +25,7 @@ export interface CartContextValue {
   updateQuantity: (itemId: string, quantity: number) => Promise<Cart>;
   updateConfiguration: (itemId: string, selectedOptionIds: string[]) => Promise<Cart>;
   removeItem: (itemId: string) => Promise<Cart>;
+  clearCart: () => void;
   clearError: () => void;
   isItemPending: (itemId: string) => boolean;
 }
@@ -50,6 +51,28 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
       window.dispatchEvent(new CustomEvent('cart-updated'));
     }
   }, []);
+
+  const clearCart = useCallback(() => {
+    setCart({ items: [], subtotal: 0, total: 0, notices: [] });
+    setError(null);
+    dispatchCartEvent();
+  }, [dispatchCartEvent]);
+
+  // Clear cart upon auth logout
+  useEffect(() => {
+    const handleAuthLogout = () => {
+      setCart({ items: [], subtotal: 0, total: 0, notices: [] });
+      setError(null);
+      dispatchCartEvent();
+    };
+
+    window.addEventListener('auth:logout', handleAuthLogout);
+    window.addEventListener('auth-logout', handleAuthLogout);
+    return () => {
+      window.removeEventListener('auth:logout', handleAuthLogout);
+      window.removeEventListener('auth-logout', handleAuthLogout);
+    };
+  }, [dispatchCartEvent]);
 
   // Fetch initial cart from API on mount
   const refreshCart = useCallback(async (): Promise<Cart | null> => {
@@ -230,6 +253,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
       updateQuantity,
       updateConfiguration,
       removeItem,
+      clearCart,
       clearError,
       isItemPending,
     }),
@@ -247,6 +271,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
       updateQuantity,
       updateConfiguration,
       removeItem,
+      clearCart,
       clearError,
       isItemPending,
     ]
@@ -280,6 +305,7 @@ export function useCart(): CartContextValue {
       removeItem: async () => {
         throw new Error('No CartProvider found in component tree');
       },
+      clearCart: () => {},
       clearError: () => {},
       isItemPending: () => false,
     };

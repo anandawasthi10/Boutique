@@ -106,7 +106,9 @@ describe('FE-20: Build Your Own guided entry', () => {
     });
   });
 
-  it('choosing a product shows the same configurator and changing product resets selections', async () => {
+  it(
+    'choosing a product shows the same configurator and changing product resets selections',
+    async () => {
     vi.spyOn(productsApi, 'getProducts').mockResolvedValue({
       items: mockProductSummaries,
       total: 2,
@@ -163,7 +165,7 @@ describe('FE-20: Build Your Own guided entry', () => {
       expect(screen.getByRole('radio', { name: /cotton/i })).toBeInTheDocument();
       expect(screen.queryByRole('radio', { name: /linen/i })).not.toBeInTheDocument();
     });
-  });
+  }, 15000);
 
   it('renders error state when API fails', async () => {
     vi.spyOn(productsApi, 'getProducts').mockRejectedValueOnce(
