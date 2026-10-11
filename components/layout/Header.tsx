@@ -9,6 +9,8 @@ import { useCartCount } from '@/lib/hooks/useCartCount';
 import { useCurrentUser } from '@/lib/hooks/useCurrentUser';
 import { MobileNav } from './MobileNav';
 
+import { SoundToggle } from './SoundToggle';
+
 export interface HeaderProps {
   onOpenCart?: () => void;
 }
@@ -71,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
             </Link>
           </div>
 
-          {/* Right: Actions (Search, Account, Cart) */}
+          {/* Right: Actions (Search, Sound, Account, Cart) */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Search */}
             <Link
@@ -81,6 +83,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
             >
               <Search className="w-5 h-5" />
             </Link>
+
+            {/* Sound Toggle */}
+            <SoundToggle />
 
             {/* Account / Login */}
             {user ? (

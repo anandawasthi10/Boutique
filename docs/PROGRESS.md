@@ -259,4 +259,26 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (56 tests across 9 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-10: Preference controls (motion and sound)
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/hooks/usePreferences.tsx`
+  - `components/layout/SoundToggle.tsx`
+  - `components/layout/Header.tsx`
+  - `components/layout/index.ts`
+  - `app/layout.tsx`
+  - `tests/A/fe-10.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Sound is off by default and the choice is saved in the browser*: Verified. Defaults strictly to `false` and persists user preferences in `localStorage` under `handmade_boutique_sound_preference` across browser sessions using `useSyncExternalStore`.
+  2. *The toggle has an accessible name and clearly shows its state*: Verified. `SoundToggle` button renders with accessible name (`Mute sound effects (sound is currently enabled)` or `Enable sound effects (sound is currently disabled)`), `aria-pressed` mirroring state, and icon changes between `Volume2` and `VolumeX`.
+  3. *A hook exposes `soundEnabled` and `reducedMotion` for other components*: Verified. `usePreferences()` returns `{ soundEnabled, reducedMotion, toggleSound, setSoundEnabled }`, reading `window.matchMedia('(prefers-reduced-motion: reduce)')` reactively.
+  4. *Nothing plays automatically on page load*: Verified. Verified via tests that no audio playback or context initialization occurs on render or toggle.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (62 tests across 10 test suites).
+  - `npm run build`: Production build succeeded.
 

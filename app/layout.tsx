@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans, Caveat } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "@/components/layout";
 import { SITE_CONFIG } from "@/lib/config/site";
+import { PreferencesProvider } from "@/lib/hooks/usePreferences";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -44,11 +45,13 @@ export default function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable} ${caveat.variable}`}
     >
       <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased min-h-screen flex flex-col selection:bg-[var(--color-blush)] selection:text-[var(--color-text)]">
-        <Header />
-        <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
-          {children}
-        </main>
-        <Footer />
+        <PreferencesProvider>
+          <Header />
+          <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
+            {children}
+          </main>
+          <Footer />
+        </PreferencesProvider>
       </body>
     </html>
   );
