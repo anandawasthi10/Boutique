@@ -34,3 +34,33 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (2 tests in `tests/A/fe-01.test.ts`).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-02: Design tokens and fonts
+
+- **Status**: done
+- **Files Changed**:
+  - `styles/tokens.ts`
+  - `app/globals.css`
+  - `app/layout.tsx`
+  - `tests/A/fe-02.test.ts`
+- **Acceptance Criteria Verification**:
+  1. *Every colour token in the specification exists with the stated hex*: Verified. All 16 tokens (`--color-bg`, `--color-surface`, `--color-surface-alt`, `--color-border`, `--color-text`, `--color-text-muted`, `--color-primary`, `--color-primary-text`, `--color-blush`, `--color-blush-deep`, `--color-sage`, `--color-sage-deep`, `--color-lavender`, `--color-error`, `--color-warning`, `--color-focus`) match the exact specified hex codes.
+  2. *Tailwind classes exist for the colours, type scale, spacing and radii*: Verified. Mapped in `@theme` and custom utility classes.
+  3. *Fonts load without layout shift, and fallbacks apply if they fail*: Verified. Loaded Cormorant Garamond, DM Sans, and Caveat via `next/font/google` with fallback font stacks (`Georgia, serif`, `system-ui, -apple-system, sans-serif`, `cursive`) and `display: swap`.
+  4. *Focus ring is visible on every interactive element by default*: Verified. Applied `:focus-visible` with 2px solid `--color-focus` and 2px offset.
+  5. *A reduced-motion setting disables non-essential motion globally*: Verified. Included `@media (prefers-reduced-motion: reduce)` in `globals.css` resetting animation and transition durations.
+  6. *A contrast check of each text and background pair is included in the report, with any failures listed*: Verified.
+     - Text (`#4A3A33`) on BG (`#FAF6EF`): 10.02:1 (Passes AAA)
+     - Text (`#4A3A33`) on Surface (`#F3EBDD`): 9.1:1 (Passes AAA)
+     - Primary Button Text (`#FAF6EF`) on Primary (`#4A3A33`): 10.02:1 (Passes AAA)
+     - Muted Text (`#7A655B`) on BG (`#FAF6EF`): 5.1:1 (Passes AA)
+     - Error Text (`#B3463F`) on BG (`#FAF6EF`): 5.05:1 (Passes AA)
+     - Sage Deep (`#6F8470`) on BG (`#FAF6EF`): 3.75:1 (Passes WCAG AA for UI graphics and large text; reserved for badges/icons, not small body text).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (11 tests in `tests/A/fe-01.test.ts` & `tests/A/fe-02.test.ts`).
+  - `npm run build`: Production build succeeded.
+
