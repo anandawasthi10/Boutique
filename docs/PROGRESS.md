@@ -649,3 +649,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (148 tests across 25 test suites).
   - `npm run build`: Production build succeeded (18 static routes prerendered).
+
+---
+
+## FE-26: Forgot and reset password
+
+- **Status**: done
+- **Files Changed**:
+  - `app/forgot-password/ForgotPasswordContent.tsx`
+  - `app/forgot-password/page.tsx`
+  - `app/reset-password/ResetPasswordContent.tsx`
+  - `app/reset-password/page.tsx`
+  - `tests/A/fe-26.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The confirmation message is the same whether or not an account exists*: Verified. Submitting any email to `/forgot-password` displays neutral confirmation message ("If an account exists with this email address, we have sent instructions to reset your password. Please check your inbox and spam folder.") protecting user privacy.
+  2. *An expired or invalid token shows a clear message and a way to request a new link*: Verified. When token is omitted or when server responds with invalid/expired token error, user sees clear error card ("This password reset link is invalid or has expired. Please request a new password reset link.") and button linking to `/forgot-password`.
+  3. *The reset page validates the new password and confirms success with a link to login*: Verified. Form validates minimum 8 characters and matching password confirmation, submits to `authApi.resetPassword`, and upon success displays confirmation state with direct link to `/login`.
+  4. *Tokens are not logged or shown in page text*: Verified. Reset tokens are transmitted only in API payload and never rendered in the page text, headings, or logged to console.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (157 tests across 26 test suites).
+  - `npm run build`: Production build succeeded (20 static routes prerendered).
