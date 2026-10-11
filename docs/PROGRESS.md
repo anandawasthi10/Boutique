@@ -473,3 +473,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (107 tests across 18 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-21: Cart state and operations
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/hooks/useCart.tsx`
+  - `lib/hooks/index.ts`
+  - `app/layout.tsx`
+  - `tests/A/fe-21.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Every change goes through the API layer and the store updates from the returned cart*: Verified. Store dispatches through `cartApi.addToCart()`, `cartApi.updateCartItem()`, and `cartApi.removeCartItem()`, setting cart state strictly from the returned API payload.
+  2. *No price, subtotal or total is calculated in the store*: Verified. All financial figures are read directly from `cart.subtotal` and `cart.total`.
+  3. *Pending actions are tracked so buttons can show loading and avoid double submission*: Verified. `pendingAction` captures action type and item ID; attempts to re-submit while an action is in-flight are prevented.
+  4. *Failures leave the previous cart in place and expose an error message*: Verified. When an operation rejects, previous cart items are preserved and `error` state exposes the message.
+  5. *Tests cover add, update, remove and a failed update*: Verified. Comprehensive tests in `tests/A/fe-21.test.tsx` validate all 4 operations and error resilience.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (112 tests across 19 test suites).
+  - `npm run build`: Production build succeeded.
