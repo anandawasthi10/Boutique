@@ -10,6 +10,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { formatCurrency } from '@/lib/format/currency';
+import { ProductConfigurator } from '@/components/configurator';
 
 export interface ProductDetailContentProps {
   slug: string;
@@ -162,10 +163,10 @@ export const ProductDetailContent: React.FC<ProductDetailContentProps> = ({
 
             {/* Configurator Slot */}
             <div data-testid="configurator-slot" className="flex flex-col gap-6">
-              {configuratorSlot || (
-                <div className="p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] text-body-small text-[var(--color-text-muted)] text-center">
-                  Select your bespoke options below to customise this piece.
-                </div>
+              {configuratorSlot !== undefined ? (
+                configuratorSlot
+              ) : (
+                <ProductConfigurator product={product} />
               )}
             </div>
           </div>

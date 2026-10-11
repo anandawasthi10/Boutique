@@ -3,3 +3,7 @@ export * from './ColourGroup';
 export * from './ChipsGroup';
 export * from './ToggleGroup';
 export * from './OptionGroupRenderer';
+export * from './ConfiguratorPreview';
+export * from './PriceBreakdown';
+export * from './SelectionSummary';
+export * from './ProductConfigurator';

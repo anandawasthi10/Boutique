@@ -448,3 +448,28 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (103 tests across 17 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-18: Preview, price breakdown and selection summary
+
+- **Status**: done
+- **Files Changed**:
+  - `components/configurator/ConfiguratorPreview.tsx`
+  - `components/configurator/PriceBreakdown.tsx`
+  - `components/configurator/SelectionSummary.tsx`
+  - `components/configurator/ProductConfigurator.tsx`
+  - `components/configurator/index.ts`
+  - `app/product/[slug]/ProductDetailContent.tsx`
+  - `tests/A/fe-18.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The preview changes only when the API supplies an image for the selection; otherwise the photo stays and the swatch card shows the chosen fabric. No image is recoloured or generated*: Verified. `ConfiguratorPreview` swaps image only if an option provides `previewImageUrl`. If not, main product photo is preserved and selected fabric displays in an attached swatch card.
+  2. *The breakdown lists the base price, each option's change and the total, exactly as returned by the quote*: Verified. `PriceBreakdown` renders base price line, each delta line from `quote.lines`, and total.
+  3. *Prices are formatted in rupees in the Indian number style*: Verified. All amounts are rendered using `formatCurrency()` resulting in `₹499`, `₹1,199` format.
+  4. *The summary lists chosen options and names any required choices still missing*: Verified. `SelectionSummary` displays list of chosen options, and renders an alert with specific names of missing required groups.
+  5. *Price changes are announced to screen readers*: Verified. Live region with `aria-live="polite"` and `aria-atomic="true"` announces updated total prices.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (107 tests across 18 test suites).
+  - `npm run build`: Production build succeeded.
