@@ -64,3 +64,37 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (11 tests in `tests/A/fe-01.test.ts` & `tests/A/fe-02.test.ts`).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-03: Base UI components
+
+- **Status**: done
+- **Files Changed**:
+  - `components/ui/Button.tsx`
+  - `components/ui/Input.tsx`
+  - `components/ui/Select.tsx`
+  - `components/ui/Checkbox.tsx`
+  - `components/ui/Radio.tsx`
+  - `components/ui/Badge.tsx`
+  - `components/ui/Skeleton.tsx`
+  - `components/ui/Drawer.tsx`
+  - `components/ui/Modal.tsx`
+  - `components/ui/Toast.tsx`
+  - `components/ui/EmptyState.tsx`
+  - `components/ui/ErrorState.tsx`
+  - `components/ui/index.ts`
+  - `tests/setup.ts`
+  - `tests/A/fe-03.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Each component implements the states in the component styles section*: Verified. Default, hover, focus, active, disabled, and loading (Button with spinner, disabled click) all implemented.
+  2. *Inputs have visible labels, linked error messages and 16 px text*: Verified. Label rendered above input, error linked via `aria-describedby` with `role="alert"`, `text-[16px]` applied.
+  3. *Drawer and modal trap focus, close on Escape and return focus when closed*: Verified. Implemented Tab/Shift+Tab focus trap, Escape key dismiss, backdrop click dismiss, and return focus to triggering element upon close.
+  4. *Components are keyboard operable and have accessible names*: Verified. Roles (`dialog`, `combobox`, `checkbox`, `radiogroup`, `status`, `alert`) and accessible labels/aria-labelledby verified.
+  5. *Component tests cover the main states of the button, input and drawer*: Verified. 13 component tests in `tests/A/fe-03.test.tsx` covering button variants/loading/disabled, input label/error/aria attributes, select, checkbox, drawer backdrop/escape/open/close, modal, empty state, error state, badge, and skeleton.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (24 tests in `tests/A/fe-01.test.ts`, `tests/A/fe-02.test.ts`, `tests/A/fe-03.test.tsx`).
+  - `npm run build`: Production build succeeded.
+
+
