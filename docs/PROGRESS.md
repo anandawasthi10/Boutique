@@ -355,3 +355,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (82 tests across 13 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-14: Product gallery
+
+- **Status**: done
+- **Files Changed**:
+  - `components/product/ProductGallery.tsx`
+  - `components/product/index.ts`
+  - `tests/A/fe-14.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Images and alt text come from the API product*: Verified. Renders image URLs and alt texts directly provided by `ProductImage[]` from API.
+  2. *A product with one image shows no thumbnail row; a product with none shows a neutral placeholder*: Verified. Zero images renders neutral placeholder box with `ImageOff` icon; single image renders large main image without thumbnail row.
+  3. *Thumbnails are buttons with accessible names and a clear selected state*: Verified. Thumbnails are rendered as buttons with accessible names (`View image X of Y...`) and `aria-pressed` reflecting the selected thumbnail.
+  4. *The first image loads with priority; the others load lazily*: Verified. First image sets `priority={true}` with no `loading="lazy"`; subsequent images load lazily.
+  5. *The image change respects reduced motion*: Verified. When `usePreferences().reducedMotion` is true, transitions are set to `duration-0 transition-none`.
+  6. *On mobile the main image can be swiped*: Verified. Touch event handlers (`onTouchStart`, `onTouchMove`, `onTouchEnd`) detect swipe left/right beyond 40px threshold and advance/reverse images.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (88 tests across 14 test suites).
+  - `npm run build`: Production build succeeded.
+
