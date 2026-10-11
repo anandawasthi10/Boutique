@@ -522,3 +522,27 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (117 tests across 20 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-19: Add-to-cart bar
+
+- **Status**: done
+- **Files Changed**:
+  - `components/product/AddToCartBar.tsx`
+  - `components/product/index.ts`
+  - `components/configurator/ProductConfigurator.tsx`
+  - `components/configurator/index.ts`
+  - `tests/A/fe-19.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The button is disabled with a visible reason until the configuration is complete and valid*: Verified. Add to Cart button is disabled and displays prominent reason (`disabledReason`) until all required groups are chosen and quote is valid.
+  2. *A second click while loading does nothing*: Verified. Re-clicking or double submitting while `isSubmitting` is true is strictly prevented.
+  3. *On success, the cart drawer opens and the cart count updates from the API response*: Verified. Automatically triggers `openDrawer()` and updates items count via API `addToCart()`.
+  4. *On failure, the configuration is kept and a retry is offered*: Verified. Selections remain completely intact; `submitError` banner with interactive "Retry" button is rendered.
+  5. *The configuration sent contains option IDs only*: Verified. `optionIdsOnly` filters and maps chosen IDs so only string IDs are delivered to `cartApi.addToCart()`.
+  6. *Guest add to cart redirects to login preserving selections in return query*: Verified. Unauthenticated users are redirected to `/login?returnTo=...` with full product slug and selected options encoded in the URL address.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (122 tests across 21 test suites).
+  - `npm run build`: Production build succeeded.

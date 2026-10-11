@@ -5,6 +5,7 @@ import { OptionGroupRenderer } from './OptionGroupRenderer';
 import { ConfiguratorPreview } from './ConfiguratorPreview';
 import { SelectionSummary } from './SelectionSummary';
 import { PriceBreakdown } from './PriceBreakdown';
+import { AddToCartBar } from '@/components/product/AddToCartBar';
 import { AlertCircle, X } from 'lucide-react';
 
 export interface ProductConfiguratorProps {
@@ -116,8 +117,21 @@ export const ProductConfigurator: React.FC<ProductConfiguratorProps> = ({
         error={quoteError}
       />
 
-      {/* Add To Cart Slot (FE-19) */}
-      {renderAddToCart && renderAddToCart(configurator)}
+      {/* Add To Cart Bar */}
+      {renderAddToCart ? (
+        renderAddToCart(configurator)
+      ) : (
+        <AddToCartBar
+          product={product}
+          selectedOptionIds={selectedOptionIds}
+          isComplete={configurator.isComplete}
+          isValid={configurator.isValid}
+          canAddToCart={configurator.canAddToCart}
+          isLoadingQuote={isLoadingQuote}
+          isQuoteOutdated={isQuoteOutdated}
+          missingRequiredGroups={missingRequiredGroups}
+        />
+      )}
     </div>
   );
 };

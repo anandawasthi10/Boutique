@@ -7,3 +7,4 @@ export * from './ConfiguratorPreview';
 export * from './PriceBreakdown';
 export * from './SelectionSummary';
 export * from './ProductConfigurator';
+export * from '../product/AddToCartBar';
