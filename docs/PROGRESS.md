@@ -235,9 +235,28 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (52 tests across 8 test suites).
   - `npm run build`: Production build succeeded.
 
+---
 
+## FE-09: Homepage
 
-
-
+- **Status**: done
+- **Files Changed**:
+  - `lib/format/currency.ts`
+  - `components/catalogue/ProductCard.tsx`
+  - `components/catalogue/ProductGrid.tsx`
+  - `app/page.tsx`
+  - `tests/setup.ts`
+  - `tests/A/fe-09.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Hero, categories, featured products and brand story all render*: Verified. Editorial hero section with CTAs, category browser cards, featured products grid, and authentic brand story band all render with semantic structure.
+  2. *Featured products load from the API layer, with skeleton placeholders while loading*: Verified. Asynchronously loads via `productsApi.getProducts()` with mock API support, displaying 4-item skeleton grid during pending state.
+  3. *Error state renders if the API call fails, with a retry button*: Verified. If the product API rejects, `ErrorState` is displayed with accessible role="alert" and a retry button that triggers re-fetch.
+  4. *All links navigate to the correct routes*: Verified. Hero links to `/shop` and `/build-your-own`; category cards link to `/category/[slug]`; product cards link to `/product/[slug]`.
+  5. *No invented reviews, customer counts or artificial claims*: Verified. Brand story features tactile craftsmanship and materials without fake review counts, star ratings, or invented metrics.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (56 tests across 9 test suites).
+  - `npm run build`: Production build succeeded.
 
 

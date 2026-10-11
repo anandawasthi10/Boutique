@@ -1,0 +1,88 @@
+'use client';
+
+import React from 'react';
+import { ProductSummary } from '@/lib/types';
+import { ProductCard } from './ProductCard';
+import { Skeleton } from '../ui/Skeleton';
+import { EmptyState } from '../ui/EmptyState';
+import { ErrorState } from '../ui/ErrorState';
+
+import { useRouter } from 'next/navigation';
+
+export interface ProductGridProps {
+  products?: ProductSummary[];
+  isLoading?: boolean;
+  error?: string | null;
+  onRetry?: () => void;
+  emptyTitle?: string;
+  emptyDescription?: string;
+  className?: string;
+}
+
+export const ProductGrid: React.FC<ProductGridProps> = ({
+  products = [],
+  isLoading = false,
+  error = null,
+  onRetry,
+  emptyTitle = 'No products found',
+  emptyDescription = 'There are no items matching this criteria at the moment.',
+  className = '',
+}) => {
+  const router = useRouter();
+
+  if (error) {
+    return (
+      <div className="py-12">
+        <ErrorState
+          title="Could not load products"
+          message={error}
+          onRetry={onRetry}
+          retryLabel="Try again"
+        />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div
+        data-testid="product-grid-skeleton"
+        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 ${className}`.trim()}
+      >
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="flex flex-col gap-3">
+            <Skeleton className="aspect-4/5 w-full rounded-[4px]" />
+            <Skeleton width="75%" height={20} />
+            <Skeleton width="40%" height={16} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="py-12">
+        <EmptyState
+          title={emptyTitle}
+          description={emptyDescription}
+          actionLabel="View all products"
+          onAction={() => {
+            router.push('/shop');
+          }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      data-testid="product-grid"
+      className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 ${className}`.trim()}
+    >
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+};
