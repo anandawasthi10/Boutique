@@ -282,3 +282,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (62 tests across 10 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-11: Product card and grid
+
+- **Status**: done
+- **Files Changed**:
+  - `components/catalogue/ProductCard.tsx`
+  - `components/catalogue/ProductGrid.tsx`
+  - `components/catalogue/index.ts`
+  - `tests/A/fe-11.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The card shows only data from the API product summary. No price is calculated in the component*: Verified. The card displays `From {formatCurrency(product.basePrice)}` using API data without in-component price arithmetic.
+  2. *The card is a single link with an accessible name containing the product name and price*: Verified. Link has accessible `aria-label={`${product.name}, starting from ${formatCurrency(product.basePrice)}`}` and wraps the card.
+  3. *A missing image shows a neutral placeholder block, not a broken image*: Verified. When `images` array is empty or image triggers `onError`, renders `data-testid="missing-image-placeholder"` with `ImageOff` icon and "Image coming soon" block.
+  4. *The hover change has a keyboard focus equivalent and respects reduced motion*: Verified. Secondary image fades in on both hover (`onMouseEnter`/`onMouseLeave`) and focus (`onFocus`/`onBlur`); when `reducedMotion` is enabled, transitions are set to `duration-0` and `motion-reduce:transition-none`.
+  5. *Skeleton, empty and error variants exist*: Verified. `ProductGrid` provides skeleton variant with configurable count, empty state variant with CTA, and error state variant with retry handler, across responsive 2/3/4-column layouts (`grid-cols-2 md:grid-cols-3 lg:grid-cols-4`).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (70 tests across 11 test suites).
+  - `npm run build`: Production build succeeded.
+

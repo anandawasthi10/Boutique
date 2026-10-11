@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ImageOff } from 'lucide-react';
 import { ProductSummary } from '@/lib/types';
 import { formatCurrency } from '@/lib/format/currency';
+import { usePreferences } from '@/lib/hooks/usePreferences';
 
 export interface ProductCardProps {
   product: ProductSummary;
@@ -13,14 +15,17 @@ export interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const { reducedMotion } = usePreferences();
 
-  const mainImage = product.images[0] || {
-    url: '/images/placeholders/scrunchie-1.svg',
-    alt: `${product.name} (Placeholder)`,
-    order: 1,
-  };
+  const images = product.images || [];
+  const hasImages = images.length > 0 && !imageError;
+  const mainImage = images[0];
+  const secondaryImage = images[1];
 
-  const secondaryImage = product.images[1];
+  const transitionClass = reducedMotion
+    ? 'transition-none duration-0'
+    : 'transition-opacity duration-300 motion-reduce:transition-none motion-reduce:duration-0';
 
   return (
     <Link
@@ -30,30 +35,43 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
-      className={`group block text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] rounded-[4px] transition-all select-none ${className}`.trim()}
+      className={`group block text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] rounded-[4px] select-none ${className}`.trim()}
     >
       {/* 4:5 Aspect Ratio Container */}
       <div className="relative aspect-4/5 w-full overflow-hidden bg-[var(--color-surface)] rounded-[4px] border border-[var(--color-border)]">
-        <Image
-          src={mainImage.url}
-          alt={mainImage.alt || product.name}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className={`object-cover transition-opacity duration-300 ${
-            isHovered && secondaryImage ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
+        {!hasImages ? (
+          <div
+            data-testid="missing-image-placeholder"
+            className="w-full h-full flex flex-col items-center justify-center bg-[var(--color-surface-alt)] text-[var(--color-text-muted)] p-4 text-center"
+          >
+            <ImageOff className="w-8 h-8 opacity-40 mb-2" aria-hidden="true" />
+            <span className="text-[13px] font-medium tracking-wide">Image coming soon</span>
+          </div>
+        ) : (
+          <>
+            <Image
+              src={mainImage.url}
+              alt={mainImage.alt || product.name}
+              fill
+              onError={() => setImageError(true)}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className={`object-cover ${transitionClass} ${
+                isHovered && secondaryImage ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
 
-        {secondaryImage && (
-          <Image
-            src={secondaryImage.url}
-            alt={secondaryImage.alt || `${product.name} alternate view`}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={`object-cover transition-opacity duration-300 ${
-              isHovered ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
+            {secondaryImage && (
+              <Image
+                src={secondaryImage.url}
+                alt={secondaryImage.alt || `${product.name} alternate view`}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className={`object-cover ${transitionClass} ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            )}
+          </>
         )}
       </div>
 

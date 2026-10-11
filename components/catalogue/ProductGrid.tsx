@@ -1,17 +1,17 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { ProductSummary } from '@/lib/types';
 import { ProductCard } from './ProductCard';
 import { Skeleton } from '../ui/Skeleton';
 import { EmptyState } from '../ui/EmptyState';
 import { ErrorState } from '../ui/ErrorState';
 
-import { useRouter } from 'next/navigation';
-
 export interface ProductGridProps {
   products?: ProductSummary[];
   isLoading?: boolean;
+  skeletonCount?: number;
   error?: string | null;
   onRetry?: () => void;
   emptyTitle?: string;
@@ -22,6 +22,7 @@ export interface ProductGridProps {
 export const ProductGrid: React.FC<ProductGridProps> = ({
   products = [],
   isLoading = false,
+  skeletonCount = 4,
   error = null,
   onRetry,
   emptyTitle = 'No products found',
@@ -32,7 +33,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
   if (error) {
     return (
-      <div className="py-12">
+      <div className="py-12" data-testid="product-grid-error">
         <ErrorState
           title="Could not load products"
           message={error}
@@ -49,7 +50,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         data-testid="product-grid-skeleton"
         className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 ${className}`.trim()}
       >
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: skeletonCount }).map((_, i) => (
           <div key={i} className="flex flex-col gap-3">
             <Skeleton className="aspect-4/5 w-full rounded-[4px]" />
             <Skeleton width="75%" height={20} />
@@ -62,7 +63,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
   if (products.length === 0) {
     return (
-      <div className="py-12">
+      <div className="py-12" data-testid="product-grid-empty">
         <EmptyState
           title={emptyTitle}
           description={emptyDescription}
