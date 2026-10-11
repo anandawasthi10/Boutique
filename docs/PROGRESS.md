@@ -399,3 +399,30 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (93 tests across 15 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-16: Option group components
+
+- **Status**: done
+- **Files Changed**:
+  - `components/configurator/SwatchGroup.tsx`
+  - `components/configurator/ColourGroup.tsx`
+  - `components/configurator/ChipsGroup.tsx`
+  - `components/configurator/ToggleGroup.tsx`
+  - `components/configurator/OptionGroupRenderer.tsx`
+  - `components/configurator/index.ts`
+  - `tests/A/fe-16.test.tsx`
+  - `docs/DECISIONS.md`
+- **Acceptance Criteria Verification**:
+  1. *A swatch shows its texture image and the selected fabric's name; a colour dot shows its colour and a name for the selected one*: Verified. `SwatchGroup` displays texture image / fallback and Selected text; `ColourGroup` displays color swatch dot and Selected text.
+  2. *Selected is shown by a border and a check icon, not by colour alone*: Verified. Swatches, colour dots, chips, and toggles all feature an overt checkmark icon (`<Check />`) alongside ring/border styling upon selection.
+  3. *Unavailable options are disabled and show their reason*: Verified. Disabled with `disabled` and `aria-disabled`, `cursor-not-allowed`, and render clear text `unavailableReason` beneath the option.
+  4. *Required and optional groups are labelled*: Verified. `OptionGroupRenderer` displays an uppercase group label alongside a `Required` badge or `Optional` label.
+  5. *All four components work by keyboard, with the correct roles*: Verified. Swatch, colour, and chips groups implement `role="radiogroup"` with `role="radio"` and `aria-checked`; toggle implements `role="switch"` with `aria-checked`.
+  6. *A group with an unknown display type does not crash the page; it shows a safe fallback and the report mentions it*: Verified. `OptionGroupRenderer` renders `FallbackOptionGroup` with an informational chip layout rather than failing or crashing.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (98 tests across 16 test suites).
+  - `npm run build`: Production build succeeded.

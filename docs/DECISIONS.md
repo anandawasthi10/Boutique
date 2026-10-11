@@ -17,3 +17,10 @@ This log tracks architectural choices, open decision resolutions, and dependenci
 - **Question**: Node.js type definitions version conflict with Vitest.
   - **Decision**: Use `@types/node` version `^24` instead of `^20`.
   - **Reason**: The runtime environment is Node v24.18.0; Vitest v5 requires `@types/node` `^22 || >=24` to resolve peer dependency requirements cleanly without `--force` or `--legacy-peer-deps`.
+
+---
+
+### FE-16: Option group display type fallback
+- **Question**: How should an unrecognised option group display type from the API be rendered?
+- **Decision**: Implemented `FallbackOptionGroup` in `OptionGroupRenderer` which gracefully falls back to the accessible chips layout with an informational note rather than failing or crashing.
+- **Reason**: Required by FE-16 acceptance criteria to ensure resilient degradation if new display types are introduced by Member B.
