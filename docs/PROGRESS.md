@@ -97,4 +97,23 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (24 tests in `tests/A/fe-01.test.ts`, `tests/A/fe-02.test.ts`, `tests/A/fe-03.test.tsx`).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-04: Component preview page
+
+- **Status**: done
+- **Files Changed**:
+  - `app/component-preview/page.tsx`
+  - `tests/A/fe-04.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Every component from FE-03 appears in all its states*: Verified. Page showcases Button (primary, secondary, text, icon, loading, disabled), Input (default, helper, error, disabled), Select, Checkbox, RadioGroup, Badge, Skeleton, Drawer, Modal, Toast, EmptyState, and ErrorState.
+  2. *The page is not reachable in a production build*: Verified. In production (`process.env.NODE_ENV === 'production'`), the page calls Next.js `notFound()`, returning a 404 response. Tested via automated unit test.
+  3. *No part of the page is linked from the public navigation*: Verified. Excluded from all storefront navigation, header, and footer links.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (26 tests in `tests/A/fe-01.test.ts`, `tests/A/fe-02.test.ts`, `tests/A/fe-03.test.tsx`, `tests/A/fe-04.test.tsx`).
+  - `npm run build`: Production build succeeded.
+
+
 
