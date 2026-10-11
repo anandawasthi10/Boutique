@@ -695,3 +695,28 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (165 tests across 27 test suites).
   - `npm run build`: Production build succeeded (21 static routes prerendered).
+
+---
+
+## FE-28: Saved addresses
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/api/mock/addresses.ts`
+  - `components/account/AddressCard.tsx`
+  - `components/account/AddressForm.tsx`
+  - `components/account/index.ts`
+  - `app/account/addresses/AddressesContent.tsx`
+  - `app/account/addresses/page.tsx`
+  - `tests/A/fe-28.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The form validates the required fields, a six-digit PIN code and a phone number format before sending, and shows the server's field errors*: Verified. Client validation checks required recipient name, 10-digit mobile phone (`^[6-9]\d{9}$`), address line 1, city, state, and 6-digit Indian PIN code (`^\d{6}$`). Server field errors are displayed directly under corresponding fields.
+  2. *Delete asks for confirmation and shows loading and error states*: Verified. Clicking Delete opens an accessible confirmation dialog specifying recipient name. Canceling leaves address untouched; confirming calls `addressesApi.deleteAddress`, shows loading state, handles errors, and updates list.
+  3. *Setting the default address updates the list from the API response*: Verified. Clicking "Set as Default" calls `addressesApi.editAddress(id, { isDefault: true })` and updates the badge and default status from API response.
+  4. *The empty state invites the customer to add the first address*: Verified. When no addresses exist, displays an inviting empty state card with CTA button that opens the address creation form.
+  5. *The same form component is used in checkout (FE-29)*: Verified. `AddressForm` is implemented as an exported, reusable component accepting `onSubmit`, `initialAddress`, server errors, and custom action labels, ready for direct reuse in checkout.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (172 tests across 28 test suites).
+  - `npm run build`: Production build succeeded (22 static routes prerendered).

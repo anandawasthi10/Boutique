@@ -4,6 +4,11 @@ import { INITIAL_ADDRESSES } from './data';
 
 const addressesStore: Address[] = JSON.parse(JSON.stringify(INITIAL_ADDRESSES));
 
+export function setMockAddresses(addresses: Address[]): void {
+  addressesStore.length = 0;
+  addressesStore.push(...JSON.parse(JSON.stringify(addresses)));
+}
+
 export async function getAddresses(): Promise<Address[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
