@@ -330,3 +330,28 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (76 tests across 12 test suites).
   - `npm run build`: Production build succeeded (static prerendering for `/shop` and category routes).
 
+---
+
+## FE-13: Search and filters
+
+- **Status**: done
+- **Files Changed**:
+  - `components/catalogue/SearchInput.tsx`
+  - `components/catalogue/FilterChips.tsx`
+  - `components/catalogue/FilterControls.tsx`
+  - `components/catalogue/FilterDrawer.tsx`
+  - `components/catalogue/index.ts`
+  - `app/shop/ShopContent.tsx`
+  - `tests/A/fe-13.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Search and filters change the address and the product list*: Verified. Search queries, category selection, fabric filtering, and price ranges update URL query parameters and re-query the API layer with debounce and page reset.
+  2. *A filter the API does not support is not shown*: Verified. Only API-supported dimensions (`category`, `fabric`, `priceRange`) are displayed; unsupported attributes (e.g., brand, rating) are omitted.
+  3. *The no-results state offers to clear filters*: Verified. When filters result in zero products, `ShopContent` displays a prominent "Clear all filters" CTA.
+  4. *Filters are fully operable by keyboard and announced to screen readers*: Verified. Search input uses `role="search"`, filter buttons use `aria-pressed`, live count uses `aria-live="polite"`, and mobile filters operate via accessible focus-trapped `Drawer`.
+  5. *Rapid typing does not trigger a request for every keystroke*: Verified. `SearchInput` debounces inputs by 300ms so fast keystrokes trigger only a single consolidated request.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (82 tests across 13 test suites).
+  - `npm run build`: Production build succeeded.
+
