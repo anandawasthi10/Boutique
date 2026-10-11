@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Menu, Search, ShoppingBag, User as UserIcon, LogIn } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/config/site';
 import { useCartCount } from '@/lib/hooks/useCartCount';
 import { useCurrentUser } from '@/lib/hooks/useCurrentUser';
+import { useCart } from '@/lib/hooks/useCart';
 import { MobileNav } from './MobileNav';
 
 import { SoundToggle } from './SoundToggle';
@@ -16,10 +16,10 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
-  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { count: cartCount } = useCartCount();
   const { user } = useCurrentUser();
+  const { openDrawer } = useCart();
 
   return (
     <>
@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
             {/* Cart Button */}
             <button
               type="button"
-              onClick={onOpenCart || (() => { router.push('/cart'); })}
+              onClick={onOpenCart || openDrawer}
               aria-label={`Shopping bag${cartCount > 0 ? `, ${cartCount} items` : ', empty'}`}
               className="relative min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors cursor-pointer"
             >

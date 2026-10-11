@@ -10,6 +10,7 @@ export interface EmptyStateProps {
   onAction?: () => void;
   icon?: React.ReactNode;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
@@ -19,6 +20,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
   icon,
   className = '',
+  children,
 }) => {
   return (
     <div
@@ -38,6 +40,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           {actionLabel}
         </Button>
       )}
+      {children}
     </div>
   );
 };

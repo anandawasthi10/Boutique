@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, Caveat } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "@/components/layout";
+import { CartDrawer } from "@/components/cart";
 import { SITE_CONFIG } from "@/lib/config/site";
 import { PreferencesProvider } from "@/lib/hooks/usePreferences";
 import { CartProvider } from "@/lib/hooks/useCart";
@@ -53,6 +54,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <CartDrawer />
           </CartProvider>
         </PreferencesProvider>
       </body>

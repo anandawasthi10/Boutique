@@ -258,7 +258,32 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
 export function useCart(): CartContextValue {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    return {
+      cart: null,
+      itemCount: 0,
+      isLoading: false,
+      error: null,
+      pendingAction: null,
+      isDrawerOpen: false,
+      openDrawer: () => {},
+      closeDrawer: () => {},
+      refreshCart: async () => null,
+      addToCart: async () => {
+        throw new Error('No CartProvider found in component tree');
+      },
+      updateQuantity: async () => {
+        throw new Error('No CartProvider found in component tree');
+      },
+      updateConfiguration: async () => {
+        throw new Error('No CartProvider found in component tree');
+      },
+      removeItem: async () => {
+        throw new Error('No CartProvider found in component tree');
+      },
+      clearError: () => {},
+      isItemPending: () => false,
+    };
   }
   return context;
 }
+

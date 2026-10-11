@@ -495,3 +495,30 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (112 tests across 19 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-22: Cart drawer
+
+- **Status**: done
+- **Files Changed**:
+  - `components/cart/QuantityStepper.tsx`
+  - `components/cart/CartItemRow.tsx`
+  - `components/cart/CartDrawer.tsx`
+  - `components/cart/index.ts`
+  - `components/ui/EmptyState.tsx`
+  - `components/layout/Header.tsx`
+  - `app/layout.tsx`
+  - `tests/A/fe-22.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Opens and closes with the focus rules in the component styles section*: Verified. Integrated via `Drawer` component featuring focus trapping, backdrop click close, Esc handling, and return-of-focus to trigger button.
+  2. *The empty state has a clear link to Shop All*: Verified. Renders `EmptyState` with a link button targeting `/shop`.
+  3. *Items with a price or availability notice show it clearly, and Checkout is blocked until the notice is acknowledged or the item removed, as the API requires*: Verified. Items with `price_changed` or `unavailable` statuses render notice banners; "Proceed to Checkout" is strictly disabled until acknowledged or removed.
+  4. *Quantity changes and removal show loading and error states per item*: Verified. `QuantityStepper` and `CartItemRow` show item-level loaders and capture item-level errors.
+  5. *The subtotal and total come from the API cart*: Verified. Subtotal and Total in footer are rendered directly from `cart.subtotal` and `cart.total`.
+  6. *Add-to-cart feedback is visible and respects reduced motion*: Verified. Animation transitions respect `usePreferences().reducedMotion` disabling motion when requested.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (117 tests across 20 test suites).
+  - `npm run build`: Production build succeeded.
