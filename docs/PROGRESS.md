@@ -426,3 +426,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (98 tests across 16 test suites).
   - `npm run build`: Production build succeeded.
+
+---
+
+## FE-17: Configurator state and price quotes
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/hooks/useConfigurator.ts`
+  - `lib/hooks/index.ts`
+  - `tests/A/fe-17.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *No selection is made for a group unless the API supplied a default*: Verified. Groups without `defaultOptionId` remain unselected/empty.
+  2. *Add to cart is not allowed until every required group has a selection and the latest quote is valid*: Verified. `canAddToCart` is strictly false until all required option groups are populated and `quote.valid === true`.
+  3. *A quote response for an old selection never replaces a newer one*: Verified. Sequential request counter `requestSeqRef` prevents out-of-order race conditions from overwriting newer quote states.
+  4. *Quote failures keep the last valid price marked as outdated and block Add to cart*: Verified. On API quote error, last valid quote is preserved, `isQuoteOutdated` is set to true, error message is captured, and `canAddToCart` is blocked.
+  5. *When an option becomes unavailable, its selection is cleared and the customer is told*: Verified. Render-time verification strips unavailable options from state and sets `unavailableNotice` informing the customer.
+  6. *Tests cover required groups, invalid combinations and out-of-order quote responses*: Verified. Comprehensive test suite in `tests/A/fe-17.test.tsx` validates all 5 scenarios.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (103 tests across 17 test suites).
+  - `npm run build`: Production build succeeded.
