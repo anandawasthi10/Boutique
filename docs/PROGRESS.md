@@ -146,6 +146,35 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (32 tests across 5 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-06: API client
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/api/client.ts`
+  - `lib/api/products.ts`
+  - `lib/api/categories.ts`
+  - `lib/api/cart.ts`
+  - `lib/api/auth.ts`
+  - `lib/api/addresses.ts`
+  - `lib/api/checkout.ts`
+  - `lib/api/orders.ts`
+  - `lib/api/index.ts`
+  - `tests/A/fe-06.test.ts`
+- **Acceptance Criteria Verification**:
+  1. *Each endpoint in the API spec has a typed function*: Verified. Created typed functions for products, categories, cart, auth, addresses, checkout, and orders.
+  2. *Network failures, non-success responses and malformed responses all become the standard error shape*: Verified. Normalizes failures into `ApiException` containing `code`, `message`, and optional `fieldErrors`.
+  3. *The client sends credentials in the way chosen for authentication from one single configuration point*: Verified. Set `credentials: 'include'` in `lib/api/client.ts` across all requests.
+  4. *No component imports the network functions directly except through the area modules*: Verified. `lib/api/index.ts` re-exports modular service namespaces (`productsApi`, `cartApi`, etc.).
+  5. *Tests cover success, field errors and network failure for at least the product and cart modules*: Verified. 4 unit tests in `tests/A/fe-06.test.ts` testing success, field errors, network failure, and malformed JSON.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (36 tests across 6 test suites).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 
