@@ -115,5 +115,37 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (26 tests in `tests/A/fe-01.test.ts`, `tests/A/fe-02.test.ts`, `tests/A/fe-03.test.tsx`, `tests/A/fe-04.test.tsx`).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-05: API types
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/types/error.ts`
+  - `lib/types/product.ts`
+  - `lib/types/configurator.ts`
+  - `lib/types/cart.ts`
+  - `lib/types/address.ts`
+  - `lib/types/order.ts`
+  - `lib/types/user.ts`
+  - `lib/types/index.ts`
+  - `tests/A/fe-05.test.ts`
+- **Acceptance Criteria Verification**:
+  1. *Each object in the specification has a type with the listed fields, with optional fields marked optional*: Verified. Typed `Product`, `OptionGroup`, `Option`, `PriceQuote`, `Cart`, `CartItem`, `Address`, `Order`, `OrderItem`, `User`, `ApiError`, etc. Exactly matching Frontend Specification Section 8.
+  2. *Option group type is a fixed set of the four display types*: Verified. `OptionGroupType = 'swatch' | 'colour' | 'chips' | 'toggle'`.
+  3. *No any type is used for API data*: Verified. Zero instances of `any`.
+  4. *A short note in the report lists every field name that is still unconfirmed with Member B*: Verified.
+     - Unconfirmed fields with Member B:
+       - Currency representation: `basePrice`, `priceDelta`, and totals are typed as whole numbers (INR rupees). Confirmation required from Member B if paise integers (e.g. 29900) or strings are preferred.
+       - `category`: structured as `{ id: string; name: string }` vs category ID string.
+       - `Order.status`: enumeration (`'placed' | 'confirmed' | 'in_production' | 'packed' | 'dispatched' | 'delivered' | 'cancelled'`) to be formally agreed via BC-01.
+       - `CheckoutResponse.paymentInfo`: gateway specific fields (`gatewayOrderId`, `keyId`, `amount`, `currency`).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (32 tests across 5 test suites).
+  - `npm run build`: Production build succeeded.
+
+
 
 
