@@ -10,3 +10,4 @@ export * from './Modal';
 export * from './Toast';
 export * from './EmptyState';
 export * from './ErrorState';
+export * from './Breadcrumbs';

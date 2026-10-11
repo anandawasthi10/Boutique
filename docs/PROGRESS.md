@@ -304,3 +304,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (70 tests across 11 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-12: Shop All and category pages
+
+- **Status**: done
+- **Files Changed**:
+  - `components/ui/Breadcrumbs.tsx`
+  - `components/ui/index.ts`
+  - `app/shop/ShopContent.tsx`
+  - `app/shop/page.tsx`
+  - `app/category/[slug]/CategoryContent.tsx`
+  - `app/category/[slug]/page.tsx`
+  - `lib/api/mock/products.ts`
+  - `tests/A/fe-12.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Loads products and categories only through the API layer*: Verified. Both `/shop` and `/category/[slug]` retrieve data strictly through `productsApi.getProducts()` and `categoriesApi.getCategories()`.
+  2. *Loading, empty and error states behave as in the Security and Access Document*: Verified. Loading displays `ProductGrid` skeleton, empty displays friendly "No accessories found" empty state with fallback actions, and error displays `ErrorState` with retry button.
+  3. *An unknown category shows the friendly not-found page*: Verified. Visiting `/category/[slug]` with an unrecognised category slug validates against category list and triggers `notFound()`.
+  4. *The page title and heading reflect the category*: Verified. Heading, breadcrumbs (`Home > Shop All > [Category]`), and `generateMetadata` page title reflect the current category.
+  5. *Browser back and forward restore the previous list state*: Verified. Sorting and pagination state are stored in the URL query parameters (`sort`, `page`) so navigating with browser back and forward seamlessly restores catalogue list state.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (76 tests across 12 test suites).
+  - `npm run build`: Production build succeeded (static prerendering for `/shop` and category routes).
+

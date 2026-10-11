@@ -9,7 +9,7 @@ import {
   Option,
 } from '../../types';
 import { ApiException } from '../client';
-import { MOCK_PRODUCTS } from './data';
+import { MOCK_PRODUCTS, MOCK_CATEGORIES } from './data';
 
 export async function getProducts(params: ProductsQueryParams = {}): Promise<ProductsResponse> {
   return new Promise((resolve) => {
@@ -18,10 +18,15 @@ export async function getProducts(params: ProductsQueryParams = {}): Promise<Pro
 
       // Category filter
       if (params.category) {
+        const catQuery = params.category.toLowerCase();
+        const matchedCat = MOCK_CATEGORIES.find(
+          (c) => c.id.toLowerCase() === catQuery || c.slug.toLowerCase() === catQuery || c.name.toLowerCase() === catQuery
+        );
+        const catId = matchedCat ? matchedCat.id.toLowerCase() : catQuery;
         filtered = filtered.filter(
           (p) =>
-            p.category.id.toLowerCase() === params.category?.toLowerCase() ||
-            p.category.name.toLowerCase() === params.category?.toLowerCase()
+            p.category.id.toLowerCase() === catId ||
+            p.category.name.toLowerCase() === catQuery
         );
       }
 
