@@ -720,3 +720,30 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (172 tests across 28 test suites).
   - `npm run build`: Production build succeeded (22 static routes prerendered).
+
+---
+
+## FE-29: Checkout flow
+
+- **Status**: done
+- **Files Changed**:
+  - `components/checkout/CheckoutSteps.tsx`
+  - `components/checkout/AddressSelectionStep.tsx`
+  - `components/checkout/OrderReviewStep.tsx`
+  - `components/checkout/index.ts`
+  - `app/checkout/CheckoutContent.tsx`
+  - `app/checkout/page.tsx`
+  - `tests/A/fe-29.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *A signed-out visitor is sent to login and returns to checkout*: Verified. `CheckoutPage` is wrapped with `ProtectedRoute`, which intercepts unauthenticated visitors and redirects to `/login?returnTo=%2Fcheckout`.
+  2. *A saved address can be selected, or a new one added with the shared address form*: Verified. Saved addresses render in accessible radio group with default selected; "+ Add New Address" opens shared `AddressForm` modal which persists via `addressesApi.addAddress` and selects the new address immediately.
+  3. *The order review lists items with their options and the totals returned by the API. No total is calculated in the frontend*: Verified. Items render product name, chosen option groups/labels, quantity, and line totals. Subtotal and total amounts are displayed strictly from the API response objects (`cart.subtotal` and `cart.total`).
+  4. *If the API reports a changed price or unavailable item, checkout shows it and does not continue until it is resolved*: Verified. Notices and item status checks detect `unavailable` or `price_changed` items, display a prominent warning banner with link to `/cart`, and disable the Pay button.
+  5. *The Pay button shows loading and cannot be double-submitted*: Verified. `isSubmittingCheckout` flag disables buttons and inputs during execution, preventing duplicate submissions.
+  6. *A failure to start checkout keeps the cart and shows a retry option*: Verified. If `createCheckout` fails, frontend cart items are retained in `CartProvider`, an error banner is shown, and a retry button is provided.
+  7. *Keyboard and screen reader use works through every step*: Verified. Stepper includes `nav` with `aria-label="Checkout progress"` and `aria-current="step"`, and address selection uses accessible radio group controls.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (179 tests across 29 test suites).
+  - `npm run build`: Production build succeeded (23 static routes prerendered).
