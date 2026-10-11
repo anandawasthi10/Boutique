@@ -567,3 +567,33 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (126 tests across 22 test suites).
   - `npm run build`: Production build succeeded (15 static pages prerendered).
 
+---
+
+## FE-23: Cart page and edit configuration
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/types/cart.ts`
+  - `lib/api/mock/cart.ts`
+  - `lib/api/mock/products.ts`
+  - `docs/CONTRACT_GAPS.md`
+  - `components/cart/CartItemRow.tsx`
+  - `components/cart/EditConfigurationModal.tsx`
+  - `components/cart/CartDrawer.tsx`
+  - `components/cart/index.ts`
+  - `app/cart/CartPageContent.tsx`
+  - `app/cart/page.tsx`
+  - `tests/A/fe-23.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Edit configuration opens the same configurator component, pre-filled from the cart item*: Verified. `CartItemRow` includes an accessible "Edit configuration" action. Clicking it opens `EditConfigurationModal`, which loads the item's product and mounts `ProductConfigurator` pre-filled with `initialSelections` mapped from `item.selectedOptions`.
+  2. *If a previously chosen option is no longer available, it is cleared and the customer is told*: Verified. `useConfigurator` evaluates candidate options against `option.available`. Unavailable options are cleared from initial selections and `unavailableNotice` displays the notice banner informing the customer.
+  3. *Saving sends the new option IDs to the API and shows the updated price from the response*: Verified. "Save Changes" invokes `updateConfiguration(item.id, optionIdsOnly)` calling `cartApi.updateCartItem(item.id, { selectedOptionIds })`. The response returns the server-calculated cart with updated unit price, line total, subtotal, and total.
+  4. *Cancelling changes nothing*: Verified. Clicking "Cancel" or closing the modal closes the editor without making API calls or modifying cart state.
+  5. *The page works on mobile and desktop and handles empty, loading and error states*: Verified. Responsive 12-column desktop / stacked mobile layout; provides skeleton loader while fetching, friendly empty state with CTA pointing to `/shop`, and retryable error state.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (132 tests across 23 test suites).
+  - `npm run build`: Production build succeeded (16 static routes prerendered).
+
+

@@ -91,6 +91,7 @@ export async function addToCart(request: AddToCartRequest): Promise<Cart> {
       const newItem: CartItem = {
         id: `cart-item-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
         productId: product.id,
+        productSlug: product.slug, // CONTRACT-GAP
         productName: product.name,
         image: product.images[0]?.url || '/images/placeholders/scrunchie-1.svg',
         selectedOptions: selections,

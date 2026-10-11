@@ -11,6 +11,7 @@ export interface CartItemRowProps {
   item: CartItem;
   onUpdateQuantity: (quantity: number) => Promise<void>;
   onRemove: () => Promise<void>;
+  onEditConfiguration?: () => void;
   onAcknowledgeNotice?: () => void;
   isPending?: boolean;
 }
@@ -19,6 +20,7 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
   item,
   onUpdateQuantity,
   onRemove,
+  onEditConfiguration,
   onAcknowledgeNotice,
   isPending = false,
 }) => {
@@ -103,6 +105,21 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
                     {opt.groupLabel}: <strong className="font-medium text-[var(--color-text)]">{opt.optionLabel}</strong>
                   </span>
                 ))}
+              </div>
+            )}
+
+            {/* Edit Configuration Action */}
+            {onEditConfiguration && (
+              <div className="mt-1">
+                <button
+                  type="button"
+                  onClick={onEditConfiguration}
+                  disabled={isPending || item.status === 'unavailable'}
+                  data-testid={`edit-config-btn-${item.id}`}
+                  className="text-xs text-[var(--color-primary)] hover:underline font-medium text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Edit configuration
+                </button>
               </div>
             )}
           </div>

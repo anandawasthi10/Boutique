@@ -113,7 +113,7 @@ export async function getProductBySlug(slug: string): Promise<Product> {
         return;
       }
 
-      const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
+      const product = MOCK_PRODUCTS.find((p) => p.slug === slug || p.id === slug);
       if (!product) {
         reject(
           new ApiException({

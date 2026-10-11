@@ -11,6 +11,8 @@ import { formatCurrency } from '@/lib/format/currency';
 import { useCart } from '@/lib/hooks/useCart';
 import { usePreferences } from '@/lib/hooks/usePreferences';
 import { CartItemRow } from './CartItemRow';
+import { EditConfigurationModal } from './EditConfigurationModal';
+import { CartItem } from '@/lib/types';
 
 export interface CartDrawerProps {
   isOpen?: boolean;
@@ -25,6 +27,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const { cart, isDrawerOpen, closeDrawer, updateQuantity, removeItem, isItemPending } = useCart();
   const { reducedMotion } = usePreferences();
   const [acknowledgedNotices, setAcknowledgedNotices] = useState<Record<string, boolean>>({});
+  const [editingItem, setEditingItem] = useState<CartItem | null>(null);
 
   const isOpen = propIsOpen !== undefined ? propIsOpen : isDrawerOpen;
   const handleClose = propOnClose || closeDrawer;
@@ -147,6 +150,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onRemove={async () => {
                   await removeItem(item.id);
                 }}
+                onEditConfiguration={() => setEditingItem(item)}
                 onAcknowledgeNotice={() => handleAcknowledge(item.id)}
                 isPending={isItemPending(item.id)}
               />
@@ -154,6 +158,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           </div>
         )}
       </div>
+
+      <EditConfigurationModal
+        isOpen={Boolean(editingItem)}
+        onClose={() => setEditingItem(null)}
+        item={editingItem}
+      />
     </Drawer>
   );
 };

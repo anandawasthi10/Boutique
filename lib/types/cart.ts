@@ -17,6 +17,7 @@ export type CartItemStatus = 'available' | 'price_changed' | 'unavailable';
 export interface CartItem {
   id: string;
   productId: string;
+  productSlug?: string; // CONTRACT-GAP: optional slug to support direct product detail and configuration resolution
   productName: string;
   image: string;
   selectedOptions: CartItemSelection[];
