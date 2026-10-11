@@ -1,0 +1,469 @@
+import { Product, CategorySummary, Address, Order, User } from '../../types';
+
+export const MOCK_CATEGORIES: CategorySummary[] = [
+  {
+    id: 'cat-scrunchies',
+    slug: 'scrunchies',
+    name: 'Scrunchies',
+    description: 'Generously gathered fabric hair ties in pure cotton, corduroy, and linen.',
+    image: '/images/placeholders/scrunchie-1.svg',
+    sortOrder: 1,
+  },
+  {
+    id: 'cat-pouches',
+    slug: 'pouches',
+    name: 'Pouches',
+    description: 'Everyday zippered makeup and utility pouches.',
+    image: '/images/placeholders/pouch-1.svg',
+    sortOrder: 2,
+  },
+  {
+    id: 'cat-sleeves',
+    slug: 'sleeves',
+    name: 'Sleeves',
+    description: 'Protective quilted sleeves for glasses, laptops, and essentials.',
+    image: '/images/placeholders/laptop-1.svg',
+    sortOrder: 3,
+  },
+];
+
+export const MOCK_PRODUCTS: Product[] = [
+  {
+    id: 'prod-scrunchie',
+    slug: 'classic-scrunchie',
+    name: 'Classic Scrunchie',
+    description: 'A softly gathered fabric scrunchie designed to hold hair comfortably without pulling. Cut, sewn and finished by hand with durable elastic.',
+    category: {
+      id: 'cat-scrunchies',
+      name: 'Scrunchies',
+    },
+    basePrice: 249,
+    images: [
+      { url: '/images/placeholders/scrunchie-1.svg', alt: 'Classic Scrunchie main view (Placeholder)', order: 1 },
+      { url: '/images/placeholders/scrunchie-2.svg', alt: 'Classic Scrunchie fabric texture detail (Placeholder)', order: 2 },
+    ],
+    optionGroups: [
+      {
+        id: 'group-fabric',
+        label: 'Fabric Choice',
+        type: 'swatch',
+        required: true,
+        defaultOptionId: 'opt-floral',
+        options: [
+          {
+            id: 'opt-floral',
+            label: 'Floral',
+            priceDelta: 0,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+            previewImageUrl: '/images/placeholders/scrunchie-1.svg',
+            detail: 'Soft printed cotton',
+          },
+          {
+            id: 'opt-corduroy',
+            label: 'Corduroy',
+            priceDelta: 50,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
+            previewImageUrl: '/images/placeholders/scrunchie-2.svg',
+            detail: 'Fine-wale washed corduroy',
+          },
+          {
+            id: 'opt-check',
+            label: 'Check',
+            priceDelta: 30,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-check.svg',
+            detail: 'Yarn-dyed check weave',
+          },
+          {
+            id: 'opt-linen',
+            label: 'Linen',
+            priceDelta: 40,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
+            detail: 'Breathable pure linen',
+          },
+        ],
+      },
+      {
+        id: 'group-size',
+        label: 'Size',
+        type: 'chips',
+        required: true,
+        defaultOptionId: 'opt-size-regular',
+        options: [
+          {
+            id: 'opt-size-regular',
+            label: 'Regular',
+            priceDelta: 0,
+            available: true,
+            detail: 'Approx 9 cm diameter',
+          },
+          {
+            id: 'opt-size-large',
+            label: 'Large',
+            priceDelta: 50,
+            available: true,
+            detail: 'Approx 11 cm diameter',
+          },
+        ],
+      },
+    ],
+    active: true,
+  },
+  {
+    id: 'prod-pouch',
+    slug: 'makeup-pouch',
+    name: 'Everyday Makeup Pouch',
+    description: 'Structured pouch with wide base and zip opening. Roomy enough for cosmetics, skincare, and travel essentials.',
+    category: {
+      id: 'cat-pouches',
+      name: 'Pouches',
+    },
+    basePrice: 599,
+    images: [
+      { url: '/images/placeholders/pouch-1.svg', alt: 'Everyday Makeup Pouch front view (Placeholder)', order: 1 },
+      { url: '/images/placeholders/pouch-2.svg', alt: 'Everyday Makeup Pouch open interior (Placeholder)', order: 2 },
+    ],
+    optionGroups: [
+      {
+        id: 'group-fabric',
+        label: 'Fabric Choice',
+        type: 'swatch',
+        required: true,
+        defaultOptionId: 'opt-floral',
+        options: [
+          {
+            id: 'opt-floral',
+            label: 'Floral',
+            priceDelta: 0,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+          },
+          {
+            id: 'opt-corduroy',
+            label: 'Corduroy',
+            priceDelta: 70,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
+          },
+          {
+            id: 'opt-check',
+            label: 'Check',
+            priceDelta: 40,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-check.svg',
+          },
+          {
+            id: 'opt-linen',
+            label: 'Linen',
+            priceDelta: 60,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
+          },
+        ],
+      },
+      {
+        id: 'group-size',
+        label: 'Size',
+        type: 'chips',
+        required: true,
+        defaultOptionId: 'opt-size-regular',
+        options: [
+          {
+            id: 'opt-size-regular',
+            label: 'Regular',
+            priceDelta: 0,
+            available: true,
+            detail: '18 x 12 x 7 cm',
+          },
+          {
+            id: 'opt-size-large',
+            label: 'Large',
+            priceDelta: 100,
+            available: true,
+            detail: '24 x 16 x 9 cm',
+          },
+        ],
+      },
+      {
+        id: 'group-zipper',
+        label: 'Zipper Finish',
+        type: 'colour',
+        required: true,
+        defaultOptionId: 'opt-zip-brass',
+        options: [
+          {
+            id: 'opt-zip-brass',
+            label: 'Antique Brass',
+            priceDelta: 0,
+            available: true,
+            colourValue: '#B8860B',
+          },
+          {
+            id: 'opt-zip-rose',
+            label: 'Rose Gold',
+            priceDelta: 30,
+            available: true,
+            colourValue: '#B76E79',
+          },
+          {
+            id: 'opt-zip-gunmetal',
+            label: 'Gunmetal',
+            priceDelta: 20,
+            available: true,
+            colourValue: '#2A2A2A',
+          },
+        ],
+      },
+    ],
+    active: true,
+  },
+  {
+    id: 'prod-eyewear',
+    slug: 'eyewear-sleeve',
+    name: 'Soft Eyewear Sleeve',
+    description: 'Slim cushioned fabric case for glasses or sunglasses with a secure top closure.',
+    category: {
+      id: 'cat-sleeves',
+      name: 'Sleeves',
+    },
+    basePrice: 399,
+    images: [
+      { url: '/images/placeholders/sleeve-1.svg', alt: 'Soft Eyewear Sleeve (Placeholder)', order: 1 },
+    ],
+    optionGroups: [
+      {
+        id: 'group-fabric',
+        label: 'Fabric Choice',
+        type: 'swatch',
+        required: true,
+        defaultOptionId: 'opt-corduroy',
+        options: [
+          {
+            id: 'opt-floral',
+            label: 'Floral',
+            priceDelta: 0,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+          },
+          {
+            id: 'opt-corduroy',
+            label: 'Corduroy',
+            priceDelta: 60,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
+          },
+          {
+            id: 'opt-check',
+            label: 'Check',
+            priceDelta: 40,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-check.svg',
+          },
+          {
+            id: 'opt-linen',
+            label: 'Linen',
+            priceDelta: 50,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
+          },
+        ],
+      },
+      {
+        id: 'group-closure',
+        label: 'Closure Type',
+        type: 'chips',
+        required: true,
+        defaultOptionId: 'opt-closure-magnetic',
+        options: [
+          {
+            id: 'opt-closure-magnetic',
+            label: 'Magnetic Snap',
+            priceDelta: 0,
+            available: true,
+          },
+          {
+            id: 'opt-closure-button',
+            label: 'Horn Button',
+            priceDelta: 40,
+            available: true,
+          },
+          {
+            id: 'opt-closure-tie',
+            label: 'Tie Ribbon',
+            priceDelta: 20,
+            available: true,
+          },
+        ],
+      },
+    ],
+    active: true,
+  },
+  {
+    id: 'prod-laptop',
+    slug: 'laptop-sleeve',
+    name: 'Padded Laptop Sleeve',
+    description: 'Padded tech sleeve with protective inner lining and clean edge stitching. Fits standard laptops.',
+    category: {
+      id: 'cat-sleeves',
+      name: 'Sleeves',
+    },
+    basePrice: 1199,
+    images: [
+      { url: '/images/placeholders/laptop-1.svg', alt: 'Padded Laptop Sleeve (Placeholder)', order: 1 },
+    ],
+    optionGroups: [
+      {
+        id: 'group-fabric',
+        label: 'Fabric Choice',
+        type: 'swatch',
+        required: true,
+        defaultOptionId: 'opt-corduroy',
+        options: [
+          {
+            id: 'opt-corduroy',
+            label: 'Corduroy',
+            priceDelta: 0,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
+          },
+          {
+            id: 'opt-linen',
+            label: 'Linen',
+            priceDelta: 80,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
+          },
+          {
+            id: 'opt-check',
+            label: 'Check',
+            priceDelta: 50,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-check.svg',
+          },
+        ],
+      },
+      {
+        id: 'group-size',
+        label: 'Size',
+        type: 'chips',
+        required: true,
+        defaultOptionId: 'opt-laptop-13',
+        options: [
+          {
+            id: 'opt-laptop-13',
+            label: '13-inch',
+            priceDelta: 0,
+            available: true,
+            detail: 'Fits devices up to 31 x 22 cm',
+          },
+          {
+            id: 'opt-laptop-15',
+            label: '15-inch',
+            priceDelta: 150,
+            available: true,
+            detail: 'Fits devices up to 35 x 25 cm',
+          },
+        ],
+      },
+      {
+        id: 'group-waterproof',
+        label: 'Water-resistant Lining',
+        type: 'toggle',
+        required: false,
+        options: [
+          {
+            id: 'opt-waterproof-on',
+            label: 'Include water-resistant lining',
+            priceDelta: 120,
+            available: true,
+          },
+        ],
+      },
+      {
+        id: 'group-strap',
+        label: 'Detachable Shoulder Strap',
+        type: 'toggle',
+        required: false,
+        options: [
+          {
+            id: 'opt-strap-on',
+            label: 'Include matching shoulder strap',
+            priceDelta: 200,
+            available: true,
+          },
+        ],
+      },
+    ],
+    active: true,
+  },
+];
+
+export const MOCK_USER: User = {
+  id: 'usr-guest-1',
+  name: 'Anvi Sharma',
+  email: 'anvi@example.com',
+  phone: '9876543210',
+  createdAt: '2026-10-12T00:00:00Z',
+};
+
+export const INITIAL_ADDRESSES: Address[] = [
+  {
+    id: 'addr-default',
+    recipientName: 'Anvi Sharma',
+    phone: '9876543210',
+    line1: 'Flat 302, Rosewood Apartments',
+    line2: '14th Cross, Indiranagar',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    pinCode: '560038',
+    isDefault: true,
+  },
+  {
+    id: 'addr-work',
+    recipientName: 'Anvi Sharma',
+    phone: '9876543210',
+    line1: 'Building 5, Tech Horizon Park',
+    line2: 'Outer Ring Road, Bellandur',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    pinCode: '560103',
+    isDefault: false,
+  },
+];
+
+export const INITIAL_ORDERS: Order[] = [
+  {
+    id: 'ord-1001',
+    orderNumber: 'ORD-2026-1001',
+    createdAt: '2026-10-10T14:30:00Z',
+    items: [
+      {
+        id: 'item-101',
+        productName: 'Classic Scrunchie',
+        selectedOptionsText: 'Fabric: Floral Cotton, Size: Regular',
+        unitPrice: 249,
+        quantity: 2,
+        lineTotal: 498,
+      },
+      {
+        id: 'item-102',
+        productName: 'Everyday Makeup Pouch',
+        selectedOptionsText: 'Fabric: Corduroy, Size: Regular, Zipper: Antique Brass',
+        unitPrice: 669,
+        quantity: 1,
+        lineTotal: 669,
+      },
+    ],
+    address: INITIAL_ADDRESSES[0],
+    totals: {
+      subtotal: 1167,
+      shipping: 0,
+      total: 1167,
+    },
+    status: 'delivered',
+    paymentStatus: 'paid',
+  },
+];

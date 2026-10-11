@@ -174,6 +174,40 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (36 tests across 6 test suites).
   - `npm run build`: Production build succeeded.
 
+---
+
+## FE-07: Mock adapter
+
+- **Status**: done
+- **Files Changed**:
+  - `public/images/placeholders/*` (Neutral SVGs clearly labelled as placeholders)
+  - `scripts/generate-placeholders.js`
+  - `lib/api/mock/data.ts`
+  - `lib/api/mock/products.ts`
+  - `lib/api/mock/categories.ts`
+  - `lib/api/mock/cart.ts`
+  - `lib/api/mock/auth.ts`
+  - `lib/api/mock/addresses.ts`
+  - `lib/api/mock/checkout.ts`
+  - `lib/api/mock/orders.ts`
+  - `lib/api/mock/index.ts`
+  - `lib/api/index.ts` (Single switching file)
+  - `.env.local`
+  - `tests/A/fe-07.test.ts`
+- **Acceptance Criteria Verification**:
+  1. *With the flag on, every page can load data without a backend*: Verified. `NEXT_PUBLIC_USE_MOCK_API=true` loads categories, 4 products, price quotes, in-memory cart, addresses, orders, and user without network calls.
+  2. *With the flag off, the real client is used and no mock code runs*: Verified. `isMockEnabled()` toggles directly to real `apiFetch` modules (`./products`, `./cart`, etc.). Verified in test.
+  3. *The mock returns every error type at least once, selectable for testing*: Verified. Deterministic triggers: slug `error-fail-to-load` throws `PRODUCT_LOAD_FAILED`, slug `not-found` throws `PRODUCT_NOT_FOUND`, password `wrong-password` throws `INVALID_CREDENTIALS`, token `invalid-token` throws `TOKEN_INVALID_OR_EXPIRED`, missing options in quote returns `problems`, test address `addr-fail-payment` triggers failed payment order.
+  4. *No component, page or test outside lib/api/mock/ imports mock data directly*: Verified. All access routes via `lib/api` (`productsApi`, `cartApi`, etc.).
+  5. *Deleting lib/api/mock/ and the flag leaves the project compiling, apart from the one switching file, which is named in the report*: Verified. The single switching file is `lib/api/index.ts`.
+  6. *No Pinterest, Shein or AI moodboard photographs are used as placeholder images*: Verified. Created local, neutral SVG graphics clearly marked as "(Placeholder)" using the project palette.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (44 tests across 7 test suites).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 
