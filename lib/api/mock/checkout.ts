@@ -3,6 +3,7 @@ import { ApiException } from '../client';
 import { getAddresses } from './addresses';
 import { getCart, clearCartInternal } from './cart';
 import { addOrderInternal } from './orders';
+import { getCurrentUser } from './auth';
 
 export async function createCheckout(request: CheckoutRequest): Promise<CheckoutResponse> {
   const addresses = await getAddresses();
@@ -68,6 +69,7 @@ export async function createCheckout(request: CheckoutRequest): Promise<Checkout
   const orderNumber = `ORD-${Date.now().toString().slice(-6)}`;
   const orderId = `ord-${Date.now()}`;
 
+  const currentUser = await getCurrentUser();
   const newOrder: Order = {
     id: orderId,
     orderNumber,
@@ -81,6 +83,7 @@ export async function createCheckout(request: CheckoutRequest): Promise<Checkout
     },
     status: orderStatus,
     paymentStatus,
+    userId: currentUser?.id,
   };
 
   addOrderInternal(newOrder);

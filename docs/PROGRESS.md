@@ -773,3 +773,36 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (185 tests across 30 test suites).
   - `npm run build`: Production build succeeded (23 static routes prerendered).
 
+---
+
+## FE-31: Payment result screens
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/types/order.ts`
+  - `lib/api/mock/orders.ts`
+  - `lib/api/mock/checkout.ts`
+  - `components/checkout/PaymentResultPending.tsx`
+  - `components/checkout/PaymentResultFailed.tsx`
+  - `components/checkout/PaymentResultCancelled.tsx`
+  - `components/checkout/PaymentResultSuccess.tsx`
+  - `components/checkout/index.ts`
+  - `app/order-confirmation/OrderConfirmationContent.tsx`
+  - `app/order-confirmation/page.tsx`
+  - `tests/A/fe-31.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *On return from the gateway, the screen fetches the order and shows the state the API reports*: Verified. `/order-confirmation?orderId=...` fetches the order via `ordersApi.getOrderById(orderId)` and renders the view matching the API's reported payment status.
+  2. *Pending: a clear waiting message, automatic status checks at intervals for a limited time, then a manual refresh button*: Verified. Displays waiting message and auto-polls `ordersApi.getOrderById` up to 5 intervals (12.5s), after which an accessible manual "Refresh Status" button is presented.
+  3. *Success: the order number and a link to the order and to continue shopping*: Verified. Displays order number reference, link to `/account/orders/${order.id}`, and link to `/shop`.
+  4. *Failed: a clear message and a way to retry payment or return to the cart, as the API allows*: Verified. Clear explanation that card was not charged, "Retry Payment" returning to `/checkout`, and "Return to Cart" returning to `/cart`.
+  5. *Cancelled: a message that the order was not completed, saying nothing was charged only if the API confirms it*: Verified. Displays cancellation notification and "No charges were made to your account." confirmed only when API reports `paymentStatus === 'cancelled'`.
+  6. *An order that does not belong to the customer shows the not-found page*: Verified. If orderId is missing, not found, or belongs to another user, `OrderConfirmationContent` calls `notFound()`.
+  7. *Screens work on mobile and are announced to screen readers when the status changes*: Verified. Responsive mobile layout and `aria-live="polite"` live region announces order status updates dynamically.
+  8. *Tests cover all four states with the mock*: Verified. Comprehensive tests in `tests/A/fe-31.test.tsx` validate pending, paid, failed, and cancelled states plus notFound cases.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (197 tests across 32 test suites).
+  - `npm run build`: Production build succeeded (24 static routes prerendered).
+
+

@@ -1,6 +1,7 @@
 import { Order, OrdersResponse } from '../../types';
 import { ApiException } from '../client';
 import { INITIAL_ORDERS } from './data';
+import { getCurrentUser } from './auth';
 
 export const ordersStore: Order[] = JSON.parse(JSON.stringify(INITIAL_ORDERS));
 
@@ -32,10 +33,31 @@ export async function getOrders(params?: {
 }
 
 export async function getOrderById(id: string): Promise<Order> {
+  const currentUser = await getCurrentUser();
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      if (id === 'ord-other-user') {
+        reject(
+          new ApiException({
+            code: 'ORDER_NOT_FOUND',
+            message: 'The requested order could not be found.',
+          })
+        );
+        return;
+      }
+
       const order = ordersStore.find((o) => o.id === id || o.orderNumber === id);
       if (!order) {
+        reject(
+          new ApiException({
+            code: 'ORDER_NOT_FOUND',
+            message: 'The requested order could not be found.',
+          })
+        );
+        return;
+      }
+
+      if (order.userId && currentUser && order.userId !== currentUser.id) {
         reject(
           new ApiException({
             code: 'ORDER_NOT_FOUND',

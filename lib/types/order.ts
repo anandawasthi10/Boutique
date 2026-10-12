@@ -43,6 +43,7 @@ export interface Order {
   totals: OrderTotals;
   status: OrderStatus;
   paymentStatus: PaymentStatus;
+  userId?: string;
 }
 
 export interface CheckoutRequest {
