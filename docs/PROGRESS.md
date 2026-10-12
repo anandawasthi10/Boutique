@@ -826,5 +826,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (197 tests across 32 test suites).
   - `npm run build`: Production build succeeded (24 static routes prerendered).
 
+---
+
+## FE-33: My Orders
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/format/status.ts`
+  - `components/account/OrderCard.tsx`
+  - `components/account/index.ts`
+  - `app/account/orders/OrdersContent.tsx`
+  - `app/account/orders/page.tsx`
+  - `tests/A/fe-33.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Shows only the signed-in customer's orders*: Verified. `mock/orders.ts` and `OrdersContent` filter orders by authenticated customer id (`userId === currentUser.id`), sorting newest first.
+  2. *Statuses use the wording from `/docs/status-glossary.md`, with text and not colour alone*: Verified. Uses `formatOrderStatus` and `formatPaymentStatus` rendering text labels ("In Production", "Dispatched", "Order Placed", etc.) alongside styled badges.
+  3. *Loading, empty and error states exist; the empty state links to Shop All*: Verified. Skeletons while fetching, ErrorState on error with retry handler, and EmptyState linking to `/shop` when 0 orders exist.
+  4. *Each order links to its detail page*: Verified. Link targeting `/account/orders/${order.id}` rendered in each card footer.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (201 tests across 33 test suites).
+  - `npm run build`: Production build succeeded (25 static routes prerendered).
+
+
 
 

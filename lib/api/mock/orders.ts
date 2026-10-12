@@ -9,9 +9,16 @@ export async function getOrders(params?: {
   page?: number;
   pageSize?: number;
 }): Promise<OrdersResponse> {
+  const currentUser = await getCurrentUser();
   return new Promise((resolve) => {
     setTimeout(() => {
-      const sorted = [...ordersStore].sort(
+      const userOrders = ordersStore.filter((o) => {
+        if (!o.userId) return true;
+        if (!currentUser) return false;
+        return o.userId === currentUser.id;
+      });
+
+      const sorted = [...userOrders].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
 
