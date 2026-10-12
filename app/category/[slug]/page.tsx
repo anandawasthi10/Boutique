@@ -4,14 +4,6 @@ import { CategoryContent } from './CategoryContent';
 import { ProductGrid } from '@/components/catalogue';
 import { categoriesApi } from '@/lib/api';
 
-export async function generateStaticParams() {
-  try {
-    const categories = await categoriesApi.getCategories();
-    return categories.map((c) => ({ slug: c.slug }));
-  } catch {
-    return [];
-  }
-}
 
 export async function generateMetadata({
   params,
@@ -39,13 +31,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryPage({
+async function CategoryWrapper({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return <CategoryContent slug={slug} />;
+}
+
+export default function CategoryPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-
   return (
     <Suspense
       fallback={
@@ -54,7 +49,7 @@ export default async function CategoryPage({
         </div>
       }
     >
-      <CategoryContent slug={slug} />
+      <CategoryWrapper params={params} />
     </Suspense>
   );
 }

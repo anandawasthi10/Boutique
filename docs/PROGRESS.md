@@ -1033,8 +1033,33 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
 - **Tests Run & Results**:
   - `npm run typecheck`: Passed with 0 errors.
   - `npm run lint`: Passed with 0 errors.
-  - `npx vitest run tests/A/fe-08.test.tsx tests/A/fe-10.test.tsx tests/A/fe-37.test.tsx`: All 17 tests passed.
   - `npm run build`: Production build succeeded.
+
+---
+
+## R-03: Make the mock safe and routes API-driven
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/api/index.ts`
+  - `.env.example`
+  - `app/product/[slug]/page.tsx`
+  - `app/category/[slug]/page.tsx`
+  - `app/account/orders/[id]/page.tsx`
+  - `tests/A/fe-06.test.ts`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Real API client used unless NEXT_PUBLIC_USE_MOCK_API is explicitly "true"*: Verified. `isMockEnabled()` in `lib/api/index.ts` strictly requires `=== 'true'`. Documented in `.env.example`. Test added in `tests/A/fe-06.test.ts`.
+  2. *Removed generateStaticParams from product, category, and order pages*: Verified. Removed from all 3 dynamic routes.
+  3. *Build output no longer lists mock products, categories or orders*: Verified. Output shows `◐ /product/[slug]`, `◐ /category/[slug]`, and `◐ /account/orders/[id]` rather than prerendered `/product/classic-scrunchie`, `/category/scrunchies`, `/account/orders/ord-1001`.
+  4. *App still works fully with mock flag on*: Verified across all 40 test suites (230 tests passed).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (230 tests across 40 test suites).
+  - `npm run build`: Production build succeeded (21 request-time API-driven routes, 0 static mock items).
+
 
 
 

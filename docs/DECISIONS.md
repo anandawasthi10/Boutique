@@ -46,6 +46,16 @@ This log tracks architectural choices, open decision resolutions, and dependenci
 ### R-02: Hide the unused sound control
 - **Question**: How should the unused header sound toggle be managed?
 - **Decision**: Added `showSoundToggle: false` configuration flag to `SITE_CONFIG` (`lib/config/site.ts`). When false (default), `<Header>` does not render the `<SoundToggle />` button. Preserved all preference hook logic in `usePreferences` and all component tests in `tests/A/fe-10.test.tsx` and `tests/A/fe-37.test.tsx`. Ticket FE-37 remains documented as blocked in `docs/BLOCKERS.md`.
-- **Reason**: Comply with R-02 to hide unused audio controls while maintaining accessibility and preference persistence logic.
+---
+
+### R-03: Make the mock safe and routes API-driven
+- **Question**: How to ensure production builds never leak mock data and remain strictly API-driven?
+- **Decision**:
+  - Hardened `isMockEnabled()` in `lib/api/index.ts` to strictly return `true` only when `process.env.NEXT_PUBLIC_USE_MOCK_API === 'true'`. Documented configuration in `.env.example`.
+  - Added unit test in `tests/A/fe-06.test.ts` verifying `isMockEnabled()` defaults to false (real API) unless `NEXT_PUBLIC_USE_MOCK_API === 'true'`.
+  - Removed all `generateStaticParams` from `app/product/[slug]/page.tsx`, `app/category/[slug]/page.tsx`, and `app/account/orders/[id]/page.tsx`.
+  - Refactored dynamic param unwrapping inside `<Suspense>` boundaries (`ProductDetailWrapper`, `CategoryWrapper`, `OrderDetailWrapper`) to support Next.js 16 Partial Prerendering without pre-rendering mock items.
+  - Confirmed build output no longer lists static mock routes (e.g. `/product/classic-scrunchie` or `/account/orders/ord-1001`), and total static pages reduced from 29 to 21 with request-time dynamic rendering (`◐`).
+- **Reason**: Comply with R-03 requirements to prevent mock data leakage in production.
 
 

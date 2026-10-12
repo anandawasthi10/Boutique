@@ -2,16 +2,6 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { OrderDetailContent } from './OrderDetailContent';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { ordersApi } from '@/lib/api';
-
-export async function generateStaticParams() {
-  try {
-    const res = await ordersApi.getOrders();
-    return res.items.map((o) => ({ id: o.id }));
-  } catch {
-    return [];
-  }
-}
 
 export const metadata: Metadata = {
   title: 'Order Details | Handmade Boutique',
@@ -28,16 +18,19 @@ function OrderDetailFallback() {
   );
 }
 
-export default async function OrderDetailPage({
+async function OrderDetailWrapper({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return <OrderDetailContent orderId={id} />;
+}
+
+export default function OrderDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-
   return (
     <Suspense fallback={<OrderDetailFallback />}>
-      <OrderDetailContent orderId={id} />
+      <OrderDetailWrapper params={params} />
     </Suspense>
   );
 }

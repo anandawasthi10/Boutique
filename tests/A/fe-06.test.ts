@@ -111,4 +111,31 @@ describe('FE-06: API client and error handling', () => {
       expect(apiErr.code).toBe('MALFORMED_RESPONSE');
     }
   });
+
+  describe('R-03: Safe mock toggle and API routing', () => {
+    const origEnv = process.env.NEXT_PUBLIC_USE_MOCK_API;
+
+    afterEach(() => {
+      process.env.NEXT_PUBLIC_USE_MOCK_API = origEnv;
+    });
+
+    it('defaults to false (real API) unless NEXT_PUBLIC_USE_MOCK_API is explicitly "true"', async () => {
+      const { isMockEnabled } = await import('@/lib/api');
+
+      process.env.NEXT_PUBLIC_USE_MOCK_API = undefined;
+      expect(isMockEnabled()).toBe(false);
+
+      process.env.NEXT_PUBLIC_USE_MOCK_API = '';
+      expect(isMockEnabled()).toBe(false);
+
+      process.env.NEXT_PUBLIC_USE_MOCK_API = 'false';
+      expect(isMockEnabled()).toBe(false);
+
+      process.env.NEXT_PUBLIC_USE_MOCK_API = '1';
+      expect(isMockEnabled()).toBe(false);
+
+      process.env.NEXT_PUBLIC_USE_MOCK_API = 'true';
+      expect(isMockEnabled()).toBe(true);
+    });
+  });
 });

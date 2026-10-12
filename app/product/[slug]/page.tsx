@@ -1,30 +1,24 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { ProductDetailContent } from './ProductDetailContent';
-import { productsApi } from '@/lib/api';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-export async function generateStaticParams() {
-  try {
-    const res = await productsApi.getProducts();
-    return res.items.map((p) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
-}
 
 export const metadata: Metadata = {
   title: 'Handcrafted Accessory | Bespoke Collection',
   description: 'Handcrafted accessory made with tactile fabrics.',
 };
 
-export default async function ProductPage({
+async function ProductDetailWrapper({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return <ProductDetailContent slug={slug} />;
+}
+
+export default function ProductPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-
   return (
     <Suspense
       fallback={
@@ -42,7 +36,7 @@ export default async function ProductPage({
         </div>
       }
     >
-      <ProductDetailContent slug={slug} />
+      <ProductDetailWrapper params={params} />
     </Suspense>
   );
 }

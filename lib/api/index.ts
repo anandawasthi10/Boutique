@@ -47,10 +47,7 @@ import type {
 export { ApiException } from './client';
 
 export function isMockEnabled(): boolean {
-  return (
-    process.env.NEXT_PUBLIC_USE_MOCK_API === 'true' ||
-    process.env.NEXT_PUBLIC_USE_MOCK_API === '1'
-  );
+  return process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
 }
 
 // Modular API services that route based on NEXT_PUBLIC_USE_MOCK_API
