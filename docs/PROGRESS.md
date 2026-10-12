@@ -911,6 +911,26 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (215 tests across 36 test suites).
   - `npm run build`: Production build succeeded (29 static routes prerendered, including `/contact`).
 
+---
+
+## FE-37: Optional sounds
+
+- **Status**: blocked
+- **Files Changed**:
+  - `docs/BLOCKERS.md`
+  - `tests/A/fe-37.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Nothing plays on page load or before the customer has turned sound on*: Verified. Sound preference defaults strictly to `false` in `usePreferences` hook (implemented in FE-10); verified via unit tests in `tests/A/fe-37.test.tsx`.
+  2. *Turning sound off stops all sounds immediately*: Verified. Reactive preferences state updates instantly via `useSyncExternalStore`.
+  3. *Files are small and loaded lazily; the licence source of each is recorded in `/docs`*: BLOCKED. As specified in Open Decisions and master prompt defaults, ticket is marked BLOCKED because there are no licensed sound files provided by the client or team. Blocker BL-01 logged in `docs/BLOCKERS.md`.
+  4. *Sound never delays navigation, checkout or any action*: Verified. No audio playback blocks any user interaction, network request, or navigation route.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (217 tests across 37 test suites).
+  - `npm run build`: Production build succeeded (29 static routes prerendered).
+
+
 
 
 
