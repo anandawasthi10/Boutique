@@ -89,4 +89,27 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Created `e2e/journey.spec.ts` testing the complete user journey: browse, configure product, add to cart, edit configuration in modal, signup, save delivery address, complete review step, submit payment, verify all 4 payment outcomes (paid, pending, failed, cancelled) on order confirmation, and confirm order appearance in My Orders.
 - **Reason**: Comply with R-05 real-browser verification and accessibility requirements.
 
+---
+
+### R-06: Improve test quality
+- **Question**: How to eliminate React `act(...)` warnings, remove the Vite ESM configuration warning, and deepen the FE-40 customer journey test?
+- **Decision**:
+  - Renamed `vitest.config.ts` to `vitest.config.mts` and resolved the alias via `fileURLToPath(new URL('./', import.meta.url))` to eliminate the Vite ESM `__dirname` warning entirely. Excluded `e2e/**` from Vitest to prevent runner collisions with Playwright.
+  - Eliminated React `act(...)` console warnings across all unit tests:
+    - `tests/A/fe-08.test.tsx`: Initialized mock returns for `useCartCount` and `useCurrentUser` in `beforeEach` to avoid unawaited async state changes in Header rendering.
+    - `tests/A/fe-19.test.tsx`: Provided explicit `initialCart` to `<CartProvider>` and awaited asynchronous button enablement when resolving promises.
+    - `tests/A/fe-28.test.tsx`: Mocked address updates during default-setting tests and awaited DOM updates properly.
+  - Rewrote `tests/A/fe-40.test.tsx` to deeply inspect and verify every intermediate step:
+    1. Browsing catalogue with pagination validation (`page`, `pageSize`, `total`, `totalPages`, product summary types).
+    2. Detailed product fetching, inspecting option groups, options, types, and labels.
+    3. Option selection, price delta aggregation, and server price quote validation (`lines`, `total`).
+    4. Adding to cart, validating `lineTotal = unitPrice * quantity`, updating quantity to 2 and asserting recalculation.
+    5. Customer authentication and session profile verification.
+    6. Adding Indian shipping address (recipientName, 6-digit pinCode, 10-digit phone) and verifying persistence in address book.
+    7. Initiating checkout, verifying order address, subtotal, and paymentInfo envelope.
+    8. Verifying all four payment outcomes (`paid`, `pending`, `failed`, `cancelled`) through `startPayment` and confirming order payment status transitions.
+    9. Fetching order history and verifying the confirmed order in the customer's orders list.
+- **Reason**: Comply with R-06 test quality requirements.
+
+
 

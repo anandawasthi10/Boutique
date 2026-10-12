@@ -41,9 +41,11 @@ describe('FE-19: Add-to-cart bar', () => {
     ],
   };
 
+  const emptyCart: Cart = { items: [], subtotal: 0, total: 0, notices: [] };
+
   it('button is disabled with a visible reason until configuration is complete and valid', () => {
     render(
-      <CartProvider>
+      <CartProvider initialCart={emptyCart}>
         <AddToCartBar
           product={mockProduct}
           selectedOptionIds={{}}
@@ -89,7 +91,7 @@ describe('FE-19: Add-to-cart bar', () => {
     });
 
     render(
-      <CartProvider>
+      <CartProvider initialCart={emptyCart}>
         <AddToCartBar
           product={mockProduct}
           selectedOptionIds={{ 'grp-fabric': 'opt-linen' }}
@@ -141,7 +143,7 @@ describe('FE-19: Add-to-cart bar', () => {
     const addSpy = vi.spyOn(cartApi, 'addToCart').mockReturnValue(pendingPromise);
 
     render(
-      <CartProvider>
+      <CartProvider initialCart={emptyCart}>
         <AddToCartBar
           product={mockProduct}
           selectedOptionIds={{ 'grp-fabric': 'opt-linen' }}
@@ -164,6 +166,9 @@ describe('FE-19: Add-to-cart bar', () => {
     expect(addSpy).toHaveBeenCalledTimes(1);
 
     resolveApi();
+    await waitFor(() => {
+      expect(addButton).toBeEnabled();
+    });
   });
 
   it('on failure, keeps configuration and offers retry', async () => {
@@ -177,7 +182,7 @@ describe('FE-19: Add-to-cart bar', () => {
       .mockRejectedValue(new Error('Network timeout adding to cart'));
 
     render(
-      <CartProvider>
+      <CartProvider initialCart={emptyCart}>
         <AddToCartBar
           product={mockProduct}
           selectedOptionIds={{ 'grp-fabric': 'opt-linen' }}
@@ -212,7 +217,7 @@ describe('FE-19: Add-to-cart bar', () => {
     });
 
     render(
-      <CartProvider>
+      <CartProvider initialCart={emptyCart}>
         <AddToCartBar
           product={mockProduct}
           selectedOptionIds={{ 'grp-fabric': 'opt-linen' }}

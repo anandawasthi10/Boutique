@@ -151,7 +151,13 @@ describe('FE-28: Saved addresses', () => {
     });
 
     it('setting default address calls API and updates list from response', async () => {
-      vi.spyOn(addressesApi, 'getAddresses').mockResolvedValue([...mockAddresses]);
+      vi.spyOn(addressesApi, 'getAddresses')
+        .mockResolvedValueOnce([...mockAddresses])
+        .mockResolvedValueOnce([
+          { ...mockAddresses[0], isDefault: false },
+          { ...mockAddresses[1], isDefault: true },
+        ]);
+
       const editSpy = vi.spyOn(addressesApi, 'editAddress').mockResolvedValue({
         ...mockAddresses[1],
         isDefault: true,
@@ -165,7 +171,10 @@ describe('FE-28: Saved addresses', () => {
 
       fireEvent.click(screen.getByTestId('set-default-btn-addr-2'));
 
-      expect(editSpy).toHaveBeenCalledWith('addr-2', { isDefault: true });
+      await waitFor(() => {
+        expect(editSpy).toHaveBeenCalledWith('addr-2', { isDefault: true });
+        expect(screen.queryByTestId('set-default-btn-addr-2')).not.toBeInTheDocument();
+      });
     });
 
     it('delete asks for confirmation, cancels safely, and deletes on confirmation', async () => {

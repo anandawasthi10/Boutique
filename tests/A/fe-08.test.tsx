@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Header, Footer } from '@/components/layout';
 import { SITE_CONFIG } from '@/lib/config/site';
@@ -14,6 +14,11 @@ vi.mock('next/navigation', () => ({
 }));
 
 describe('FE-08: Site layout shell (Header, Footer, MobileNav)', () => {
+  beforeEach(() => {
+    vi.spyOn(cartCountHook, 'useCartCount').mockReturnValue({ count: 0, loading: false });
+    vi.spyOn(currentUserHook, 'useCurrentUser').mockReturnValue({ user: null, loading: false });
+  });
+
   it('renders skip-to-content link as the first link in header', () => {
     render(<Header />);
     const skipLink = screen.getByRole('link', { name: /skip to main content/i });

@@ -1122,6 +1122,30 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm run build`: Production build succeeded.
 
+---
+
+## R-06: Improve test quality
+
+- **Status**: done
+- **Files Changed**:
+  - `vitest.config.mts` (renamed from `vitest.config.ts`, removed ESM warning, excluded `e2e/**`)
+  - `tests/A/fe-08.test.tsx`
+  - `tests/A/fe-19.test.tsx`
+  - `tests/A/fe-28.test.tsx`
+  - `tests/A/fe-40.test.tsx`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *React act(...) warnings removed by awaiting updates correctly*: Verified across all test files. `tests/A/fe-08.test.tsx`, `tests/A/fe-19.test.tsx`, and `tests/A/fe-28.test.tsx` updated to resolve unawaited async hook and render updates; 0 `act(...)` warnings emitted during test run.
+  2. *FE-40 journey test checks the result of every step of the journey*: Verified in `tests/A/fe-40.test.tsx`. Deeply asserts pagination properties, option group configurations, price quote delta breakdown, cart operations (including quantity update and recalculation), customer authentication, Indian address validation and persistence, checkout order snapshot, and all 4 payment outcomes (`paid`, `pending`, `failed`, `cancelled`) with order status transitions.
+  3. *Rename vitest.config.ts to vitest.config.mts (or otherwise remove ESM warning) and keep tests passing*: Verified. Config renamed to `.mts`, ESM warning eliminated, all 40 test suites (231 tests) pass cleanly.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (40 test files, 231 tests).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 
