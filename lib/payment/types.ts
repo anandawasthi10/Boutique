@@ -3,6 +3,7 @@
  * Conforms to FE-30: Isolated, replaceable payment gateway abstraction
  */
 
+// CONTRACT-GAP (CG-09): Payment module parameters and trigger outcomes pending gateway selection
 export type PaymentOutcomeTrigger = 'paid' | 'pending' | 'failed' | 'cancelled';
 
 export interface PaymentStartParams {

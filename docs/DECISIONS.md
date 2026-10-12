@@ -56,6 +56,24 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Removed all `generateStaticParams` from `app/product/[slug]/page.tsx`, `app/category/[slug]/page.tsx`, and `app/account/orders/[id]/page.tsx`.
   - Refactored dynamic param unwrapping inside `<Suspense>` boundaries (`ProductDetailWrapper`, `CategoryWrapper`, `OrderDetailWrapper`) to support Next.js 16 Partial Prerendering without pre-rendering mock items.
   - Confirmed build output no longer lists static mock routes (e.g. `/product/classic-scrunchie` or `/account/orders/ord-1001`), and total static pages reduced from 29 to 21 with request-time dynamic rendering (`◐`).
-- **Reason**: Comply with R-03 requirements to prevent mock data leakage in production.
+---
+
+### R-04: Contract audit
+- **Question**: What differences and assumptions exist between the frontend implementation and Frontend Specification sections 7 and 8?
+- **Decision**:
+  - Audited `lib/types/` and `lib/api/mock/` line by line against sections 7 and 8.
+  - Documented 9 additional contract gaps in `docs/CONTRACT_GAPS.md` (CG-03 through CG-11) with suggested wording for Member B:
+    - CG-03: Fabric filter query param indexing (`GET /products?fabric=...`).
+    - CG-04: Category summary metadata fields (`slug`, `description`, `image`, `sortOrder`).
+    - CG-05: Pagination envelope structure (`pageSize`, `totalPages`).
+    - CG-06: Order totals breakdown fields (`shipping`, `tax`).
+    - CG-07: Proposed order status lifecycle values (`OrderStatus`).
+    - CG-08: Checkout request and payment start payload contract (`POST /checkout`).
+    - CG-09: Payment start parameters and result contract (`lib/payment`).
+    - CG-10: Cart item selection visual metadata (`swatchImageUrl`, `colourValue`) and status enum.
+    - CG-11: Price quote problem breakdown structure (`PriceQuoteProblem`).
+  - Marked `CONTRACT-GAP` in code across `lib/types/product.ts`, `lib/types/order.ts`, `lib/types/cart.ts`, `lib/types/configurator.ts`, `lib/payment/types.ts`, `lib/api/mock/products.ts`, and `lib/api/mock/checkout.ts`.
+  - Created `docs/status-glossary.md` with heading `# PROPOSED - not agreed with Members B and C` documenting order and payment lifecycle status values.
+- **Reason**: Comply with R-04 contract audit requirements to formalize handoff contracts for Member B.
 
 

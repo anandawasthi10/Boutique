@@ -6,6 +6,7 @@
 import { Address } from './address';
 import { CartItemSelection } from './cart';
 
+// CONTRACT-GAP (CG-07): Proposed order lifecycle status values (pending agreement from Members B and C)
 export type OrderStatus =
   | 'placed'
   | 'confirmed'
@@ -27,6 +28,7 @@ export interface OrderItem {
   lineTotal: number;
 }
 
+// CONTRACT-GAP (CG-06): Order totals breakdown fields (shipping, tax)
 export interface OrderTotals {
   subtotal: number;
   shipping: number;
@@ -46,10 +48,12 @@ export interface Order {
   userId?: string;
 }
 
+// CONTRACT-GAP (CG-08): Checkout request requiring addressId
 export interface CheckoutRequest {
   addressId: string;
 }
 
+// CONTRACT-GAP (CG-08): Checkout response paymentInfo envelope
 export interface CheckoutResponse {
   order: Order;
   paymentInfo: {
@@ -61,6 +65,7 @@ export interface CheckoutResponse {
   };
 }
 
+// CONTRACT-GAP (CG-05): Pagination envelope structure (pageSize, totalPages)
 export interface OrdersResponse {
   items: Order[];
   total: number;

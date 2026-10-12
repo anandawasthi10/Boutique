@@ -32,6 +32,7 @@ export interface ProductImage {
   order: number;
 }
 
+// CONTRACT-GAP (CG-04): Category metadata fields (slug, description, image, sortOrder)
 export interface CategorySummary {
   id: string;
   name: string;
@@ -69,6 +70,7 @@ export interface Product {
   active?: boolean;
 }
 
+// CONTRACT-GAP (CG-03): fabric query param filtering across option groups
 export interface ProductsQueryParams {
   category?: string;
   search?: string;
@@ -80,6 +82,7 @@ export interface ProductsQueryParams {
   pageSize?: number;
 }
 
+// CONTRACT-GAP (CG-05): pagination envelope structure (pageSize, totalPages)
 export interface ProductsResponse {
   items: ProductSummary[];
   total: number;

@@ -5,6 +5,7 @@ import { getCart, clearCartInternal } from './cart';
 import { addOrderInternal } from './orders';
 import { getCurrentUser } from './auth';
 
+// CONTRACT-GAP (CG-08): Checkout request expects addressId rather than inline address payload
 export async function createCheckout(request: CheckoutRequest): Promise<CheckoutResponse> {
   const addresses = await getAddresses();
   const address = addresses.find((a) => a.id === request.addressId);

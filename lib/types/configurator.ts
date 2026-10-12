@@ -8,6 +8,7 @@ export interface PriceQuoteLine {
   amount: number;
 }
 
+// CONTRACT-GAP (CG-11): Price quote problem breakdown structure
 export interface PriceQuoteProblem {
   groupId: string;
   optionId?: string;

@@ -3,6 +3,7 @@
  * Conforms to Frontend Specification Section 8
  */
 
+// CONTRACT-GAP (CG-10): Cart item selection visual metadata (swatchImageUrl, colourValue)
 export interface CartItemSelection {
   groupId: string;
   groupLabel: string;
@@ -12,6 +13,7 @@ export interface CartItemSelection {
   colourValue?: string;
 }
 
+// CONTRACT-GAP (CG-10): Cart item status enum values
 export type CartItemStatus = 'available' | 'price_changed' | 'unavailable';
 
 export interface CartItem {

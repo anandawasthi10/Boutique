@@ -40,7 +40,7 @@ export async function getProducts(params: ProductsQueryParams = {}): Promise<Pro
         );
       }
 
-      // Fabric filter
+      // CONTRACT-GAP (CG-03): Fabric filter assumed to inspect swatch option groups
       if (params.fabric) {
         filtered = filtered.filter((p) =>
           p.optionGroups.some(

@@ -1057,8 +1057,36 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
 - **Tests Run & Results**:
   - `npm run typecheck`: Passed with 0 errors.
   - `npm run lint`: Passed with 0 errors.
-  - `npm test`: Passed (230 tests across 40 test suites).
   - `npm run build`: Production build succeeded (21 request-time API-driven routes, 0 static mock items).
+
+---
+
+## R-04: Contract audit
+
+- **Status**: done
+- **Files Changed**:
+  - `docs/CONTRACT_GAPS.md`
+  - `docs/status-glossary.md`
+  - `lib/types/product.ts`
+  - `lib/types/order.ts`
+  - `lib/types/cart.ts`
+  - `lib/types/configurator.ts`
+  - `lib/payment/types.ts`
+  - `lib/api/mock/products.ts`
+  - `lib/api/mock/checkout.ts`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Line-by-line comparison against Frontend Spec sections 7 & 8*: Verified. Identified and documented all differences across extra fields, endpoints, status values, assumed fabric filtering, order totals breakdown, checkout payloads, and payment parameters.
+  2. *Numbered entries in docs/CONTRACT_GAPS.md with suggested wording for Member B*: Verified. Added CG-03 through CG-11 with exact suggested wording and code file mappings.
+  3. *CONTRACT-GAP code markings*: Verified across all relevant type and mock files.
+  4. *Created docs/status-glossary.md with "PROPOSED - not agreed with Members B and C"*: Verified. Fully documents order lifecycle statuses (`OrderStatus`) and payment statuses (`PaymentStatus`) with UI indicators and transition rules.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npx vitest run tests/A/fe-05.test.ts tests/A/fe-06.test.ts tests/A/fe-30.test.tsx`: All 17 tests passed.
+  - `npm run build`: Production build succeeded.
+
 
 
 
