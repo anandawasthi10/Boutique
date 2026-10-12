@@ -973,6 +973,25 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (227 tests across 39 test suites).
   - `npm run build`: Production build succeeded (29 static routes prerendered).
 
+---
+
+## FE-40: Frontend test suite
+
+- **Status**: done
+- **Files Changed**:
+  - `tests/A/fe-40.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Tests cover every Must-have acceptance criterion that can be automated*: Verified. 228 automated tests covering base UI components, catalog filtering, product gallery, option groups, configurator quote computation, cart state, drawer interactions, auth & route guards, checkout flow, payment handoff, order confirmation, and account management.
+  2. *The full journey passes end to end against the mock*: Verified in `tests/A/fe-40.test.tsx`. Executes full simulated user journey from catalogue browsing -> product configuration -> live price quote -> add to cart -> customer login -> shipping address selection -> checkout creation -> payment handoff simulation -> order verification.
+  3. *Tests run with one documented command and pass in a clean checkout*: Verified. Single command `npm test` runs all 40 test suites.
+  4. *The report lists what is not covered by automated tests*: Verified. Documented in `docs/FINAL_REPORT.md` (live real-bank payment gateway webhooks, licensed audio playback, and production SMTP deliverability).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (228 tests across 40 test suites).
+  - `npm run build`: Production build succeeded (29 static routes prerendered).
+
+
 
 
 
