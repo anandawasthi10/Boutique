@@ -60,7 +60,7 @@ export const SwatchGroup: React.FC<SwatchGroupProps> = ({
                     onChange(option.id);
                   }
                 }}
-                className={`relative w-12 h-12 rounded-full overflow-hidden transition-all flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 ${
+                className={`relative w-12 h-12 rounded-full overflow-hidden transition-all duration-150 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 ${
                   isSelected
                     ? 'ring-2 ring-primary ring-offset-2 shadow-sm'
                     : 'border border-border hover:border-text-muted'

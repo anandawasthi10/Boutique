@@ -61,9 +61,18 @@ const PreferencesContext = createContext<PreferencesContextValue>({
   setSoundEnabled: () => {},
 });
 
-export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export interface PreferencesProviderProps {
+  children: React.ReactNode;
+  overrideReducedMotion?: boolean;
+}
+
+export const PreferencesProvider: React.FC<PreferencesProviderProps> = ({
+  children,
+  overrideReducedMotion,
+}) => {
   const soundEnabled = useSyncExternalStore(subscribeSound, getSoundSnapshot, getSoundServerSnapshot);
-  const reducedMotion = useSyncExternalStore(subscribeMotion, getMotionSnapshot, getMotionServerSnapshot);
+  const mediaReducedMotion = useSyncExternalStore(subscribeMotion, getMotionSnapshot, getMotionServerSnapshot);
+  const reducedMotion = overrideReducedMotion !== undefined ? overrideReducedMotion : mediaReducedMotion;
 
   const setSoundEnabled = useCallback((enabled: boolean) => {
     try {

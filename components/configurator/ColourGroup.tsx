@@ -60,7 +60,7 @@ export const ColourGroup: React.FC<ColourGroupProps> = ({
                     onChange(option.id);
                   }
                 }}
-                className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 ${
+                className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 ${
                   isSelected
                     ? 'ring-2 ring-primary ring-offset-2 shadow-sm'
                     : 'border border-border hover:scale-105'

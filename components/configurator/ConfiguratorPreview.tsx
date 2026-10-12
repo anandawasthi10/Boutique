@@ -47,7 +47,7 @@ export const ConfiguratorPreview: React.FC<ConfiguratorPreviewProps> = ({
 
   const transitionClass = reducedMotion
     ? 'transition-none'
-    : 'transition-opacity duration-300';
+    : 'transition-opacity duration-250';
 
   return (
     <div

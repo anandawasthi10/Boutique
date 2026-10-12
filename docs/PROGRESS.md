@@ -930,6 +930,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (217 tests across 37 test suites).
   - `npm run build`: Production build succeeded (29 static routes prerendered).
 
+---
+
+## FE-38: Motion polish
+
+- **Status**: done
+- **Files Changed**:
+  - `components/configurator/ConfiguratorPreview.tsx`
+  - `components/configurator/SwatchGroup.tsx`
+  - `components/configurator/ColourGroup.tsx`
+  - `lib/hooks/usePreferences.tsx`
+  - `tests/A/fe-38.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Every animation stays within the stated limits*: Verified. Swatch selection scale/ring calibrated to 150ms (<200ms); preview crossfade calibrated to 250ms (<300ms); cart drawer slide calibrated to 300ms (250-300ms); add-to-cart feedback button transition set to 350ms (<600ms); hover transitions set to 150ms (<200ms).
+  2. *Reduced motion removes movement everywhere*: Verified. Global CSS media query `@media (prefers-reduced-motion: reduce)` resets `animation-duration` and `transition-duration` to 0.01ms; `usePreferences` hook reactively exposes `reducedMotion` and applies `transition-none` across components.
+  3. *No animation blocks or delays navigation or checkout*: Verified. Route transitions are instantaneous or short non-blocking opacity transitions without blocking logic.
+  4. *No continuous or decorative animation exists*: Verified. No infinite keyframes or floating decorative animations present in CSS or JSX.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (221 tests across 38 test suites).
+  - `npm run build`: Production build succeeded (29 static routes prerendered).
+
+
 
 
 
