@@ -48,7 +48,7 @@ export const SelectionSummary: React.FC<SelectionSummaryProps> = ({
             Incomplete
           </span>
         ) : (
-          <span className="flex items-center gap-1 text-[11px] text-[var(--color-sage-deep)] font-medium">
+          <span className="flex items-center gap-1 text-[11px] text-[var(--color-success)] font-medium">
             <CheckCircle2 className="w-3.5 h-3.5" />
             Complete
           </span>

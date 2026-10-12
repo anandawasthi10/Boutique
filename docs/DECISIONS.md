@@ -76,4 +76,17 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Created `docs/status-glossary.md` with heading `# PROPOSED - not agreed with Members B and C` documenting order and payment lifecycle status values.
 - **Reason**: Comply with R-04 contract audit requirements to formalize handoff contracts for Member B.
 
+---
+
+### R-05: Real-browser verification
+- **Question**: How to orchestrate real-browser automated end-to-end testing, accessibility scans, horizontal scroll prevention, and color contrast verification?
+- **Decision**:
+  - Installed `@playwright/test` and `@axe-core/playwright` as devDependencies, installed Chromium browser engine.
+  - Added `playwright.config.ts` configuring Chromium Desktop (1280x720) and Chromium Mobile (360x640), targeting `http://localhost:3000` with `NEXT_PUBLIC_USE_MOCK_API: 'true'`.
+  - Created `e2e/horizontal-scroll.spec.ts` asserting `document.documentElement.scrollWidth <= window.innerWidth` across 11 key routes at both 360px and 1280px (22 tests, all passed with 0 horizontal scroll).
+  - Created `e2e/accessibility.spec.ts` scanning 8 core pages (`/`, `/shop`, `/product/classic-scrunchie`, `/cart`, `/checkout`, `/login`, `/signup`, `/account`) using `@axe-core/playwright` for WCAG 2.1 AA violations (16 tests, all passed with 0 serious or critical violations).
+  - Created `docs/CONTRAST_REPORT.md` analyzing every foreground and background token pairing. Documented fixes for `--color-success` (`#2D5A34`, 6.76:1) and updated subtle elements in `SelectionSummary` and `AddToCartBar` to meet 4.5:1 ratio.
+  - Created `e2e/journey.spec.ts` testing the complete user journey: browse, configure product, add to cart, edit configuration in modal, signup, save delivery address, complete review step, submit payment, verify all 4 payment outcomes (paid, pending, failed, cancelled) on order confirmation, and confirm order appearance in My Orders.
+- **Reason**: Comply with R-05 real-browser verification and accessibility requirements.
+
 

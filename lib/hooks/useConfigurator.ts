@@ -109,22 +109,22 @@ export function useConfigurator({
   const selectOption = useCallback((groupId: string, optionId: string) => {
     setSelectedOptionIds((prev) => {
       if (prev[groupId] === optionId) return prev;
+      setIsQuoteOutdated(true);
       return {
         ...prev,
         [groupId]: optionId,
       };
     });
-    setIsQuoteOutdated(true);
   }, []);
 
   const clearOption = useCallback((groupId: string) => {
     setSelectedOptionIds((prev) => {
       if (!prev[groupId]) return prev;
+      setIsQuoteOutdated(true);
       const next = { ...prev };
       delete next[groupId];
       return next;
     });
-    setIsQuoteOutdated(true);
   }, []);
 
   const clearUnavailableNotice = useCallback(() => {

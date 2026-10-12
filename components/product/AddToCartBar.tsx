@@ -197,7 +197,7 @@ export const AddToCartBar: React.FC<AddToCartBarProps> = ({
             className="flex-1 justify-center relative min-h-[48px]"
           >
             {isSuccess ? (
-              <span className="inline-flex items-center gap-1.5 text-sage-deep font-semibold">
+              <span className="inline-flex items-center gap-1.5 text-[var(--color-success)] font-semibold">
                 <Check className="w-4 h-4 stroke-[3]" />
                 Added to Bag
               </span>

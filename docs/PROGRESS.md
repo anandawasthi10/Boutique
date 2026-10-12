@@ -1087,6 +1087,42 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npx vitest run tests/A/fe-05.test.ts tests/A/fe-06.test.ts tests/A/fe-30.test.tsx`: All 17 tests passed.
   - `npm run build`: Production build succeeded.
 
+---
+
+## R-05: Real-browser verification
+
+- **Status**: done
+- **Files Changed**:
+  - `package.json`, `package-lock.json`
+  - `playwright.config.ts`
+  - `e2e/horizontal-scroll.spec.ts`
+  - `e2e/accessibility.spec.ts`
+  - `e2e/journey.spec.ts`
+  - `docs/CONTRAST_REPORT.md`
+  - `app/globals.css`
+  - `components/configurator/SelectionSummary.tsx`
+  - `components/product/AddToCartBar.tsx`
+  - `lib/hooks/useConfigurator.ts`
+  - `lib/api/mock/cart.ts`
+  - `lib/api/mock/data.ts`
+  - `vitest.config.ts`
+  - `.gitignore`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Playwright with Chromium added and dependency logged*: Verified. Installed `@playwright/test` and `@axe-core/playwright`. Logged in `docs/DECISIONS.md`.
+  2. *End-to-end tests against mock written and passing*: Verified in `e2e/journey.spec.ts`. Covers browsing to a product, configuring options, adding to cart, editing cart configuration in modal, signing up, adding delivery address, checking out, and verifying each of the four payment outcomes (paid, pending, failed, cancelled), ending with the order in My Orders.
+  3. *Viewport testing at 360 px and 1280 px*: Verified in `e2e/horizontal-scroll.spec.ts` across 11 key routes (`/`, `/shop`, `/product/classic-scrunchie`, `/category/scrunchies`, `/build-your-own`, `/about`, `/contact`, `/cart`, `/login`, `/signup`, `/forgot-password`). 0 horizontal scrolling detected.
+  4. *Automated accessibility scans (axe)*: Verified in `e2e/accessibility.spec.ts` across 8 core pages (`/`, `/shop`, `/product/classic-scrunchie`, `/cart`, `/checkout`, `/login`, `/signup`, `/account`). 0 serious or critical violations.
+  5. *Design token contrast check and report*: Verified. Created `docs/CONTRAST_REPORT.md` documenting contrast ratios of all token pairs with fixes applied for `--color-success` (`#2D5A34`, 6.76:1) and subtle text elements.
+- **Tests Run & Results**:
+  - `npx playwright test`: 40 tests passed across desktop and mobile.
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm test`: 40 test suites passed (230 tests passed).
+  - `npm run lint`: Passed with 0 errors.
+  - `npm run build`: Production build succeeded.
+
+
 
 
 

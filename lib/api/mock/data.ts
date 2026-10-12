@@ -466,4 +466,73 @@ export const INITIAL_ORDERS: Order[] = [
     status: 'delivered',
     paymentStatus: 'paid',
   },
+  {
+    id: 'ord-1003',
+    orderNumber: 'ORD-2026-1003',
+    createdAt: '2026-10-12T11:00:00Z',
+    items: [
+      {
+        id: 'item-103',
+        productName: 'Classic Scrunchie',
+        selectedOptionsText: 'Fabric: Floral Cotton, Size: Regular',
+        unitPrice: 249,
+        quantity: 1,
+        lineTotal: 249,
+      },
+    ],
+    address: INITIAL_ADDRESSES[0],
+    totals: {
+      subtotal: 249,
+      shipping: 0,
+      total: 249,
+    },
+    status: 'placed',
+    paymentStatus: 'pending',
+  },
+  {
+    id: 'ord-1004',
+    orderNumber: 'ORD-2026-1004',
+    createdAt: '2026-10-12T11:15:00Z',
+    items: [
+      {
+        id: 'item-104',
+        productName: 'Everyday Makeup Pouch',
+        selectedOptionsText: 'Fabric: Corduroy, Size: Regular',
+        unitPrice: 669,
+        quantity: 1,
+        lineTotal: 669,
+      },
+    ],
+    address: INITIAL_ADDRESSES[0],
+    totals: {
+      subtotal: 669,
+      shipping: 0,
+      total: 669,
+    },
+    status: 'cancelled',
+    paymentStatus: 'failed',
+  },
+  {
+    id: 'ord-1005',
+    orderNumber: 'ORD-2026-1005',
+    createdAt: '2026-10-12T11:30:00Z',
+    items: [
+      {
+        id: 'item-105',
+        productName: 'Quilted Laptop Sleeve',
+        selectedOptionsText: 'Fabric: Linen, Size: 13-inch',
+        unitPrice: 899,
+        quantity: 1,
+        lineTotal: 899,
+      },
+    ],
+    address: INITIAL_ADDRESSES[0],
+    totals: {
+      subtotal: 899,
+      shipping: 0,
+      total: 899,
+    },
+    status: 'cancelled',
+    paymentStatus: 'cancelled',
+  },
 ];

@@ -8,7 +8,9 @@ import {
 import { ApiException } from '../client';
 import { MOCK_PRODUCTS } from './data';
 
-// In-memory cart store
+// In-memory cart store with localStorage synchronization for browser resilience
+const CART_STORAGE_KEY = 'boutique_mock_cart';
+
 let inMemoryCart: Cart = {
   items: [],
   subtotal: 0,
@@ -16,16 +18,43 @@ let inMemoryCart: Cart = {
   notices: [],
 };
 
+function getStoredCart(): Cart {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const stored = window.localStorage.getItem(CART_STORAGE_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      // Fallback to in-memory
+    }
+  }
+  return inMemoryCart;
+}
+
+function saveStoredCart(cart: Cart): Cart {
+  inMemoryCart = cart;
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch {
+      // Ignore
+    }
+  }
+  return JSON.parse(JSON.stringify(inMemoryCart));
+}
+
 function recalculateCart(): Cart {
   const subtotal = inMemoryCart.items.reduce((sum, item) => sum + item.lineTotal, 0);
   inMemoryCart.subtotal = subtotal;
   inMemoryCart.total = subtotal;
-  return JSON.parse(JSON.stringify(inMemoryCart));
+  return saveStoredCart(inMemoryCart);
 }
 
 export async function getCart(): Promise<Cart> {
   return new Promise((resolve) => {
     setTimeout(() => {
+      inMemoryCart = getStoredCart();
       resolve(recalculateCart());
     }, 10);
   });
@@ -188,10 +217,10 @@ export async function removeCartItem(itemId: string): Promise<Cart> {
 }
 
 export function clearCartInternal(): void {
-  inMemoryCart = {
+  saveStoredCart({
     items: [],
     subtotal: 0,
     total: 0,
     notices: [],
-  };
+  });
 }

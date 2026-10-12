@@ -7,7 +7,7 @@
   --color-surface-alt: #EDE2D1;
   --color-border: #E3D8C9;
   --color-text: #4A3A33;
-  --color-text-muted: #7A655B;
+  --color-text-muted: #735E54;
   --color-primary: #4A3A33;
   --color-primary-text: #FAF6EF;
   --color-blush: #E8C4C0;
@@ -16,7 +16,8 @@
   --color-sage-deep: #6F8470;
   --color-lavender: #B9A9D1;
   --color-error: #B3463F;
-  --color-warning: #B7883A;
+  --color-warning: #855A12;
+  --color-success: #2D5A34;
   --color-focus: #4A3A33;
 
   /* Font Family Variables */
@@ -50,6 +51,7 @@
   --color-lavender: var(--color-lavender);
   --color-error: var(--color-error);
   --color-warning: var(--color-warning);
+  --color-success: var(--color-success);
   --color-focus: var(--color-focus);
 
   --font-heading: var(--font-heading);
