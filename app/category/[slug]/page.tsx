@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { CategoryContent } from './CategoryContent';
 import { ProductGrid } from '@/components/catalogue';

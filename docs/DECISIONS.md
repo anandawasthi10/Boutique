@@ -120,3 +120,16 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Inspected `app/api/`: verified it contains solely `README.md` placeholder declaring backend ownership by Members B and C. No API routes or backend controllers exist.
   - Inspected `scripts/`: found `generate-placeholders.js` (an ephemeral script used once during early FE setup). Removed `generate-placeholders.js` and created `scripts/README.md` placeholder documenting that operations/backend scripts belong to Members B and C.
 - **Reason**: Comply with R-07 scope boundary requirements. Backend remains strictly owned by Members B and C.
+
+---
+
+### R-08: Clean up warnings
+- **Question**: How to resolve IDE and lint warnings across the codebase?
+- **Decision**:
+  - Ran deep diagnostics across TypeScript compiler diagnostics and ESLint (`next/core-web-vitals` + `next/typescript`).
+  - Fixed unused React namespace default imports in Next.js Server & Client Component route pages (`app/about/page.tsx`, `app/account/orders/[id]/page.tsx`, `app/account/orders/page.tsx`, `app/category/[slug]/page.tsx`, `app/component-preview/page.tsx`, `app/contact/page.tsx`, `app/order-confirmation/page.tsx`, `app/product/[slug]/page.tsx`, `app/shop/page.tsx`).
+  - Verified and retained required Lucide icons (`Sparkles`, `ArrowRight`) and UI components (`ErrorState`) in `app/page.tsx`.
+  - Verified `styles/tokens.ts` retains specification-standard hex codes (`#B7883A`) while accessible high-contrast override (`#855A12`) is applied in `app/globals.css`.
+  - Confirmed 0 ESLint warnings and 0 compiler warnings remain.
+- **Reason**: Comply with R-08 warning cleanup requirements.
+

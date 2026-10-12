@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { OrderDetailContent } from './OrderDetailContent';
 import { Skeleton } from '@/components/ui/Skeleton';

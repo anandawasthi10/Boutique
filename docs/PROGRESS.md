@@ -1167,6 +1167,33 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (40 test files, 231 tests).
   - `npm run build`: Production build succeeded.
 
+---
+
+## R-08: Clean up warnings
+
+- **Status**: done
+- **Files Changed**:
+  - `app/about/page.tsx`
+  - `app/account/orders/[id]/page.tsx`
+  - `app/account/orders/page.tsx`
+  - `app/category/[slug]/page.tsx`
+  - `app/component-preview/page.tsx`
+  - `app/contact/page.tsx`
+  - `app/order-confirmation/page.tsx`
+  - `app/product/[slug]/page.tsx`
+  - `app/shop/page.tsx`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Review and resolve IDE and lint warnings*: Verified. Fixed unused default React imports across route components that triggered TS6133 warnings.
+  2. *Verified clean compiler and ESLint status*: Verified 0 ESLint warnings (`next/core-web-vitals` + `next/typescript`) and 0 TypeScript compiler errors.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (40 test files, 231 tests).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 
