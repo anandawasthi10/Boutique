@@ -24,3 +24,10 @@ This log tracks architectural choices, open decision resolutions, and dependenci
 - **Question**: How should an unrecognised option group display type from the API be rendered?
 - **Decision**: Implemented `FallbackOptionGroup` in `OptionGroupRenderer` which gracefully falls back to the accessible chips layout with an informational note rather than failing or crashing.
 - **Reason**: Required by FE-16 acceptance criteria to ensure resilient degradation if new display types are introduced by Member B.
+
+---
+
+### FE-30: Session resumption and uncommitted changes inspection
+- **Question**: Uncommitted changes found in working directory during session resume: `app/checkout/CheckoutContent.tsx`, `docs/CONTRACT_GAPS.md`, `lib/payment/`, `tests/A/fe-30.test.tsx`.
+- **Decision**: Inspected changes and verified they belong to the unfinished ticket FE-30 (Handoff to payment). The implementation introduces an isolated payment module (`lib/payment/`) with triggerable outcomes (`paid`, `pending`, `failed`, `cancelled`), wires the handoff in `CheckoutContent.tsx`, logs CG-02 in `CONTRACT_GAPS.md`, and includes comprehensive test suite `tests/A/fe-30.test.tsx`. Kept and finalized the implementation for FE-30.
+

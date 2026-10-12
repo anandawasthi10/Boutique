@@ -747,3 +747,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm run lint`: Passed with 0 errors.
   - `npm test`: Passed (179 tests across 29 test suites).
   - `npm run build`: Production build succeeded (23 static routes prerendered).
+
+---
+
+## FE-30: Handoff to payment
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/payment/types.ts`
+  - `lib/payment/mock.ts`
+  - `lib/payment/index.ts`
+  - `app/checkout/CheckoutContent.tsx`
+  - `docs/CONTRACT_GAPS.md`
+  - `docs/DECISIONS.md`
+  - `tests/A/fe-30.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Opens the gateway using the data from `POST /checkout`*: Verified. `CheckoutContent` passes order ID, amount, currency, `gatewayOrderId`, and public `keyId` from `POST /checkout` response into `startPayment`.
+  2. *No gateway secret appears in browser code or in the repository*: Verified. Client code and environment variables only contain public IDs; private gateway secrets are never included.
+  3. *Card or UPI details are never entered on this site; only the gateway's own screens collect them*: Verified. No form fields for card numbers, CVVs, or UPI IDs exist on this site.
+  4. *When the customer comes back from the gateway, the site shows the payment result screen (FE-31) based on the order status from the API*: Verified. Handoff completes with redirect to `/order-confirmation?orderId=...`, which loads order status from the API.
+  5. *If the contract for this step is not yet agreed, the report states the missing information and a clearly isolated mock is used instead*: Verified. CG-02 logged in `docs/CONTRACT_GAPS.md`; isolated payment module implemented under `lib/payment/` with triggerable `paid`, `pending`, `failed`, and `cancelled` simulation modes.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (185 tests across 30 test suites).
+  - `npm run build`: Production build succeeded (23 static routes prerendered).
+

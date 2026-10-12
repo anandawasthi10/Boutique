@@ -11,6 +11,7 @@ import { AddressSelectionStep } from '@/components/checkout/AddressSelectionStep
 import { OrderReviewStep } from '@/components/checkout/OrderReviewStep';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ShoppingBag } from 'lucide-react';
+import { startPayment } from '@/lib/payment';
 
 export const CheckoutContent: React.FC = () => {
   const router = useRouter();
@@ -67,8 +68,17 @@ export const CheckoutContent: React.FC = () => {
       // Clear frontend cart on confirmed checkout handoff
       clearCart();
 
-      // Navigate to order confirmation
-      router.push(`/order-confirmation?orderId=${encodeURIComponent(response.order.id)}`);
+      // Hand off to payment module (FE-30)
+      const paymentResult = await startPayment({
+        orderId: response.order.id,
+        amount: response.paymentInfo.amount,
+        currency: response.paymentInfo.currency,
+        gatewayOrderId: response.paymentInfo.gatewayOrderId,
+        keyId: response.paymentInfo.keyId,
+      });
+
+      // Navigate to payment result / confirmation screen
+      router.push(paymentResult.redirectUrl);
     } catch (err) {
       // Criterion 6: Failure keeps the cart and shows retry option
       const msg =
