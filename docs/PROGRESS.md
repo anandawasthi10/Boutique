@@ -849,6 +849,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (201 tests across 33 test suites).
   - `npm run build`: Production build succeeded (25 static routes prerendered).
 
+---
+
+## FE-34: Order details and status
+
+- **Status**: done
+- **Files Changed**:
+  - `components/account/OrderTimeline.tsx`
+  - `components/account/index.ts`
+  - `app/account/orders/[id]/OrderDetailContent.tsx`
+  - `app/account/orders/[id]/page.tsx`
+  - `tests/A/fe-34.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Everything shown comes from the order returned by the API*: Verified. Order items, chosen option text, unit prices, delivery address, totals, and statuses are read directly from `order` returned by `ordersApi.getOrderById(id)`.
+  2. *An order that does not exist or belongs to someone else shows the not-found page*: Verified. If orderId is unknown or has a mismatching `userId`, `getOrderById` throws `ORDER_NOT_FOUND` and `OrderDetailContent` calls `notFound()`.
+  3. *The status timeline uses the status list in `/docs/status-glossary.md` and is readable by screen readers*: Verified. `OrderTimeline` implements an ordered list with `aria-label="Order progress"`, `aria-current="step"`, and status text labels ("Placed", "Confirmed", "In Production", "Packed", "Dispatched", "Delivered") plus cancelled alert state.
+  4. *If the payment is still pending or failed, the page explains the next step the API allows*: Verified. When `paymentStatus === 'pending'`, shows verification notice with refresh action; when `paymentStatus === 'failed'`, shows informative failed alert banner with retry checkout button.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (206 tests across 34 test suites).
+  - `npm run build`: Production build succeeded (27 static routes prerendered).
+
+
 
 
 
