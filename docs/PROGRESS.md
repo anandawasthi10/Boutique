@@ -891,6 +891,27 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (211 tests across 35 test suites).
   - `npm run build`: Production build succeeded (28 static routes prerendered, including `/about`).
 
+---
+
+## FE-36: Contact and store location
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/config/contact.ts`
+  - `app/contact/ContactContent.tsx`
+  - `app/contact/page.tsx`
+  - `tests/A/fe-36.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Contact details and address come from one configuration file*: Verified. Centralized in `lib/config/contact.ts` (`CONTACT_CONFIG`) containing studio telephone, email, physical atelier address, visiting hours, and placeholder notices.
+  2. *No third-party map script is loaded unless approved; a plain link is the default*: Verified. Plain accessible map anchor `https://maps.google.com/?q=...` opens native maps application with external link indicators; zero external script tags or iframe embeds loaded.
+  3. *If a form is included, it validates input, handles errors and success and uses only the agreed endpoint*: Verified. As established in master prompt defaults and contract specifications (no contact form endpoint exists in Section 7), no contact form is rendered; customer inquiries are handled via explicit mailto/tel actions with expected response time guidance.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (215 tests across 36 test suites).
+  - `npm run build`: Production build succeeded (29 static routes prerendered, including `/contact`).
+
+
 
 
 
