@@ -31,3 +31,10 @@ This log tracks architectural choices, open decision resolutions, and dependenci
 - **Question**: Uncommitted changes found in working directory during session resume: `app/checkout/CheckoutContent.tsx`, `docs/CONTRACT_GAPS.md`, `lib/payment/`, `tests/A/fe-30.test.tsx`.
 - **Decision**: Inspected changes and verified they belong to the unfinished ticket FE-30 (Handoff to payment). The implementation introduces an isolated payment module (`lib/payment/`) with triggerable outcomes (`paid`, `pending`, `failed`, `cancelled`), wires the handoff in `CheckoutContent.tsx`, logs CG-02 in `CONTRACT_GAPS.md`, and includes comprehensive test suite `tests/A/fe-30.test.tsx`. Kept and finalized the implementation for FE-30.
 
+---
+
+### FE-35: Session resumption and uncommitted changes inspection
+- **Question**: Uncommitted changes found in working directory during session resume: `app/about/`, `lib/config/about.ts`, `tests/A/fe-35.test.tsx`.
+- **Decision**: Inspected changes and verified they belong to the unfinished ticket FE-35 (About the brand). The implementation holds all text in centralized config `lib/config/about.ts`, provides clearly marked client founder story placeholder copy, avoids invented history/awards/metrics/testimonials, renders responsive atelier figure with real alt text and captions, and includes comprehensive tests in `tests/A/fe-35.test.tsx`. Kept, verified against full test suite, and finalized for FE-35 commit.
+
+

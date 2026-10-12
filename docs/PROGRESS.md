@@ -871,6 +871,27 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (206 tests across 34 test suites).
   - `npm run build`: Production build succeeded (27 static routes prerendered).
 
+---
+
+## FE-35: About the brand
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/config/about.ts`
+  - `app/about/AboutContent.tsx`
+  - `app/about/page.tsx`
+  - `tests/A/fe-35.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *All text is held in one content file or the page itself, easy for the client to replace*: Verified. Centralized in `lib/config/about.ts` (`ABOUT_CONTENT`) with clean modular typescript structures for editorial headline, subheadline, philosophy paragraphs, principles grid, and material story.
+  2. *No invented history, awards, numbers or testimonials*: Verified. Uses genuine artisanal craft description focused on small-batch production and natural textiles; founder narrative includes explicitly labeled client copy placeholder `(Founder story placeholder: client to supply personal studio background, craft journey, and regional textile inspiration.)`; no fake years, fictitious awards, or fabricated reviews.
+  3. *Responsive and accessible, with real alternative text for images*: Verified. Responsive mobile-to-desktop grid; atelier figure includes meaningful descriptive `alt` attribute and semantic `figcaption`; navigation CTAs connect to `/shop` and `/build-your-own`; passes all unit and accessibility assertions.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (211 tests across 35 test suites).
+  - `npm run build`: Production build succeeded (28 static routes prerendered, including `/about`).
+
+
 
 
 
