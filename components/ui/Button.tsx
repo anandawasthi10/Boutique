@@ -46,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizeStyles = variant === 'text' || variant === 'icon' ? '' : {
-      sm: 'min-h-[40px] px-4 text-[14px]',
+      sm: 'min-h-[44px] px-4 text-[14px]',
       md: 'min-h-[48px] px-6 text-[15px]',
       lg: 'min-h-[52px] px-8 text-[16px]',
     }[size];

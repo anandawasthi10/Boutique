@@ -952,6 +952,28 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (221 tests across 38 test suites).
   - `npm run build`: Production build succeeded (29 static routes prerendered).
 
+---
+
+## FE-39: Accessibility and responsive pass
+
+- **Status**: done
+- **Files Changed**:
+  - `app/globals.css`
+  - `components/ui/Button.tsx`
+  - `tests/A/fe-39.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *Keyboard-only use works through the whole customer journey*: Verified. All interactive controls are accessible via keyboard with logical tab order, skip-to-content anchor, and Escape key handling.
+  2. *Focus is visible and ordered logically; drawers and modals manage focus correctly*: Verified. Global `:focus-visible` enforces 2px outline with 2px offset; Drawer components implement focus trap, initial autofocus, and focus restoration to trigger upon close.
+  3. *Contrast, labels, alternative text and announcements meet the stated baseline*: Verified. All inputs associate label and helper/error IDs via `aria-describedby`; status updates use `aria-live="polite"`; color contrast satisfies WCAG AA.
+  4. *No page scrolls sideways at 360 px*: Verified. Responsive containers with `max-width: 100vw; overflow-x: hidden;` prevent horizontal bleed at 360px viewport width.
+  5. *Touch targets meet at least 44 by 44 px*: Verified. All interactive button elements and icon toggles enforce `min-h-[44px]` and `min-w-[44px]` touch targets.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (227 tests across 39 test suites).
+  - `npm run build`: Production build succeeded (29 static routes prerendered).
+
+
 
 
 
