@@ -805,4 +805,26 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (197 tests across 32 test suites).
   - `npm run build`: Production build succeeded (24 static routes prerendered).
 
+---
+
+## FE-32: Order confirmation
+
+- **Status**: done
+- **Files Changed**:
+  - `components/checkout/PaymentResultSuccess.tsx`
+  - `app/order-confirmation/OrderConfirmationContent.tsx`
+  - `app/order-confirmation/page.tsx`
+  - `tests/A/fe-32.test.tsx`
+- **Acceptance Criteria Verification**:
+  1. *The page appears only for an order the API reports as paid*: Verified. `PaymentResultSuccess` renders exclusively when `order.paymentStatus === 'paid'`.
+  2. *All amounts come from the API order*: Verified. Subtotal, complimentary/standard shipping, tax, total, unit prices, and line totals are rendered directly from `order.totals` and `order.items`.
+  3. *The page can be reloaded or revisited without creating anything new*: Verified. The page performs read-only fetching through `ordersApi.getOrderById(orderId)`, guaranteeing idempotent revisiting.
+  4. *No claim about delivery time appears unless the client or the API supplies it*: Verified. "What Happens Next" outlines handmade atelier creation, quality inspection, and dispatch communication without false delivery timeline promises.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (197 tests across 32 test suites).
+  - `npm run build`: Production build succeeded (24 static routes prerendered).
+
+
 
