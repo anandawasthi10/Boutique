@@ -1193,6 +1193,33 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (40 test files, 231 tests).
   - `npm run build`: Production build succeeded.
 
+---
+
+## R-09: Missing pages
+
+- **Status**: done
+- **Files Changed**:
+  - `app/not-found.tsx`
+  - `app/error.tsx`
+  - `app/loading.tsx`
+  - `lib/config/site.ts`
+  - `app/layout.tsx`
+  - `tests/A/fe-r09.test.tsx`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Branded not-found page added*: Verified in `app/not-found.tsx`. Renders design tokens, friendly copy from Security Specification ("We couldn't find the page or accessory you were looking for"), and primary links to `/shop` and `/`.
+  2. *Branded global error page added*: Verified in `app/error.tsx`. Renders friendly apology ("Something went wrong", "We're sorry, an unexpected error occurred while loading this page"), zero technical details/stack traces exposed, retry action via `reset()`, and return home link.
+  3. *Global loading state added*: Verified in `app/loading.tsx`. Renders design token skeleton primitives with shimmer animation, and accessible screen reader status indicators.
+  4. *Basic page metadata centralized*: Verified in `lib/config/site.ts` (`SITE_CONFIG.metadata`) using placeholder brand name (`Brand Name`) and integrated into root layout title template.
+  5. *Tests added and passing*: Verified in `tests/A/fe-r09.test.tsx` (4 tests passing).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (41 test files, 235 tests).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 

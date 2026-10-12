@@ -133,3 +133,14 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Confirmed 0 ESLint warnings and 0 compiler warnings remain.
 - **Reason**: Comply with R-08 warning cleanup requirements.
 
+---
+
+### R-09: Missing pages
+- **Question**: How to structure the branded not-found page, global error boundary, global loading state, and centralized site metadata?
+- **Decision**:
+  - Centralized site metadata (`title`, `description`, `icons`) in `lib/config/site.ts` (`SITE_CONFIG.metadata`) using placeholder brand name (`Brand Name`) and configured root layout (`app/layout.tsx`) title template (`%s | Brand Name`).
+  - Implemented branded 404 page (`app/not-found.tsx`) with design tokens, friendly Security Specification copy ("We couldn't find the page or accessory you were looking for"), and navigation buttons to `/shop` and `/`.
+  - Implemented branded global error boundary (`app/error.tsx`) conforming to Security Document rules: friendly general apology ("Something went wrong", "We're sorry, an unexpected error occurred while loading this page"), zero exposure of technical details or stack traces, "Try Again" retry action calling `reset()`, and return home link.
+  - Implemented global loading state (`app/loading.tsx`) with design token skeleton primitives, shimmer animations, and accessible screen reader status (`role="status"`, `aria-busy="true"`, `aria-label="Loading page"`).
+  - Added unit test suite `tests/A/fe-r09.test.tsx` verifying not-found, error boundary, loading, and centralized metadata behaviors.
+- **Reason**: Comply with R-09 missing pages and metadata requirements.

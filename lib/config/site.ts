@@ -27,4 +27,12 @@ export const SITE_CONFIG = {
     mapLink: 'https://maps.google.com/?q=Studio+location+to+be+added',
   },
   showSoundToggle: false,
+  metadata: {
+    title: 'Brand Name | Handmade Accessories',
+    description: 'Personalised fabric accessories crafted with care by hand.',
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/favicon.ico',
+    },
+  },
 } as const;

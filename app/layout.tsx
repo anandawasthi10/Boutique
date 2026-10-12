@@ -33,8 +33,15 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_CONFIG.brandName} | ${SITE_CONFIG.tagline}`,
-  description: "Personalised fabric accessories crafted with care by hand.",
+  title: {
+    default: `${SITE_CONFIG.brandName} | ${SITE_CONFIG.tagline}`,
+    template: `%s | ${SITE_CONFIG.brandName}`,
+  },
+  description: SITE_CONFIG.metadata.description,
+  icons: {
+    icon: SITE_CONFIG.metadata.icons.icon,
+    apple: SITE_CONFIG.metadata.icons.apple,
+  },
 };
 
 export default function RootLayout({
