@@ -41,6 +41,11 @@ This log tracks architectural choices, open decision resolutions, and dependenci
   - Removed invented delivery/shipping claims ("Complimentary insured shipping across India").
   - Replaced studio address, email, and phone with visible placeholders: "Studio address to be added", "hello@example.com", "+91 00000 00000", centralized in `lib/config/site.ts` and `lib/config/contact.ts`.
   - Replaced "What Happens Next" text on order confirmation with plain factual text ("Your order has been received. You can track progress and updates anytime in your account.") and toned down craftsmanship copy in `Footer.tsx` and `lib/config/about.ts`.
-- **Reason**: Comply with R-01 instructions to remove ungrounded customer-facing claims not supported by the specifications.
+---
+
+### R-02: Hide the unused sound control
+- **Question**: How should the unused header sound toggle be managed?
+- **Decision**: Added `showSoundToggle: false` configuration flag to `SITE_CONFIG` (`lib/config/site.ts`). When false (default), `<Header>` does not render the `<SoundToggle />` button. Preserved all preference hook logic in `usePreferences` and all component tests in `tests/A/fe-10.test.tsx` and `tests/A/fe-37.test.tsx`. Ticket FE-37 remains documented as blocked in `docs/BLOCKERS.md`.
+- **Reason**: Comply with R-02 to hide unused audio controls while maintaining accessibility and preference persistence logic.
 
 

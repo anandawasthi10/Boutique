@@ -1012,8 +1012,30 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
 - **Tests Run & Results**:
   - `npm run typecheck`: Passed with 0 errors.
   - `npm run lint`: Passed with 0 errors.
-  - `npx vitest run tests/A/fe-32.test.tsx tests/A/fe-35.test.tsx tests/A/fe-36.test.tsx tests/A/fe-34.test.tsx tests/A/fe-11.test.tsx`: All 27 tests passed.
   - `npm run build`: Production build succeeded.
+
+---
+
+## R-02: Hide the unused sound control
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/config/site.ts`
+  - `components/layout/Header.tsx`
+  - `tests/A/fe-08.test.tsx`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Add single configuration flag (default false) controlling header sound toggle*: Verified. `SITE_CONFIG.showSoundToggle` set to `false` in `lib/config/site.ts`.
+  2. *Toggle is not rendered while false*: Verified. `<Header>` conditionally skips `<SoundToggle />` when `SITE_CONFIG.showSoundToggle` is false.
+  3. *Keep preference logic and tests*: Verified. `usePreferences` hook and storage persistence logic remain intact and fully covered by `tests/A/fe-10.test.tsx` and `tests/A/fe-37.test.tsx`.
+  4. *FE-37 remains blocked*: Confirmed. Documented in `docs/BLOCKERS.md` (BL-01).
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npx vitest run tests/A/fe-08.test.tsx tests/A/fe-10.test.tsx tests/A/fe-37.test.tsx`: All 17 tests passed.
+  - `npm run build`: Production build succeeded.
+
 
 
 

@@ -75,4 +75,10 @@ describe('FE-08: Site layout shell (Header, Footer, MobileNav)', () => {
     expect(screen.getByRole('link', { name: /shop all/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /build your own/i })).toBeInTheDocument();
   });
+
+  it('hides sound toggle in header when SITE_CONFIG.showSoundToggle is false', () => {
+    expect(SITE_CONFIG.showSoundToggle).toBe(false);
+    render(<Header />);
+    expect(screen.queryByRole('button', { name: /sound effects/i })).not.toBeInTheDocument();
+  });
 });

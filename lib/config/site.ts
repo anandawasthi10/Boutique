@@ -26,4 +26,5 @@ export const SITE_CONFIG = {
     address: 'Studio address to be added',
     mapLink: 'https://maps.google.com/?q=Studio+location+to+be+added',
   },
+  showSoundToggle: false,
 } as const;

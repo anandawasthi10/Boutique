@@ -84,8 +84,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
               <Search className="w-5 h-5" />
             </Link>
 
-            {/* Sound Toggle */}
-            <SoundToggle />
+            {/* Sound Toggle (hidden while showSoundToggle is false) */}
+            {SITE_CONFIG.showSoundToggle && <SoundToggle />}
 
             {/* Account / Login */}
             {user ? (
