@@ -1145,6 +1145,29 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   - `npm test`: Passed (40 test files, 231 tests).
   - `npm run build`: Production build succeeded.
 
+---
+
+## R-07: Scope check
+
+- **Status**: done
+- **Files Changed**:
+  - `scripts/generate-placeholders.js` (removed)
+  - `scripts/README.md` (added)
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Inspect prisma/, app/api/, and scripts/ folders*: Verified.
+     - `prisma/`: Contains solely `README.md` placeholder. No schemas or database migrations exist.
+     - `app/api/`: Contains solely `README.md` placeholder. No backend routes or API controllers exist.
+     - `scripts/`: Removed legacy helper script `generate-placeholders.js` and retained clean `scripts/README.md` placeholder.
+  2. *Strict scope separation maintained*: Frontend repository contains 0 backend code, 0 database schemas, and 0 admin areas.
+- **Tests Run & Results**:
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npm run lint`: Passed with 0 errors.
+  - `npm test`: Passed (40 test files, 231 tests).
+  - `npm run build`: Production build succeeded.
+
+
 
 
 

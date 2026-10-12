@@ -111,5 +111,12 @@ This log tracks architectural choices, open decision resolutions, and dependenci
     9. Fetching order history and verifying the confirmed order in the customer's orders list.
 - **Reason**: Comply with R-06 test quality requirements.
 
+---
 
-
+### R-07: Scope check
+- **Question**: How to ensure backend boundaries are strictly maintained across `prisma/`, `app/api/`, and `scripts/` folders?
+- **Decision**:
+  - Inspected `prisma/`: verified it contains solely `README.md` placeholder declaring backend ownership by Members B and C. No database schemas or Prisma models exist.
+  - Inspected `app/api/`: verified it contains solely `README.md` placeholder declaring backend ownership by Members B and C. No API routes or backend controllers exist.
+  - Inspected `scripts/`: found `generate-placeholders.js` (an ephemeral script used once during early FE setup). Removed `generate-placeholders.js` and created `scripts/README.md` placeholder documenting that operations/backend scripts belong to Members B and C.
+- **Reason**: Comply with R-07 scope boundary requirements. Backend remains strictly owned by Members B and C.
