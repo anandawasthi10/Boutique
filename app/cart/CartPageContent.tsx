@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, ArrowRight, ShieldCheck, Sparkles, AlertTriangle } from 'lucide-react';
+import { ShoppingBag, ArrowRight, Sparkles, AlertTriangle } from 'lucide-react';
 import { useCart } from '@/lib/hooks/useCart';
 import { formatCurrency } from '@/lib/format/currency';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -190,7 +190,7 @@ export const CartPageContent: React.FC = () => {
                   <div className="flex justify-between items-center text-[var(--color-text-muted)]">
                     <span>Estimated Shipping</span>
                     <span className="text-[var(--color-text)] font-medium">
-                      Complimentary
+                      Calculated at checkout
                     </span>
                   </div>
 
@@ -237,11 +237,7 @@ export const CartPageContent: React.FC = () => {
                 <div className="flex flex-col gap-2.5 pt-4 border-t border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-[var(--color-accent)] shrink-0" />
-                    <span>Handmade with care to order</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[var(--color-primary)] shrink-0" />
-                    <span>Complimentary insured shipping across India</span>
+                    <span>Handmade accessories</span>
                   </div>
                 </div>
               </div>

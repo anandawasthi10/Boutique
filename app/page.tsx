@@ -241,7 +241,7 @@ export default function HomePage() {
               Build your own accessory in three simple steps.
             </h2>
             <p className="text-body text-[var(--color-text-muted)]">
-              Choose your product, pick your fabric texture and dimensions, and inspect your live server price breakdown before ordering.
+              Choose your product, pick your fabric texture and dimensions, and see your price update as you choose before ordering.
             </p>
           </div>
           <div className="shrink-0">

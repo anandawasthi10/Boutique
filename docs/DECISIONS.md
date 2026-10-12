@@ -33,8 +33,14 @@ This log tracks architectural choices, open decision resolutions, and dependenci
 
 ---
 
-### FE-35: Session resumption and uncommitted changes inspection
-- **Question**: Uncommitted changes found in working directory during session resume: `app/about/`, `lib/config/about.ts`, `tests/A/fe-35.test.tsx`.
-- **Decision**: Inspected changes and verified they belong to the unfinished ticket FE-35 (About the brand). The implementation holds all text in centralized config `lib/config/about.ts`, provides clearly marked client founder story placeholder copy, avoids invented history/awards/metrics/testimonials, renders responsive atelier figure with real alt text and captions, and includes comprehensive tests in `tests/A/fe-35.test.tsx`. Kept, verified against full test suite, and finalized for FE-35 commit.
+### R-01: Remove invented claims and fix copy
+- **Question**: Which customer-facing claims and placeholders needed removal or replacement?
+- **Decision**:
+  - Replaced "live server price breakdown" on the homepage with "see your price update as you choose before ordering".
+  - Replaced "Complimentary" shipping labels on the order confirmation, order detail, and cart pages with standard shipping currency formatting and "Calculated at checkout".
+  - Removed invented delivery/shipping claims ("Complimentary insured shipping across India").
+  - Replaced studio address, email, and phone with visible placeholders: "Studio address to be added", "hello@example.com", "+91 00000 00000", centralized in `lib/config/site.ts` and `lib/config/contact.ts`.
+  - Replaced "What Happens Next" text on order confirmation with plain factual text ("Your order has been received. You can track progress and updates anytime in your account.") and toned down craftsmanship copy in `Footer.tsx` and `lib/config/about.ts`.
+- **Reason**: Comply with R-01 instructions to remove ungrounded customer-facing claims not supported by the specifications.
 
 

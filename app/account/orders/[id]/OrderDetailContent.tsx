@@ -360,7 +360,7 @@ export const OrderDetailContent: React.FC<OrderDetailContentProps> = ({ orderId 
               <div className="flex justify-between" style={{ color: 'var(--color-text-muted)' }}>
                 <dt>Shipping</dt>
                 <dd>
-                  {order.totals.shipping === 0 ? 'Complimentary' : formatCurrency(order.totals.shipping)}
+                  {formatCurrency(order.totals.shipping)}
                 </dd>
               </div>
 

@@ -13,8 +13,7 @@ export const Footer: React.FC = () => {
               {SITE_CONFIG.brandName}
             </span>
             <p className="text-body text-[var(--color-text-muted)] max-w-md">
-              Fabric accessories made by hand with care, high quality materials, and personal customisation.
-              Designed for daily utility and quiet beauty.
+              Handmade fabric accessories with personal customisation.
             </p>
           </div>
 
@@ -64,7 +63,7 @@ export const Footer: React.FC = () => {
         <div className="border-t border-[var(--color-border)] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[var(--color-text-muted)]">
           <p>© 2026 {SITE_CONFIG.brandName}. All rights reserved.</p>
           <p className="text-script text-base text-[var(--color-text-muted)]">
-            Handcrafted with care & precision
+            Handmade accessories
           </p>
         </div>
       </div>

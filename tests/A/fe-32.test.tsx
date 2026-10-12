@@ -143,7 +143,7 @@ describe('FE-32: Order confirmation', () => {
     expect(screen.getByTestId('order-number-display')).toHaveTextContent('#ORD-2026-FE32');
   });
 
-  it('explains what happens next with craftsmanship details without making false delivery timeline claims', async () => {
+  it('explains what happens next clearly without making false delivery timeline claims', async () => {
     vi.mocked(navigation.useSearchParams).mockReturnValue(
       new URLSearchParams('orderId=ord-fe32-confirmed') as unknown as ReturnType<typeof navigation.useSearchParams>
     );
@@ -155,7 +155,7 @@ describe('FE-32: Order confirmation', () => {
     });
 
     expect(screen.getByRole('heading', { name: /What Happens Next/i })).toBeInTheDocument();
-    expect(screen.getByText(/individually handcrafted with care/i)).toBeInTheDocument();
+    expect(screen.getByText(/Your order has been received/i)).toBeInTheDocument();
     // Does not claim fake delivery timelines like "Delivered in 2 days" or "Guaranteed tomorrow"
     expect(screen.queryByText(/guaranteed tomorrow/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/delivered in 2 days/i)).not.toBeInTheDocument();

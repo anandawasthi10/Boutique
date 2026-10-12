@@ -21,9 +21,9 @@ export const SITE_CONFIG = {
     { label: 'My Account', href: '/account' },
   ],
   contact: {
-    email: 'hello@brandname.com',
-    phone: '+91 98765 43210',
-    address: '12 Rosewood Studio, Indiranagar, Bengaluru, Karnataka 560038',
-    mapLink: 'https://maps.google.com/?q=Indiranagar+Bengaluru',
+    email: 'hello@example.com',
+    phone: '+91 00000 00000',
+    address: 'Studio address to be added',
+    mapLink: 'https://maps.google.com/?q=Studio+location+to+be+added',
   },
 } as const;

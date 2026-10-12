@@ -26,33 +26,33 @@ export interface AboutContentConfig {
 }
 
 export const ABOUT_CONTENT: AboutContentConfig = {
-  headline: 'Crafted with Intention and Care',
-  subheadline: 'Our Studio Philosophy',
+  headline: 'Handmade Fabric Accessories',
+  subheadline: 'Studio & Workshop',
   leadParagraph:
-    'We believe everyday accessories should feel personal, enduring, and pleasurable to touch. Every scrunchie, pouch, and sleeve in our collection is cut, stitched, and assembled by hand in our independent studio using carefully chosen natural textiles.',
-  artisanNoteTitle: 'About the Atelier',
+    'We make fabric accessories including scrunchies, pouches, and sleeves. Every piece is cut, stitched, and assembled by hand in our studio using natural textiles.',
+  artisanNoteTitle: 'About the Studio',
   artisanNotePlaceholder:
     '(Founder story placeholder: client to supply personal studio background, craft journey, and regional textile inspiration.)',
   sections: [
     {
-      title: 'Small-Batch Handcrafting',
+      title: 'Handmade Assembly',
       body:
-        'Rather than mass manufacturing, we produce pieces in restrained quantities. This allows us to inspect every seam, finish edges with precision, and offer customizable options so each accessory reflects its owner.',
+        'We produce pieces in our studio and offer customizable options so each accessory can be tailored to your preference.',
     },
     {
-      title: 'Tactile, Natural Materials',
+      title: 'Fabrics & Textiles',
       body:
-        'We work predominantly with tactile fabrics that age gracefully: breathable linen, ribbed corduroy, soft cotton prints, and plush velvet. Every textile is selected for its hand-feel, durability, and daily comfort.',
+        'We work with textiles including linen, corduroy, cotton prints, and velvet across our collection.',
     },
     {
-      title: 'Form Meets Daily Utility',
+      title: 'Everyday Utility',
       body:
-        'A pouch must zip smoothly; a sleeve must cushion your laptop without unnecessary bulk; a scrunchie must hold gently without tugging. We refine every measurement so our pieces serve your routine effortlessly.',
+        'Our collection includes pouches with zippers, padded device sleeves, and hair scrunchies designed for daily use.',
     },
   ],
-  materialStoryTitle: 'A Commitment to Quality',
+  materialStoryTitle: 'Materials & Details',
   materialStoryBody:
-    'From brass zippers to reinforced lining, we use hardware and threads chosen for longevity. When you choose a bespoke accessory, you receive a piece made thoughtfully from first cut to final knot.',
+    'Hardware and textiles are chosen for each accessory type. Custom options allow you to choose fabrics, dimensions, and finishes.',
   image: {
     src: '/images/placeholders/pouch-1.svg',
     alt: 'Handcrafted studio accessory with natural fabric texture (Placeholder)',

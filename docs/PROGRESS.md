@@ -986,10 +986,35 @@ This file tracks the ticket-by-ticket execution progress, verification of accept
   3. *Tests run with one documented command and pass in a clean checkout*: Verified. Single command `npm test` runs all 40 test suites.
   4. *The report lists what is not covered by automated tests*: Verified. Documented in `docs/FINAL_REPORT.md` (live real-bank payment gateway webhooks, licensed audio playback, and production SMTP deliverability).
 - **Tests Run & Results**:
+---
+
+## R-01: Remove invented claims and fix copy
+
+- **Status**: done
+- **Files Changed**:
+  - `lib/config/site.ts`
+  - `lib/config/contact.ts`
+  - `lib/config/about.ts`
+  - `app/page.tsx`
+  - `app/cart/CartPageContent.tsx`
+  - `components/layout/Footer.tsx`
+  - `components/checkout/PaymentResultSuccess.tsx`
+  - `app/account/orders/[id]/OrderDetailContent.tsx`
+  - `tests/A/fe-32.test.tsx`
+  - `docs/DECISIONS.md`
+  - `docs/PROGRESS.md`
+- **Acceptance Criteria Verification**:
+  1. *Removed invented claims and complimentary shipping wording*: Verified. Replaced "Complimentary" indicator on order confirmation and order details with direct currency formatting, and replaced estimated shipping on cart page with "Calculated at checkout". Removed free shipping trust markers.
+  2. *Replaced "live server price breakdown" wording*: Verified. Replaced with "see your price update as you choose before ordering" on homepage.
+  3. *Obvious placeholders in contact details*: Verified. Configured `hello@example.com`, `+91 00000 00000`, `Studio address to be added` across `site.ts` and `contact.ts`.
+  4. *Toned down craftsmanship/material claims*: Verified in `about.ts` and `Footer.tsx`.
+  5. *All config kept in centralized files & tests updated*: Verified.
+- **Tests Run & Results**:
   - `npm run typecheck`: Passed with 0 errors.
   - `npm run lint`: Passed with 0 errors.
-  - `npm test`: Passed (228 tests across 40 test suites).
-  - `npm run build`: Production build succeeded (29 static routes prerendered).
+  - `npx vitest run tests/A/fe-32.test.tsx tests/A/fe-35.test.tsx tests/A/fe-36.test.tsx tests/A/fe-34.test.tsx tests/A/fe-11.test.tsx`: All 27 tests passed.
+  - `npm run build`: Production build succeeded.
+
 
 
 

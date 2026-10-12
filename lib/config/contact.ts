@@ -33,19 +33,19 @@ export interface ContactConfig {
 }
 
 export const CONTACT_CONFIG: ContactConfig = {
-  headline: 'Get in Touch with Our Atelier',
-  subheadline: 'Studio & Concierge',
+  headline: 'Contact',
+  subheadline: 'Studio & Inquiries',
   leadParagraph:
-    'Have a question about our bespoke accessories, fabric sourcing, or an active order? Reach out directly or visit our studio during open workshop hours.',
-  email: 'studio@handmadeboutique.com',
-  phone: '+919876543210',
-  formattedPhone: '+91 98765 43210',
+    'Have a question about our accessories or an active order? Reach out directly or visit our studio.',
+  email: 'hello@example.com',
+  phone: '+910000000000',
+  formattedPhone: '+91 00000 00000',
   address: {
-    line1: 'Atelier 4, Crafts Quarter',
-    line2: '12th Main Road, Indiranagar',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    postalCode: '560038',
+    line1: 'Studio address to be added',
+    line2: '',
+    city: 'City to be added',
+    state: 'State to be added',
+    postalCode: '000000',
     country: 'India',
   },
   visitingHours: [
@@ -59,14 +59,14 @@ export const CONTACT_CONFIG: ContactConfig = {
     },
     {
       days: 'Sunday – Monday',
-      hours: 'Studio Closed (Crafting Days)',
+      hours: 'Studio Closed',
     },
   ],
   visitingNote:
-    'Our studio is a working textile workshop. Private styling appointments and bespoke fabric viewings can be scheduled in advance via email.',
-  mapLink: 'https://maps.google.com/?q=Atelier+4+Crafts+Quarter+Indiranagar+Bengaluru+560038',
-  mapLinkLabel: 'Open atelier location in Google Maps',
+    'Studio visiting details to be added.',
+  mapLink: 'https://maps.google.com/?q=Studio+location+to+be+added',
+  mapLinkLabel: 'Open studio location in Google Maps',
   responseExpectation: 'We typically respond to inquiries within 24 to 48 business hours.',
   placeholderNotice:
-    '(Store location details placeholder: client to verify physical atelier address, telephone, and studio visiting hours prior to public launch.)',
+    '(Store location details placeholder: client to verify physical studio address, telephone, and visiting hours prior to public launch.)',
 };

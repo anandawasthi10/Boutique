@@ -173,9 +173,9 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
               </div>
 
               <div className="flex justify-between" style={{ color: 'var(--color-text-muted)' }}>
-                <dt>Standard Shipping</dt>
+                <dt>Shipping</dt>
                 <dd>
-                  {order.totals.shipping === 0 ? 'Complimentary' : formatCurrency(order.totals.shipping)}
+                  {formatCurrency(order.totals.shipping)}
                 </dd>
               </div>
 
@@ -218,7 +218,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
           </div>
 
           <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-            Each accessory is individually handcrafted with care in our atelier. Once your piece passes our final quality review and is packaged, we will dispatch it to your specified delivery address and update its status in your account.
+            Your order has been received. You can track progress and updates anytime in your account.
           </p>
         </section>
 
