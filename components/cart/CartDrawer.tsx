@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, ArrowRight, AlertCircle } from 'lucide-react';
+import { ShoppingBag, AlertCircle } from 'lucide-react';
 import { Drawer } from '@/components/ui/Drawer';
 import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -99,7 +99,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           className={`w-full justify-center ${reducedMotion ? 'transition-none' : ''}`}
         >
           Proceed to Checkout
-          <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
 
         <Button

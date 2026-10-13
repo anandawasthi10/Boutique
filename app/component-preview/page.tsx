@@ -17,7 +17,7 @@ import {
   EmptyState,
   ErrorState,
 } from '@/components/ui';
-import { ShoppingBag, ArrowRight, Heart } from 'lucide-react';
+import { ShoppingBag, Heart } from 'lucide-react';
 
 function PreviewContent() {
   const { showToast } = useToast();
@@ -52,7 +52,7 @@ function PreviewContent() {
           </Button>
 
           <Button variant="secondary">Secondary Default</Button>
-          <Button variant="secondary" rightIcon={<ArrowRight className="w-4 h-4" />}>
+          <Button variant="secondary">
             Next
           </Button>
           <Button variant="secondary" disabled>

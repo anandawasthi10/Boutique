@@ -6,7 +6,7 @@ import { addressesApi, ApiException } from '@/lib/api';
 import { AddressForm } from '@/components/account/AddressForm';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { Plus, MapPin, Check, ArrowRight } from 'lucide-react';
+import { Plus, MapPin, Check } from 'lucide-react';
 
 export interface AddressSelectionStepProps {
   addresses: Address[];
@@ -183,7 +183,6 @@ export const AddressSelectionStep: React.FC<AddressSelectionStepProps> = ({
             data-testid="continue-to-review-btn"
           >
             <span>Continue to Review</span>
-            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       )}

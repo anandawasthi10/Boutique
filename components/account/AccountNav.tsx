@@ -83,7 +83,7 @@ export const AccountNav: React.FC = () => {
                 aria-current={active ? 'page' : undefined}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-[4px] text-body-small font-medium transition-colors duration-150 ${
                   active
-                    ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)] font-semibold border-l-2 border-[var(--color-primary)]'
+                    ? 'bg-[var(--color-surface-alt)] text-[var(--color-primary)] font-semibold'
                     : 'text-[var(--color-text)] hover:bg-[var(--color-bg)] hover:text-[var(--color-text)]'
                 }`}
               >

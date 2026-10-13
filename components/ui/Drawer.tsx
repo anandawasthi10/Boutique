@@ -93,7 +93,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300"
+        className="fixed inset-0 bg-black/40 transition-opacity duration-300"
         aria-hidden="true"
         onClick={onClose}
         data-testid="drawer-backdrop"

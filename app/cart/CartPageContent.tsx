@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, ArrowRight, Sparkles, AlertTriangle } from 'lucide-react';
+import { ShoppingBag, AlertTriangle } from 'lucide-react';
 import { useCart } from '@/lib/hooks/useCart';
 import { formatCurrency } from '@/lib/format/currency';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -230,15 +230,11 @@ export const CartPageContent: React.FC = () => {
                   data-testid="proceed-to-checkout-btn"
                 >
                   <span>Proceed to Checkout</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
 
                 {/* Editorial Trust Markers */}
                 <div className="flex flex-col gap-2.5 pt-4 border-t border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[var(--color-accent)] shrink-0" />
-                    <span>Handmade accessories</span>
-                  </div>
+                  <span>Handmade accessories</span>
                 </div>
               </div>
             </div>

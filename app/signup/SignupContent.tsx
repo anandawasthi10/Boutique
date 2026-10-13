@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Eye, EyeOff, AlertCircle, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { sanitizeReturnUrl } from '@/lib/utils/url';
 import { Input } from '@/components/ui/Input';
@@ -269,7 +269,6 @@ export const SignupContent: React.FC = () => {
               data-testid="signup-submit-btn"
             >
               <span>Create Account</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </form>
 

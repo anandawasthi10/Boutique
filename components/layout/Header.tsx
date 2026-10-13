@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-40 w-full bg-[var(--color-bg)]/95 backdrop-blur-xs border-b border-[var(--color-border)] transition-colors">
+      <header className="sticky top-0 z-40 w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] transition-colors">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
           {/* Left: Mobile Menu Toggle & Desktop Nav */}
           <div className="flex items-center gap-6">

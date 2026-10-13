@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Mail, Phone, MapPin, Clock, ExternalLink, Info, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, ExternalLink, Info } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/lib/config/contact';
 
 export const ContactContent: React.FC = () => {
@@ -63,11 +63,10 @@ export const ContactContent: React.FC = () => {
             >
               <h2
                 id="direct-contact-heading"
-                className="font-serif text-2xl font-normal mb-6 flex items-center gap-2"
+                className="font-serif text-2xl font-normal mb-6"
                 style={{ color: 'var(--color-text)' }}
               >
-                <Sparkles className="w-5 h-5" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
-                Direct Concierge
+                Direct Inquiries
               </h2>
 
               <div className="space-y-6">

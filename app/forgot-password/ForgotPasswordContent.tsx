@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Mail, AlertCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Mail, AlertCircle, ArrowLeft } from 'lucide-react';
 import { authApi } from '@/lib/api';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
@@ -147,7 +147,6 @@ export const ForgotPasswordContent: React.FC = () => {
                   data-testid="forgot-password-submit-btn"
                 >
                   <span>Send Reset Link</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </form>
 

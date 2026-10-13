@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Eye, EyeOff, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { authApi } from '@/lib/api';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
@@ -151,7 +151,6 @@ export const ResetPasswordContent: React.FC = () => {
                 className="inline-flex items-center justify-center min-h-[48px] w-full px-6 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-primary-text)] text-sm font-medium uppercase tracking-wide hover:bg-[#5D4940] transition-colors"
               >
                 <span>Sign In</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
           ) : (
@@ -253,7 +252,6 @@ export const ResetPasswordContent: React.FC = () => {
                   data-testid="reset-password-submit-btn"
                 >
                   <span>Set New Password</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </form>
 

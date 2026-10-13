@@ -50,15 +50,15 @@ export const CONTACT_CONFIG: ContactConfig = {
   },
   visitingHours: [
     {
-      days: 'Tuesday – Friday',
-      hours: '11:00 AM – 7:00 PM IST',
+      days: 'Tuesday to Friday',
+      hours: '11:00 AM to 7:00 PM IST',
     },
     {
       days: 'Saturday',
-      hours: '12:00 PM – 6:00 PM IST',
+      hours: '12:00 PM to 6:00 PM IST',
     },
     {
-      days: 'Sunday – Monday',
+      days: 'Sunday to Monday',
       hours: 'Studio Closed',
     },
   ],

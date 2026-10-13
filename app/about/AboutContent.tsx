@@ -3,14 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, Scissors, Layers, HeartHandshake } from 'lucide-react';
 import { ABOUT_CONTENT } from '@/lib/config/about';
 import { Button } from '@/components/ui/Button';
 
 export const AboutContent: React.FC = () => {
   const content = ABOUT_CONTENT;
-
-  const sectionIcons = [Scissors, Layers, HeartHandshake];
 
   return (
     <article className="min-h-screen py-12 md:py-20" data-testid="about-page">
@@ -78,8 +75,7 @@ export const AboutContent: React.FC = () => {
             borderColor: 'var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
+          <div className="mb-3">
             <h2
               id="artisan-note-heading"
               className="font-serif text-xl sm:text-2xl font-normal"
@@ -115,8 +111,7 @@ export const AboutContent: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {content.sections.map((section, idx) => {
-            const Icon = sectionIcons[idx] || Sparkles;
+          {content.sections.map((section) => {
             return (
               <div
                 key={section.title}
@@ -127,15 +122,6 @@ export const AboutContent: React.FC = () => {
                 }}
               >
                 <div>
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center mb-4"
-                    style={{
-                      backgroundColor: 'rgba(74, 58, 51, 0.08)',
-                      color: 'var(--color-primary)',
-                    }}
-                  >
-                    <Icon className="w-5 h-5" aria-hidden="true" />
-                  </div>
                   <h3
                     className="font-serif text-xl font-medium mb-3"
                     style={{ color: 'var(--color-text)' }}
@@ -197,9 +183,8 @@ export const AboutContent: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/shop" className="w-full sm:w-auto">
-            <Button variant="primary" className="w-full sm:w-auto inline-flex items-center justify-center gap-2">
+            <Button variant="primary" className="w-full sm:w-auto inline-flex items-center justify-center">
               Browse Collection
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Button>
           </Link>
           <Link href="/build-your-own" className="w-full sm:w-auto">

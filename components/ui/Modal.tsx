@@ -96,7 +96,7 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-black/40 transition-opacity"
         aria-hidden="true"
         onClick={onClose}
         data-testid="modal-backdrop"

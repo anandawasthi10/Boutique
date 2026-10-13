@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { CheckCircle2, ShoppingBag, ArrowRight, Package, MapPin, Sparkles } from 'lucide-react';
+import { CheckCircle2, ShoppingBag, Package, MapPin } from 'lucide-react';
 import { Order } from '@/lib/types';
 import { Button } from '@/components/ui/Button';
 import { formatCurrency } from '@/lib/format/currency';
@@ -206,8 +206,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
             border: '1px solid var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2 mb-2">
-            <Sparkles className="w-5 h-5" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
+          <div className="mb-2">
             <h2
               id="what-next-heading"
               className="font-serif text-lg font-medium"
@@ -231,7 +230,6 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2"
             >
               View in My Orders
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Button>
           </Link>
           <Link href="/shop" className="w-full sm:w-auto">

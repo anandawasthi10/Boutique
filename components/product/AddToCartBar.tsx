@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, ArrowRight, Check, AlertCircle, RefreshCw } from 'lucide-react';
+import { ShoppingBag, Check, AlertCircle, RefreshCw } from 'lucide-react';
 import { Product, OptionGroup } from '@/lib/types';
 import { Button } from '@/components/ui/Button';
 import { QuantityStepper } from '@/components/cart/QuantityStepper';
@@ -217,10 +217,7 @@ export const AddToCartBar: React.FC<AddToCartBarProps> = ({
             isLoading={isSubmitting && actionType === 'buy_now'}
             className="flex-1 justify-center min-h-[48px]"
           >
-            <span className="inline-flex items-center gap-1.5">
-              Buy Now
-              <ArrowRight className="w-4 h-4" />
-            </span>
+            <span>Buy Now</span>
           </Button>
         </div>
       </div>

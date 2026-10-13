@@ -66,7 +66,7 @@ export const ConfiguratorPreview: React.FC<ConfiguratorPreviewProps> = ({
         />
 
         {previewImageOption && (
-          <div className="absolute top-3 left-3 bg-surface/90 backdrop-blur-xs px-2.5 py-1 rounded-[4px] text-xs font-medium text-text border border-border">
+          <div className="absolute top-3 left-3 bg-surface px-2.5 py-1 rounded-[4px] text-xs font-medium text-text border border-border">
             Preview: {previewImageOption.label}
           </div>
         )}

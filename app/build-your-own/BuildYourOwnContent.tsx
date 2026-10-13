@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/Button';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { ProductConfigurator } from '@/components/configurator/ProductConfigurator';
 import { formatCurrency } from '@/lib/format/currency';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export const BuildYourOwnContent: React.FC = () => {
   const [products, setProducts] = useState<ProductSummary[]>([]);
@@ -116,8 +116,7 @@ export const BuildYourOwnContent: React.FC = () => {
       {/* Header section */}
       <div className="my-6 border-b border-[var(--color-border)] pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <span className="text-[12px] uppercase tracking-wider font-semibold text-[var(--color-text-muted)] flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+          <span className="text-[12px] uppercase tracking-wider font-semibold text-[var(--color-text-muted)]">
             Bespoke Studio
           </span>
           <h1 className="text-h1 font-heading text-[var(--color-text)] mt-1">
@@ -213,9 +212,8 @@ export const BuildYourOwnContent: React.FC = () => {
                   <p className="text-xs text-[var(--color-text)] font-medium mt-1">
                     From {formatCurrency(prod.basePrice)}
                   </p>
-                  <div className="mt-3 pt-2.5 border-t border-[var(--color-border)] flex items-center justify-between text-xs font-semibold text-[var(--color-primary)]">
+                  <div className="mt-3 pt-2.5 border-t border-[var(--color-border)] text-xs font-semibold text-[var(--color-primary)]">
                     <span>Customize this</span>
-                    <Sparkles className="w-3.5 h-3.5" />
                   </div>
                 </button>
               );
