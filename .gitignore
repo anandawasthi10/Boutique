@@ -42,3 +42,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Internal documentation and agent records
+/docs/
+AGENTS.md
+
+# (Optional) Tests and test configs if you only want the app code
+# /tests/
+# /e2e/
+# vitest.config.mts
+# playwright.config.ts
+
+# Editor settings
+.vscode/
+.idea/
+
