@@ -19,6 +19,12 @@ export const SITE_CONFIG = {
     { label: 'About the Brand', href: '/about' },
     { label: 'Contact & Store', href: '/contact' },
     { label: 'My Account', href: '/account' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+  ],
+  legalLinks: [
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
   ],
   contact: {
     email: 'hello@example.com',

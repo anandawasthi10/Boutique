@@ -62,6 +62,20 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-[var(--color-border)] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[var(--color-text-muted)]">
           <p>© 2026 {SITE_CONFIG.brandName}. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/privacy"
+              className="hover:underline hover:text-[var(--color-text)] transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="hover:underline hover:text-[var(--color-text)] transition-colors"
+            >
+              Terms of Service
+            </Link>
+          </div>
           <p className="text-script text-base text-[var(--color-text-muted)]">
             Handmade accessories
           </p>
