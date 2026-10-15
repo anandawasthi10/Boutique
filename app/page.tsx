@@ -122,8 +122,8 @@ export default function HomePage() {
           <div className="lg:col-span-5 w-full">
             <div className="relative aspect-4/5 w-full rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-soft)]">
               <Image
-                src="/images/placeholders/scrunchie-1.svg"
-                alt="Handmade accessories featured collection (Placeholder)"
+                src="/images/handmade-accessories-hero.jpg"
+                alt="Handmade accessories featured collection"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 40vw"
