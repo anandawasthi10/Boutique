@@ -22,7 +22,7 @@ export const MOCK_CATEGORIES: CategorySummary[] = [
     slug: 'sleeves',
     name: 'Sleeves',
     description: 'Protective quilted sleeves for glasses, laptops, and essentials.',
-    image: '/images/placeholders/laptop-1.svg',
+    image: '/images/productimages/sleeves-category.jpg',
     sortOrder: 3,
   },
 ];
