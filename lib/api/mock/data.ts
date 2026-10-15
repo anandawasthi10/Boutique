@@ -14,7 +14,7 @@ export const MOCK_CATEGORIES: CategorySummary[] = [
     slug: 'pouches',
     name: 'Pouches',
     description: 'Everyday zippered makeup and utility pouches.',
-    image: '/images/placeholders/pouch-1.svg',
+    image: '/images/productimages/pouches-category.jpg',
     sortOrder: 2,
   },
   {
