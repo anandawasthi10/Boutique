@@ -47,6 +47,7 @@ next-env.d.ts
 # Internal documentation and agent records
 /docs/
 AGENTS.md
+.agents/
 
 # (Optional) Tests and test configs if you only want the app code
 # /tests/
