@@ -53,8 +53,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cormorant.variable} ${dmSans.variable} ${caveat.variable}`}
+      suppressHydrationWarning
     >
-      <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased min-h-screen flex flex-col selection:bg-[var(--color-blush)] selection:text-[var(--color-text)]">
+      <body
+        className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased min-h-screen flex flex-col selection:bg-[var(--color-blush)] selection:text-[var(--color-text)]"
+        suppressHydrationWarning
+      >
         <PreferencesProvider>
           <AuthProvider>
             <CartProvider>
