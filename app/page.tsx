@@ -150,19 +150,14 @@ export default function HomePage() {
         </div>
 
         {categoriesLoading && (
-          <div data-testid="categories-loading" className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-6 space-y-3">
-              <Skeleton className="aspect-[4/3] w-full rounded-[4px]" />
-              <Skeleton className="h-6 w-32 rounded-[4px]" />
-            </div>
-            <div className="md:col-span-3 space-y-3">
-              <Skeleton className="aspect-square w-full rounded-[4px]" />
-              <Skeleton className="h-6 w-24 rounded-[4px]" />
-            </div>
-            <div className="md:col-span-3 space-y-3">
-              <Skeleton className="aspect-square w-full rounded-[4px]" />
-              <Skeleton className="h-6 w-24 rounded-[4px]" />
-            </div>
+          <div data-testid="categories-loading" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="space-y-3">
+                <Skeleton className="aspect-square w-full rounded-[4px]" />
+                <Skeleton className="h-6 w-32 rounded-[4px]" />
+                <Skeleton className="h-4 w-48 rounded-[4px]" />
+              </div>
+            ))}
           </div>
         )}
 
@@ -175,41 +170,34 @@ export default function HomePage() {
         )}
 
         {!categoriesLoading && !categoriesError && categories.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-            {categories.map((cat, idx) => {
-              const isLarge = idx === 0;
-              return (
-                <NextLink
-                  key={cat.id}
-                  href={`/shop?category=${cat.slug}`}
-                  className={`group flex flex-col ${isLarge ? 'md:col-span-6' : 'md:col-span-3'}`}
-                >
-                  <div
-                    className={`relative w-full rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] ${
-                      isLarge ? 'aspect-[4/3]' : 'aspect-square'
-                    }`}
-                  >
-                    <Image
-                      src={cat.image || '/images/placeholders/scrunchie-1.svg'}
-                      alt={cat.name}
-                      fill
-                      sizes={isLarge ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 25vw'}
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    />
-                  </div>
-                  <div className="mt-3">
-                    <h3 className="text-h3 text-[var(--color-text)] font-medium group-hover:underline underline-offset-4">
-                      {cat.name}
-                    </h3>
-                    {cat.description && (
-                      <p className="text-body-small text-[var(--color-text-muted)] mt-1 line-clamp-2">
-                        {cat.description}
-                      </p>
-                    )}
-                  </div>
-                </NextLink>
-              );
-            })}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+            {categories.map((cat) => (
+              <NextLink
+                key={cat.id}
+                href={`/shop?category=${cat.slug}`}
+                className="group flex flex-col w-full"
+              >
+                <div className="relative w-full aspect-square rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
+                  <Image
+                    src={cat.image || '/images/placeholders/scrunchie-1.svg'}
+                    alt={cat.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="mt-3">
+                  <h3 className="text-h3 text-[var(--color-text)] font-medium group-hover:underline underline-offset-4">
+                    {cat.name}
+                  </h3>
+                  {cat.description && (
+                    <p className="text-body-small text-[var(--color-text-muted)] mt-1 line-clamp-2">
+                      {cat.description}
+                    </p>
+                  )}
+                </div>
+              </NextLink>
+            ))}
           </div>
         )}
       </section>
