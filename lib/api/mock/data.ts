@@ -6,7 +6,7 @@ export const MOCK_CATEGORIES: CategorySummary[] = [
     slug: 'scrunchies',
     name: 'Scrunchies',
     description: 'Generously gathered fabric hair ties in pure cotton, corduroy, and linen.',
-    image: '/images/placeholders/scrunchie-1.svg',
+    image: '/images/productimages/scrunchies-category.jpg',
     sortOrder: 1,
   },
   {
