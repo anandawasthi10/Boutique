@@ -39,7 +39,7 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     basePrice: 249,
     images: [
-      { url: '/images/placeholders/scrunchie-1.svg', alt: 'Classic Scrunchie main view (Placeholder)', order: 1 },
+      { url: '/images/productimages/classic-scrunchie-1.jpg', alt: 'Classic Scrunchie in floral print', order: 1 },
       { url: '/images/placeholders/scrunchie-2.svg', alt: 'Classic Scrunchie fabric texture detail (Placeholder)', order: 2 },
     ],
     optionGroups: [
@@ -56,7 +56,7 @@ export const MOCK_PRODUCTS: Product[] = [
             priceDelta: 0,
             available: true,
             swatchImageUrl: '/images/placeholders/fabric-floral.svg',
-            previewImageUrl: '/images/placeholders/scrunchie-1.svg',
+            previewImageUrl: '/images/productimages/classic-scrunchie-1.jpg',
             detail: 'Soft printed cotton',
           },
           {
