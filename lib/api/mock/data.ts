@@ -233,7 +233,7 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     basePrice: 399,
     images: [
-      { url: '/images/placeholders/sleeve-1.svg', alt: 'Soft Eyewear Sleeve (Placeholder)', order: 1 },
+      { url: '/images/productimages/eyewear-sleeve-1.jpg', alt: 'Soft Eyewear Sleeve in floral print', order: 1 },
     ],
     optionGroups: [
       {
@@ -241,7 +241,7 @@ export const MOCK_PRODUCTS: Product[] = [
         label: 'Fabric Choice',
         type: 'swatch',
         required: true,
-        defaultOptionId: 'opt-corduroy',
+        defaultOptionId: 'opt-floral',
         options: [
           {
             id: 'opt-floral',
@@ -249,6 +249,8 @@ export const MOCK_PRODUCTS: Product[] = [
             priceDelta: 0,
             available: true,
             swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+            previewImageUrl: '/images/productimages/eyewear-sleeve-1.jpg',
+            detail: 'Soft printed cotton',
           },
           {
             id: 'opt-corduroy',
