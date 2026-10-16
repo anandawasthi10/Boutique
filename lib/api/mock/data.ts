@@ -123,7 +123,7 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     basePrice: 599,
     images: [
-      { url: '/images/placeholders/pouch-1.svg', alt: 'Everyday Makeup Pouch front view (Placeholder)', order: 1 },
+      { url: '/images/productimages/makeup-pouch-1.jpg', alt: 'Everyday Makeup Pouch in floral print', order: 1 },
       { url: '/images/placeholders/pouch-2.svg', alt: 'Everyday Makeup Pouch open interior (Placeholder)', order: 2 },
     ],
     optionGroups: [
@@ -140,6 +140,8 @@ export const MOCK_PRODUCTS: Product[] = [
             priceDelta: 0,
             available: true,
             swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+            previewImageUrl: '/images/productimages/makeup-pouch-1.jpg',
+            detail: 'Soft printed cotton',
           },
           {
             id: 'opt-corduroy',
