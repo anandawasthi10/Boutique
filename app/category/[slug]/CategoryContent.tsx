@@ -247,6 +247,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
         isLoading={isLoading}
         error={error}
         onRetry={loadData}
+        headingLevel="h2"
         emptyTitle={`No ${currentCategory?.name || 'items'} found`}
         emptyDescription="There are currently no items available in this category."
       />

@@ -103,10 +103,16 @@ export const CheckoutContent: React.FC = () => {
   if (!cart || cart.items.length === 0) {
     return (
       <div className="bg-[var(--color-bg)] min-h-[calc(100vh-200px)] py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-h1 font-serif text-[var(--color-text)] mb-2">
+            Checkout
+          </h1>
+        </div>
         <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-8 sm:p-12 text-center">
           <EmptyState
             icon={<ShoppingBag className="w-8 h-8 text-[var(--color-text-muted)]" />}
             title="Your Cart is Empty"
+            headingLevel="h2"
             description="You don't have any bespoke items in your cart to checkout."
           >
             <Link
@@ -125,7 +131,7 @@ export const CheckoutContent: React.FC = () => {
     <div className="bg-[var(--color-bg)] min-h-[calc(100vh-200px)] py-8 sm:py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6">
-          <h1 className="text-h2 font-serif text-[var(--color-text)] mb-2">
+          <h1 className="text-h1 font-serif text-[var(--color-text)] mb-2">
             Checkout
           </h1>
           <p className="text-body-small text-[var(--color-text-muted)]">

@@ -100,9 +100,9 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border)]">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
-                <h3 className="text-body font-semibold text-[var(--color-text)]">
+                <h2 className="text-body font-semibold text-[var(--color-text)]">
                   Delivery Destination
-                </h3>
+                </h2>
               </div>
               <Button
                 type="button"
@@ -132,9 +132,9 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
 
           {/* Items Review List */}
           <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-6 shadow-xs">
-            <h3 className="text-body font-semibold text-[var(--color-text)] pb-4 mb-4 border-b border-[var(--color-border)]">
+            <h2 className="text-body font-semibold text-[var(--color-text)] pb-4 mb-4 border-b border-[var(--color-border)]">
               Items in Order ({cart.items.length})
-            </h3>
+            </h2>
 
             <div className="divide-y divide-[var(--color-border)]">
               {cart.items.map((item) => (
@@ -152,9 +152,9 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
                   )}
 
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-body-small font-medium text-[var(--color-text)] truncate">
+                    <h3 className="text-body-small font-medium text-[var(--color-text)] truncate">
                       {item.productName}
-                    </h4>
+                    </h3>
 
                     {item.selectedOptions && item.selectedOptions.length > 0 && (
                       <p className="text-xs text-[var(--color-text-muted)] mt-0.5 leading-relaxed">
@@ -190,9 +190,9 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
         {/* Right Column: Order Summary & Pay Button */}
         <div className="lg:col-span-5">
           <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-6 shadow-xs sticky top-24">
-            <h3 className="text-body font-semibold text-[var(--color-text)] pb-4 mb-4 border-b border-[var(--color-border)]">
+            <h2 className="text-body font-semibold text-[var(--color-text)] pb-4 mb-4 border-b border-[var(--color-border)]">
               Order Summary
-            </h3>
+            </h2>
 
             {/* Totals directly from the API response */}
             <div className="space-y-3 text-body-small text-[var(--color-text-muted)]">

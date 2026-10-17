@@ -10,10 +10,15 @@ import { usePreferences } from '@/lib/hooks/usePreferences';
 
 export interface ProductCardProps {
   product: ProductSummary;
+  headingLevel?: 'h2' | 'h3' | 'h4';
   className?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  headingLevel = 'h3',
+  className = '',
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { reducedMotion } = usePreferences();
@@ -77,9 +82,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
 
       {/* Info */}
       <div className="mt-3.5 flex flex-col gap-1">
-        <h3 className="text-h3 font-medium text-[var(--color-text)] group-hover:underline underline-offset-4 line-clamp-1">
-          {product.name}
-        </h3>
+        {React.createElement(
+          headingLevel,
+          {
+            className:
+              'text-h3 font-medium text-[var(--color-text)] group-hover:underline underline-offset-4 line-clamp-1',
+          },
+          product.name
+        )}
         <p className="text-price text-[var(--color-text-muted)]">
           From {formatCurrency(product.basePrice)}
         </p>

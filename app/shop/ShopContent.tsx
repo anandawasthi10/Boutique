@@ -381,6 +381,7 @@ export const ShopContent: React.FC = () => {
         isLoading={isLoading}
         error={error}
         onRetry={loadData}
+        headingLevel="h2"
         emptyTitle="No accessories found"
         emptyDescription={
           activeChips.length > 0

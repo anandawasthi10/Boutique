@@ -102,6 +102,7 @@ export const CartPageContent: React.FC = () => {
             <EmptyState
               icon={<ShoppingBag className="w-16 h-16 text-[var(--color-text-muted)]" />}
               title="Your shopping bag is empty"
+              headingLevel="h2"
               description="Discover our collection of handcrafted bespoke accessories made to order."
             >
               <Link

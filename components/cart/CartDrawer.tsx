@@ -132,6 +132,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <EmptyState
               icon={<ShoppingBag className="w-12 h-12 text-[var(--color-text-muted)]" />}
               title="Your shopping bag is empty"
+              headingLevel="h2"
               description="Discover our collection of handcrafted bespoke accessories."
             >
               <Link

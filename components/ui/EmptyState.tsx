@@ -5,6 +5,7 @@ import { Button } from './Button';
 
 export interface EmptyStateProps {
   title: string;
+  headingLevel?: 'h1' | 'h2' | 'h3' | 'h4';
   description: string;
   actionLabel?: string;
   onAction?: () => void;
@@ -15,6 +16,7 @@ export interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
   title,
+  headingLevel = 'h3',
   description,
   actionLabel,
   onAction,
@@ -33,7 +35,11 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           {icon}
         </div>
       )}
-      <h3 className="text-h3 text-[var(--color-text)] mb-2">{title}</h3>
+      {React.createElement(
+        headingLevel,
+        { className: 'text-h3 text-[var(--color-text)] mb-2' },
+        title
+      )}
       <p className="text-body text-[var(--color-text-muted)] max-w-md mb-6">{description}</p>
       {actionLabel && onAction && (
         <Button variant="primary" onClick={onAction}>

@@ -132,4 +132,12 @@ describe('FE-11: Product card and grid', () => {
     fireEvent.click(retryBtn);
     expect(handleRetry).toHaveBeenCalledTimes(1);
   });
+
+  it('renders heading with headingLevel prop (default h3, supports h2)', () => {
+    const { rerender } = render(<ProductCard product={sampleProduct} />);
+    expect(screen.getByRole('heading', { level: 3, name: sampleProduct.name })).toBeInTheDocument();
+
+    rerender(<ProductCard product={sampleProduct} headingLevel="h2" />);
+    expect(screen.getByRole('heading', { level: 2, name: sampleProduct.name })).toBeInTheDocument();
+  });
 });

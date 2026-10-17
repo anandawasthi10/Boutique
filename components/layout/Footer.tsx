@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
 
           {/* Navigation Links Column */}
           <div className="space-y-4">
-            <h3 className="text-label text-[var(--color-text)]">Explore</h3>
+            <h2 className="text-label text-[var(--color-text)]">Explore</h2>
             <ul className="space-y-2.5">
               {SITE_CONFIG.footerLinks.map((link) => (
                 <li key={link.href}>
@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
 
           {/* Studio & Contact Column */}
           <div className="space-y-4">
-            <h3 className="text-label text-[var(--color-text)]">Studio</h3>
+            <h2 className="text-label text-[var(--color-text)]">Studio</h2>
             <div className="text-body-small text-[var(--color-text-muted)] space-y-1.5">
               <p>{SITE_CONFIG.contact.address}</p>
               <p>

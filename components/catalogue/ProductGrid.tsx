@@ -16,6 +16,7 @@ export interface ProductGridProps {
   onRetry?: () => void;
   emptyTitle?: string;
   emptyDescription?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
   className?: string;
 }
 
@@ -27,6 +28,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   onRetry,
   emptyTitle = 'No products found',
   emptyDescription = 'There are no items matching this criteria at the moment.',
+  headingLevel,
   className = '',
 }) => {
   const router = useRouter();
@@ -82,7 +84,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 ${className}`.trim()}
     >
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} headingLevel={headingLevel} />
       ))}
     </div>
   );

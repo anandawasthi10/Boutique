@@ -39,9 +39,9 @@ export const SelectionSummary: React.FC<SelectionSummaryProps> = ({
       className={`p-4 rounded-[4px] bg-[var(--color-surface)] border border-[var(--color-border)] flex flex-col gap-3 ${className}`}
     >
       <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-2">
-        <h4 className="text-xs uppercase tracking-wider font-semibold text-[var(--color-text)]">
+        <h2 className="text-xs uppercase tracking-wider font-semibold text-[var(--color-text)]">
           Your Bespoke Selection
-        </h4>
+        </h2>
         {hasMissing ? (
           <span className="flex items-center gap-1 text-[11px] text-[var(--color-warning)] font-medium">
             <AlertCircle className="w-3.5 h-3.5" />
