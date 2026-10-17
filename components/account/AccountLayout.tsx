@@ -34,9 +34,9 @@ export const AccountLayout: React.FC<AccountLayoutProps> = ({
             <aside className="lg:col-span-4 w-full">
               <AccountNav />
             </aside>
-            <main className="lg:col-span-8 w-full">
+            <div className="lg:col-span-8 w-full">
               {children}
-            </main>
+            </div>
           </div>
         </div>
       </div>

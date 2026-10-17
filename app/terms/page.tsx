@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main>
+    <div>
       <TermsContent />
-    </main>
+    </div>
   );
 }

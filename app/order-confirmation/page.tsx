@@ -26,10 +26,10 @@ function OrderConfirmationFallback() {
 
 export default function OrderConfirmationPage() {
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <Suspense fallback={<OrderConfirmationFallback />}>
         <OrderConfirmationContent />
       </Suspense>
-    </main>
+    </div>
   );
 }

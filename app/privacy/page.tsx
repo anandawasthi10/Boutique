@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main>
+    <div>
       <PrivacyContent />
-    </main>
+    </div>
   );
 }
