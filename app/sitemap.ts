@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { productsApi, categoriesApi } from '@/lib/api';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
 
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
       lastModified: new Date(),
@@ -47,4 +48,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ];
+
+  try {
+    const [productsRes, categoriesRes] = await Promise.all([
+      productsApi.getProducts().catch(() => null),
+      categoriesApi.getCategories().catch(() => null),
+    ]);
+
+    const productRoutes: MetadataRoute.Sitemap = (productsRes?.items || []).map((product) => ({
+      url: `${baseUrl}/product/${product.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }));
+
+    const categoryRoutes: MetadataRoute.Sitemap = (categoriesRes || []).map((category) => ({
+      url: `${baseUrl}/category/${category.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }));
+
+    return [...staticRoutes, ...categoryRoutes, ...productRoutes];
+  } catch {
+    // Return static pages safely if API fails
+    return staticRoutes;
+  }
 }

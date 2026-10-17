@@ -132,8 +132,8 @@ describe('R-11: Legal and trust pages', () => {
       expect(SITE_CONFIG.legalLinks).toBeDefined();
     });
 
-    it('includes legal pages in sitemap metadata configuration', () => {
-      const items = sitemap();
+    it('includes legal pages in sitemap metadata configuration', async () => {
+      const items = await sitemap();
       const privacyItem = items.find((item) => item.url.endsWith('/privacy'));
       const termsItem = items.find((item) => item.url.endsWith('/terms'));
 
