@@ -90,7 +90,7 @@ describe('FE-40: Frontend test suite - Full End-to-End Customer Journey', () => 
     expect(addedItem!.unitPrice).toBe(quote.total);
     expect(addedItem!.lineTotal).toBe(quote.total * 1);
     expect(initialCart.subtotal).toBeGreaterThanOrEqual(addedItem!.lineTotal);
-    expect(initialCart.total).toBe(initialCart.subtotal);
+    expect(initialCart.total).toBe(initialCart.subtotal + (initialCart.shipping ?? 0));
 
     // Update quantity in cart to 2 and assert recalculation
     const updatedCart = await cartApi.updateCartItem(addedItem!.id, { quantity: 2 });

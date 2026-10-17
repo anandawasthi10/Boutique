@@ -26,22 +26,50 @@ export interface RequestOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined>;
 }
 
-export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-  const baseUrl = getApiBaseUrl();
-  const url = new URL(endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`, 'http://localhost');
+export function buildRequestUrl(
+  endpoint: string,
+  params?: Record<string, string | number | boolean | undefined>,
+  baseUrl: string = getApiBaseUrl()
+): string {
+  // If endpoint is already an absolute URL
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+    const url = new URL(endpoint);
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          url.searchParams.append(key, String(value));
+        }
+      });
+    }
+    return url.toString();
+  }
 
-  if (options.params) {
-    Object.entries(options.params).forEach(([key, value]) => {
+  // Separate path and existing query string from endpoint
+  const [pathname, search] = endpoint.split('?');
+  const searchParams = new URLSearchParams(search || '');
+
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
-        url.searchParams.append(key, String(value));
+        searchParams.append(key, String(value));
       }
     });
   }
 
-  // Preserve relative path if baseUrl is relative or empty
-  const requestUrl = baseUrl
-    ? `${baseUrl.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}${url.search}`
-    : `${endpoint}${url.search}`;
+  const queryString = searchParams.toString();
+  const searchPart = queryString ? `?${queryString}` : '';
+
+  if (baseUrl) {
+    const cleanBase = baseUrl.replace(/\/+$/, '');
+    const cleanPath = pathname.replace(/^\/+/, '');
+    return `${cleanBase}/${cleanPath}${searchPart}`;
+  }
+
+  return `${pathname}${searchPart}`;
+}
+
+export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+  const requestUrl = buildRequestUrl(endpoint, options.params);
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
