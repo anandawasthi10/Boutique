@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { Option, OptionGroup } from '@/lib/types';
 import { formatCurrency } from '@/lib/format/currency';
+import { useRadioGroupKeyboard } from '@/lib/hooks/useRadioGroupKeyboard';
 
 interface SwatchGroupProps {
   group: OptionGroup;
@@ -18,6 +19,13 @@ export const SwatchGroup: React.FC<SwatchGroupProps> = ({
   disabled = false,
 }) => {
   const selectedOption = group.options.find((opt) => opt.id === selectedOptionId);
+
+  const { getTabIndex, registerButton, handleKeyDown } = useRadioGroupKeyboard({
+    options: group.options,
+    selectedOptionId,
+    onChange,
+    disabled,
+  });
 
   return (
     <div className="space-y-3">
@@ -49,12 +57,15 @@ export const SwatchGroup: React.FC<SwatchGroupProps> = ({
           return (
             <div key={option.id} className="relative flex flex-col items-center">
               <button
+                ref={registerButton(option.id)}
                 type="button"
                 role="radio"
+                tabIndex={getTabIndex(option.id)}
                 aria-checked={isSelected}
                 aria-disabled={!isAvailable || disabled}
                 disabled={!isAvailable || disabled}
                 aria-label={accessibleLabel}
+                onKeyDown={(e) => handleKeyDown(e, option.id)}
                 onClick={() => {
                   if (isAvailable && !disabled) {
                     onChange(option.id);

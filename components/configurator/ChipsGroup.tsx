@@ -2,6 +2,7 @@ import React from 'react';
 import { Check } from 'lucide-react';
 import { Option, OptionGroup } from '@/lib/types';
 import { formatCurrency } from '@/lib/format/currency';
+import { useRadioGroupKeyboard } from '@/lib/hooks/useRadioGroupKeyboard';
 
 interface ChipsGroupProps {
   group: OptionGroup;
@@ -16,6 +17,13 @@ export const ChipsGroup: React.FC<ChipsGroupProps> = ({
   onChange,
   disabled = false,
 }) => {
+  const { getTabIndex, registerButton, handleKeyDown } = useRadioGroupKeyboard({
+    options: group.options,
+    selectedOptionId,
+    onChange,
+    disabled,
+  });
+
   return (
     <div className="space-y-3">
       {/* Radio group of chips */}
@@ -43,12 +51,15 @@ export const ChipsGroup: React.FC<ChipsGroupProps> = ({
           return (
             <div key={option.id} className="flex flex-col">
               <button
+                ref={registerButton(option.id)}
                 type="button"
                 role="radio"
+                tabIndex={getTabIndex(option.id)}
                 aria-checked={isSelected}
                 aria-disabled={!isAvailable || disabled}
                 disabled={!isAvailable || disabled}
                 aria-label={accessibleLabel}
+                onKeyDown={(e) => handleKeyDown(e, option.id)}
                 onClick={() => {
                   if (isAvailable && !disabled) {
                     onChange(option.id);
