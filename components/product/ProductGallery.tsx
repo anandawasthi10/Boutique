@@ -100,7 +100,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
           src={currentImage.url}
           alt={currentImage.alt || `${productName} view ${selectedIndex + 1}`}
           fill
-          priority={selectedIndex === 0}
+          preload={selectedIndex === 0}
           loading={selectedIndex === 0 ? undefined : 'lazy'}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
           className={`object-cover ${transitionClasses}`}

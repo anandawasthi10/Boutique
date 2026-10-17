@@ -125,7 +125,7 @@ export default function HomePage() {
                 src="/images/productimages/pouch-and-scrunchies.jpg"
                 alt="Handmade accessories featured collection: floral pouch and fabric scrunchies"
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
