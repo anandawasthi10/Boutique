@@ -15,7 +15,7 @@ export const COLOR_TOKENS = {
   blush: '#E8C4C0',
   blushDeep: '#D9A5A0',
   sage: '#9CAF98',
-  sageDeep: '#6F8470',
+  sageDeep: '#526853',
   lavender: '#B9A9D1',
   error: '#B3463F',
   warning: '#B7883A',

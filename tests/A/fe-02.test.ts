@@ -37,7 +37,7 @@ describe('FE-02: Design tokens, typography, and contrast', () => {
     expect(COLOR_TOKENS.blush).toBe('#E8C4C0');
     expect(COLOR_TOKENS.blushDeep).toBe('#D9A5A0');
     expect(COLOR_TOKENS.sage).toBe('#9CAF98');
-    expect(COLOR_TOKENS.sageDeep).toBe('#6F8470');
+    expect(COLOR_TOKENS.sageDeep).toBe('#526853');
     expect(COLOR_TOKENS.lavender).toBe('#B9A9D1');
     expect(COLOR_TOKENS.error).toBe('#B3463F');
     expect(COLOR_TOKENS.warning).toBe('#B7883A');
