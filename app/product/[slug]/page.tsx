@@ -4,10 +4,50 @@ import { ProductDetailContent } from './ProductDetailContent';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 
-export const metadata: Metadata = {
+import { productsApi } from '@/lib/api';
+
+const DEFAULT_METADATA: Metadata = {
   title: 'Handcrafted Accessory | Bespoke Collection',
   description: 'Handcrafted accessory made with tactile fabrics.',
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  try {
+    const { slug } = await params;
+    const product = await productsApi.getProductBySlug(slug);
+    if (!product) {
+      return DEFAULT_METADATA;
+    }
+
+    const firstImage = product.images?.[0];
+    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
+    const ogImageUrl = firstImage?.url
+      ? firstImage.url.startsWith('http')
+        ? firstImage.url
+        : `${siteUrl}${firstImage.url.startsWith('/') ? '' : '/'}${firstImage.url}`
+      : undefined;
+
+    const shortDescription = product.description.length > 160
+      ? `${product.description.slice(0, 157)}...`
+      : product.description;
+
+    return {
+      title: product.name,
+      description: shortDescription,
+      openGraph: {
+        title: product.name,
+        description: shortDescription,
+        images: ogImageUrl ? [{ url: ogImageUrl, alt: firstImage?.alt || product.name }] : [],
+      },
+    };
+  } catch {
+    return DEFAULT_METADATA;
+  }
+}
 
 async function ProductDetailWrapper({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

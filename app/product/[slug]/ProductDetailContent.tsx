@@ -58,9 +58,6 @@ export const ProductDetailContent: React.FC<ProductDetailContentProps> = ({
         if (!ignore) {
           setProduct(data);
           setIsLoading(false);
-          if (typeof document !== 'undefined') {
-            document.title = `${data.name} | Handcrafted Accessories`;
-          }
         }
       })
       .catch((err: unknown) => {
