@@ -120,6 +120,24 @@ export async function addToCart(request: AddToCartRequest): Promise<Cart> {
         });
       });
 
+      // CONTRACT-GAP (CG-13): Real API behaviour on duplicate cart items (whether identical product+options merges quantity or adds new row) is unspecified; mock merges identical items.
+      const incomingOptionIds = [...request.selectedOptionIds].sort();
+
+      const existingItemIndex = inMemoryCart.items.findIndex((item) => {
+        if (item.productId !== product.id) return false;
+        const existingOptionIds = (item.selectedOptions || []).map((o) => o.optionId).sort();
+        if (existingOptionIds.length !== incomingOptionIds.length) return false;
+        return existingOptionIds.every((id, idx) => id === incomingOptionIds[idx]);
+      });
+
+      if (existingItemIndex !== -1) {
+        const existingItem = inMemoryCart.items[existingItemIndex];
+        existingItem.quantity += request.quantity;
+        existingItem.lineTotal = existingItem.unitPrice * existingItem.quantity;
+        resolve(recalculateCart());
+        return;
+      }
+
       const lineTotal = unitPrice * request.quantity;
       const newItem: CartItem = {
         id: `cart-item-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
