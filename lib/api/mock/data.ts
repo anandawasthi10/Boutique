@@ -316,7 +316,7 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     basePrice: 1199,
     images: [
-      { url: '/images/placeholders/laptop-1.svg', alt: 'Padded Laptop Sleeve (Placeholder)', order: 1 },
+      { url: '/images/productimages/laptop-sleeve-1.jpg', alt: 'Padded Laptop Sleeve in floral print', order: 1 },
     ],
     optionGroups: [
       {
@@ -324,8 +324,17 @@ export const MOCK_PRODUCTS: Product[] = [
         label: 'Fabric Choice',
         type: 'swatch',
         required: true,
-        defaultOptionId: 'opt-corduroy',
+        defaultOptionId: 'opt-floral',
         options: [
+          {
+            id: 'opt-floral',
+            label: 'Floral',
+            priceDelta: 0,
+            available: true,
+            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
+            previewImageUrl: '/images/productimages/laptop-sleeve-1.jpg',
+            detail: 'Soft printed cotton',
+          },
           {
             id: 'opt-corduroy',
             label: 'Corduroy',
