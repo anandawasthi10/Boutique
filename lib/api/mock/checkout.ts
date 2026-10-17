@@ -4,6 +4,7 @@ import { getAddresses } from './addresses';
 import { getCart, clearCartInternal } from './cart';
 import { addOrderInternal } from './orders';
 import { getCurrentUser } from './auth';
+import { calculateMockTotals } from './totals';
 
 // CONTRACT-GAP (CG-08): Checkout request expects addressId rather than inline address payload
 export async function createCheckout(request: CheckoutRequest): Promise<CheckoutResponse> {
@@ -49,8 +50,9 @@ export async function createCheckout(request: CheckoutRequest): Promise<Checkout
     lineTotal: item.lineTotal,
   }));
 
-  const shipping = cart.subtotal >= 1000 ? 0 : 50;
-  const total = cart.subtotal + shipping;
+  const totals = calculateMockTotals(cart.subtotal);
+  const shipping = totals.shipping;
+  const total = totals.total;
 
   // Determine payment status test triggers
   let paymentStatus: PaymentStatus = 'paid';

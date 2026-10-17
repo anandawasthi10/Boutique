@@ -33,6 +33,7 @@ export interface CartItem {
 export interface Cart {
   items: CartItem[];
   subtotal: number;
+  shipping?: number; // CONTRACT-GAP (CG-12): Cart totals shipping calculation and field
   total: number;
   notices?: string[];
 }

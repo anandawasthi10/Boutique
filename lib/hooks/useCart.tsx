@@ -53,7 +53,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
   }, []);
 
   const clearCart = useCallback(() => {
-    setCart({ items: [], subtotal: 0, total: 0, notices: [] });
+    setCart({ items: [], subtotal: 0, shipping: 0, total: 0, notices: [] });
     setError(null);
     dispatchCartEvent();
   }, [dispatchCartEvent]);
@@ -61,7 +61,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
   // Clear cart upon auth logout
   useEffect(() => {
     const handleAuthLogout = () => {
-      setCart({ items: [], subtotal: 0, total: 0, notices: [] });
+      setCart({ items: [], subtotal: 0, shipping: 0, total: 0, notices: [] });
       setError(null);
       dispatchCartEvent();
     };

@@ -187,10 +187,13 @@ export const CartPageContent: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center text-[var(--color-text-muted)]">
-                    <span>Estimated Shipping</span>
-                    <span className="text-[var(--color-text)] font-medium">
-                      Calculated at checkout
+                  <div className="flex justify-between items-center text-[var(--color-text)]">
+                    <span>Shipping</span>
+                    <span
+                      data-testid="cart-summary-shipping"
+                      className="font-medium"
+                    >
+                      {formatCurrency(cart.shipping ?? 0)}
                     </span>
                   </div>
 

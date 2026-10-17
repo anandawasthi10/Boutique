@@ -197,9 +197,16 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
             {/* Totals directly from the API response */}
             <div className="space-y-3 text-body-small text-[var(--color-text-muted)]">
               <div className="flex justify-between items-center">
-                <span>Items Subtotal</span>
+                <span>Subtotal</span>
                 <span className="font-medium text-[var(--color-text)]" data-testid="checkout-subtotal">
                   {formatCurrency(cart.subtotal)}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span>Shipping</span>
+                <span className="font-medium text-[var(--color-text)]" data-testid="checkout-shipping">
+                  {formatCurrency(cart.shipping ?? 0)}
                 </span>
               </div>
 

@@ -7,6 +7,7 @@ import {
 } from '../../types';
 import { ApiException } from '../client';
 import { MOCK_PRODUCTS } from './data';
+import { calculateMockTotals } from './totals';
 
 // In-memory cart store with localStorage synchronization for browser resilience
 const CART_STORAGE_KEY = 'boutique_mock_cart';
@@ -14,6 +15,7 @@ const CART_STORAGE_KEY = 'boutique_mock_cart';
 let inMemoryCart: Cart = {
   items: [],
   subtotal: 0,
+  shipping: 0,
   total: 0,
   notices: [],
 };
@@ -46,8 +48,10 @@ function saveStoredCart(cart: Cart): Cart {
 
 function recalculateCart(): Cart {
   const subtotal = inMemoryCart.items.reduce((sum, item) => sum + item.lineTotal, 0);
-  inMemoryCart.subtotal = subtotal;
-  inMemoryCart.total = subtotal;
+  const calculated = calculateMockTotals(subtotal);
+  inMemoryCart.subtotal = calculated.subtotal;
+  inMemoryCart.shipping = calculated.shipping;
+  inMemoryCart.total = calculated.total;
   return saveStoredCart(inMemoryCart);
 }
 
@@ -220,6 +224,7 @@ export function clearCartInternal(): void {
   saveStoredCart({
     items: [],
     subtotal: 0,
+    shipping: 0,
     total: 0,
     notices: [],
   });

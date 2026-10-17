@@ -83,6 +83,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             {formatCurrency(cart.subtotal)}
           </span>
         </div>
+        <div className="flex justify-between items-center">
+          <span>Shipping</span>
+          <span data-testid="cart-drawer-shipping" className="font-semibold text-[var(--color-text)]">
+            {formatCurrency(cart.shipping ?? 0)}
+          </span>
+        </div>
         <div className="flex justify-between items-baseline pt-2 border-t border-[var(--color-border)]">
           <span className="font-semibold text-[var(--color-text)]">Total</span>
           <span className="text-price font-bold text-[var(--color-text)]">
