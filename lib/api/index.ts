@@ -47,6 +47,15 @@ import type {
 export { ApiException } from './client';
 
 export function isMockEnabled(): boolean {
+  if (typeof window !== 'undefined') {
+    if ((window as unknown as { __DISABLE_MOCK_API__?: boolean }).__DISABLE_MOCK_API__) {
+      return false;
+    }
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mock') === 'false') {
+      return false;
+    }
+  }
   return process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
 }
 

@@ -27,8 +27,8 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'Order Confirmed',
         description: 'Your order has been confirmed.',
         badgeStyle: {
-          backgroundColor: 'rgba(111, 132, 112, 0.15)',
-          color: 'var(--color-sage-deep)',
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-success)',
           borderColor: 'var(--color-sage)',
         },
       };
@@ -37,9 +37,9 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'In Production',
         description: 'Your accessory is being handcrafted in our studio atelier.',
         badgeStyle: {
-          backgroundColor: 'rgba(232, 196, 184, 0.3)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-primary)',
-          borderColor: 'var(--color-blush-deep)',
+          borderColor: 'var(--color-border)',
         },
       };
     case 'packed':
@@ -47,8 +47,8 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'Carefully Packed',
         description: 'Quality-checked and wrapped with care.',
         badgeStyle: {
-          backgroundColor: 'rgba(111, 132, 112, 0.15)',
-          color: 'var(--color-sage-deep)',
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-success)',
           borderColor: 'var(--color-sage)',
         },
       };
@@ -57,8 +57,8 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'Dispatched',
         description: 'Your package is on its way.',
         badgeStyle: {
-          backgroundColor: 'rgba(111, 132, 112, 0.2)',
-          color: 'var(--color-sage-deep)',
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-success)',
           borderColor: 'var(--color-sage)',
         },
       };
@@ -67,8 +67,8 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'Delivered',
         description: 'Your order has arrived safely.',
         badgeStyle: {
-          backgroundColor: 'rgba(111, 132, 112, 0.25)',
-          color: 'var(--color-sage-deep)',
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-success)',
           borderColor: 'var(--color-sage)',
         },
       };
@@ -77,9 +77,9 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: 'Cancelled',
         description: 'This order was cancelled.',
         badgeStyle: {
-          backgroundColor: 'rgba(179, 70, 63, 0.1)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-error)',
-          borderColor: 'rgba(179, 70, 63, 0.3)',
+          borderColor: 'var(--color-border)',
         },
       };
     default:
@@ -87,7 +87,7 @@ export function formatOrderStatus(status: OrderStatus): StatusMeta {
         label: String(status),
         description: '',
         badgeStyle: {
-          backgroundColor: 'var(--color-surface)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-text)',
           borderColor: 'var(--color-border)',
         },
@@ -102,8 +102,8 @@ export function formatPaymentStatus(status: PaymentStatus): StatusMeta {
         label: 'Paid',
         description: 'Payment successful.',
         badgeStyle: {
-          backgroundColor: 'rgba(111, 132, 112, 0.15)',
-          color: 'var(--color-sage-deep)',
+          backgroundColor: 'var(--color-bg)',
+          color: 'var(--color-success)',
           borderColor: 'var(--color-sage)',
         },
       };
@@ -112,9 +112,9 @@ export function formatPaymentStatus(status: PaymentStatus): StatusMeta {
         label: 'Payment Pending',
         description: 'Awaiting confirmation.',
         badgeStyle: {
-          backgroundColor: 'rgba(217, 164, 65, 0.15)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-warning)',
-          borderColor: 'rgba(217, 164, 65, 0.3)',
+          borderColor: 'var(--color-border)',
         },
       };
     case 'failed':
@@ -122,9 +122,9 @@ export function formatPaymentStatus(status: PaymentStatus): StatusMeta {
         label: 'Payment Failed',
         description: 'Payment was not successful.',
         badgeStyle: {
-          backgroundColor: 'rgba(179, 70, 63, 0.1)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-error)',
-          borderColor: 'rgba(179, 70, 63, 0.3)',
+          borderColor: 'var(--color-border)',
         },
       };
     case 'cancelled':
@@ -132,7 +132,7 @@ export function formatPaymentStatus(status: PaymentStatus): StatusMeta {
         label: 'Payment Cancelled',
         description: 'Session cancelled.',
         badgeStyle: {
-          backgroundColor: 'var(--color-surface)',
+          backgroundColor: 'var(--color-bg)',
           color: 'var(--color-text-muted)',
           borderColor: 'var(--color-border)',
         },

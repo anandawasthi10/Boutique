@@ -4,12 +4,23 @@ import AxeBuilder from '@axe-core/playwright';
 const pagesToScan = [
   { name: 'Homepage', path: '/' },
   { name: 'Shop Catalogue', path: '/shop' },
+  { name: 'Category Page', path: '/category/scrunchies' },
   { name: 'Product Detail', path: '/product/classic-scrunchie' },
+  { name: 'Build Your Own', path: '/build-your-own' },
   { name: 'Cart', path: '/cart' },
   { name: 'Checkout', path: '/checkout' },
   { name: 'Login', path: '/login' },
   { name: 'Signup', path: '/signup' },
-  { name: 'Account', path: '/account' },
+  { name: 'Forgot Password', path: '/forgot-password' },
+  { name: 'Account Profile', path: '/account' },
+  { name: 'Account Orders', path: '/account/orders' },
+  { name: 'Account Addresses', path: '/account/addresses' },
+  { name: 'About Brand', path: '/about' },
+  { name: 'Contact Us', path: '/contact' },
+  { name: 'Privacy Policy', path: '/privacy' },
+  { name: 'Terms of Service', path: '/terms' },
+  { name: 'Order Confirmation', path: '/order-confirmation?orderId=ord-1001' },
+  { name: 'Not Found Page', path: '/this-page-does-not-exist-404' },
 ];
 
 for (const { name, path } of pagesToScan) {
@@ -19,14 +30,17 @@ for (const { name, path } of pagesToScan) {
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
-    const seriousOrCriticalViolations = accessibilityScanResults.violations.filter(
-      (violation) => violation.impact === 'serious' || violation.impact === 'critical'
+    const failingViolations = accessibilityScanResults.violations.filter(
+      (violation) =>
+        violation.impact === 'moderate' ||
+        violation.impact === 'serious' ||
+        violation.impact === 'critical'
     );
 
     expect(
-      seriousOrCriticalViolations,
-      `Serious or critical accessibility violations found on ${name} (${path}): ${JSON.stringify(
-        seriousOrCriticalViolations.map((v) => ({ id: v.id, impact: v.impact, description: v.description })),
+      failingViolations,
+      `Accessibility violations (moderate/serious/critical) found on ${name} (${path}): ${JSON.stringify(
+        failingViolations.map((v) => ({ id: v.id, impact: v.impact, description: v.description })),
         null,
         2
       )}`

@@ -26,9 +26,9 @@ export const PriceBreakdown: React.FC<PriceBreakdownProps> = ({
       className={`p-4 rounded-[4px] bg-[var(--color-surface)] border border-[var(--color-border)] flex flex-col gap-3 ${className}`}
     >
       <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-2">
-        <h4 className="text-xs uppercase tracking-wider font-semibold text-[var(--color-text)]">
+        <h2 className="text-xs uppercase tracking-wider font-semibold text-[var(--color-text)]">
           Price Breakdown
-        </h4>
+        </h2>
         {isOutdated && !isLoading && (
           <span className="text-[11px] text-[var(--color-warning)] font-medium">
             Recalculating...
