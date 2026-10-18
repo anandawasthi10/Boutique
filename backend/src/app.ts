@@ -9,14 +9,22 @@ import { SessionRepository } from './repositories/session-repository.js';
 import { ResetTokenRepository } from './repositories/reset-token-repository.js';
 import { CategoryRepository } from './repositories/category-repository.js';
 import { ProductRepository } from './repositories/product-repository.js';
+import { CartRepository } from './repositories/cart-repository.js';
+import { AddressRepository } from './repositories/address-repository.js';
 import { EmailAdapter, getEmailAdapter } from './adapters/email/index.js';
 import { AuthService } from './services/auth-service.js';
 import { AuthController } from './controllers/auth-controller.js';
 import { CatalogueService } from './services/catalogue-service.js';
 import { CatalogueController } from './controllers/catalogue-controller.js';
+import { CartService } from './services/cart-service.js';
+import { CartController } from './controllers/cart-controller.js';
+import { AddressService } from './services/address-service.js';
+import { AddressController } from './controllers/address-controller.js';
 import { createAuthMiddleware } from './middleware/auth.js';
 import { registerAuthRoutes } from './routes/auth-routes.js';
 import { registerCatalogueRoutes } from './routes/catalogue-routes.js';
+import { registerCartRoutes } from './routes/cart-routes.js';
+import { registerAddressRoutes } from './routes/address-routes.js';
 
 export interface AppOptions extends FastifyServerOptions {
   trustProxy?: boolean;
@@ -86,6 +94,8 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     const resetTokenRepo = new ResetTokenRepository(db);
     const categoryRepo = new CategoryRepository(db);
     const productRepo = new ProductRepository(db);
+    const cartRepo = new CartRepository(db);
+    const addressRepo = new AddressRepository(db);
 
     // Middleware
     const authMiddleware = createAuthMiddleware(sessionRepo, process.env.STAFF_API_KEY);
@@ -93,6 +103,8 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     // Services
     const authService = new AuthService(userRepo, sessionRepo, resetTokenRepo, emailAdapter);
     const catalogueService = new CatalogueService(categoryRepo, productRepo);
+    const cartService = new CartService(cartRepo, productRepo, catalogueService);
+    const addressService = new AddressService(addressRepo);
 
     // Controllers
     const authController = new AuthController(
@@ -105,10 +117,14 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
       frontendOrigin
     );
     const catalogueController = new CatalogueController(catalogueService);
+    const cartController = new CartController(cartService);
+    const addressController = new AddressController(addressService);
 
     // Routes
     registerAuthRoutes(instance, authController, authMiddleware.authenticateCustomer);
     registerCatalogueRoutes(instance, catalogueController);
+    registerCartRoutes(instance, cartController, authMiddleware.authenticateCustomer);
+    registerAddressRoutes(instance, addressController, authMiddleware.authenticateCustomer);
   });
 
   // Health check routes
