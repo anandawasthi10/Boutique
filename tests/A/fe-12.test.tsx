@@ -97,15 +97,36 @@ describe('FE-12: Shop All and category pages', () => {
       });
     });
 
-    it('allows changing sorting and updates url query parameter', async () => {
+    it('allows changing sorting and updates url query parameter without newest option', async () => {
       render(<ShopContent />);
 
       await waitFor(() => {
         expect(screen.getByLabelText(/sort by/i)).toBeInTheDocument();
       });
 
-      const select = screen.getByLabelText(/sort by/i);
+      const select = screen.getByLabelText(/sort by/i) as HTMLSelectElement;
+      const optionValues = Array.from(select.options).map((o) => o.value);
+      expect(optionValues).not.toContain('newest');
+      expect(optionValues).toEqual(['', 'price_asc', 'price_desc', 'name']);
+
       fireEvent.change(select, { target: { value: 'price_asc' } });
+    });
+
+    it('verifies mock sorting by price_asc, price_desc and name', async () => {
+      const asc = await productsApi.getProducts({ sort: 'price_asc' });
+      for (let i = 0; i < asc.items.length - 1; i++) {
+        expect(asc.items[i].basePrice).toBeLessThanOrEqual(asc.items[i + 1].basePrice);
+      }
+
+      const desc = await productsApi.getProducts({ sort: 'price_desc' });
+      for (let i = 0; i < desc.items.length - 1; i++) {
+        expect(desc.items[i].basePrice).toBeGreaterThanOrEqual(desc.items[i + 1].basePrice);
+      }
+
+      const byName = await productsApi.getProducts({ sort: 'name' });
+      for (let i = 0; i < byName.items.length - 1; i++) {
+        expect(byName.items[i].name.localeCompare(byName.items[i + 1].name)).toBeLessThanOrEqual(0);
+      }
     });
   });
 });

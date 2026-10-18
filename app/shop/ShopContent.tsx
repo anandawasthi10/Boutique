@@ -23,8 +23,10 @@ export const ShopContent: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // URL state
-  const sortParam = (searchParams.get('sort') as 'price_asc' | 'price_desc' | 'name' | 'newest') || 'newest';
+  // URL state - CONTRACT-GAP (CG-12): newest sort removed, default is empty/featured
+  const rawSort = searchParams.get('sort');
+  const sortParam: 'price_asc' | 'price_desc' | 'name' | '' =
+    rawSort === 'price_asc' || rawSort === 'price_desc' || rawSort === 'name' ? rawSort : '';
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
   const searchParam = searchParams.get('search') || '';
   const categoryParam = searchParams.get('category') || '';
@@ -48,7 +50,7 @@ export const ShopContent: React.FC = () => {
     setError(null);
     Promise.all([
       productsApi.getProducts({
-        sort: sortParam,
+        sort: sortParam || undefined,
         page: pageParam,
         pageSize: 12,
         search: searchParam || undefined,
@@ -76,7 +78,7 @@ export const ShopContent: React.FC = () => {
 
     Promise.all([
       productsApi.getProducts({
-        sort: sortParam,
+        sort: sortParam || undefined,
         page: pageParam,
         pageSize: 12,
         search: searchParam || undefined,
@@ -125,7 +127,7 @@ export const ShopContent: React.FC = () => {
       const params = new URLSearchParams(searchParams.toString());
 
       if (newParams.sort !== undefined) {
-        if (newParams.sort === 'newest') params.delete('sort');
+        if (!newParams.sort || newParams.sort === 'newest') params.delete('sort');
         else params.set('sort', newParams.sort);
         params.delete('page');
       }
@@ -226,7 +228,7 @@ export const ShopContent: React.FC = () => {
   const activeFilterCount = (categoryParam ? 1 : 0) + (fabricParam ? 1 : 0) + (priceRangeParam ? 1 : 0);
 
   const sortOptions = [
-    { value: 'newest', label: 'Featured & Newest' },
+    { value: '', label: 'Featured' },
     { value: 'price_asc', label: 'Price: Low to High' },
     { value: 'price_desc', label: 'Price: High to Low' },
     { value: 'name', label: 'Name: A to Z' },

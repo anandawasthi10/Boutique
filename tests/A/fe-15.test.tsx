@@ -81,11 +81,11 @@ describe('FE-15: Product detail page shell', () => {
     expect(retryBtn).toBeInTheDocument();
   });
 
-  it('updates document page title to reflect the product name', async () => {
+  it('renders product name heading to reflect the product on page', async () => {
     render(<ProductDetailContent slug="classic-scrunchie" />);
 
     await waitFor(() => {
-      expect(document.title).toContain('Classic Scrunchie');
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Classic Scrunchie');
     });
   });
 });

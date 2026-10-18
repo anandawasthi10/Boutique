@@ -70,14 +70,14 @@ export interface Product {
   active?: boolean;
 }
 
-// CONTRACT-GAP (CG-03): fabric query param filtering across option groups
+// CONTRACT-GAP (CG-12): "newest" sort option removed because contract lacks product creation date field
 export interface ProductsQueryParams {
   category?: string;
   search?: string;
   fabric?: string;
   priceMin?: number;
   priceMax?: number;
-  sort?: 'price_asc' | 'price_desc' | 'newest' | 'name';
+  sort?: 'price_asc' | 'price_desc' | 'name';
   page?: number;
   pageSize?: number;
 }

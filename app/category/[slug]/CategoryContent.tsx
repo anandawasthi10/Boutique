@@ -19,7 +19,10 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const sortParam = (searchParams.get('sort') as 'price_asc' | 'price_desc' | 'name' | 'newest') || 'newest';
+  // CONTRACT-GAP (CG-12): newest sort removed, default is empty/featured
+  const rawSort = searchParams.get('sort');
+  const sortParam: 'price_asc' | 'price_desc' | 'name' | '' =
+    rawSort === 'price_asc' || rawSort === 'price_desc' || rawSort === 'name' ? rawSort : '';
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
 
   const [currentCategory, setCurrentCategory] = useState<CategorySummary | null>(null);
@@ -51,7 +54,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
 
         return productsApi.getProducts({
           category: matchedCat.id,
-          sort: sortParam,
+          sort: sortParam || undefined,
           page: pageParam,
           pageSize: 12,
         });
@@ -95,7 +98,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
 
         return productsApi.getProducts({
           category: matchedCat.id,
-          sort: sortParam,
+          sort: sortParam || undefined,
           page: pageParam,
           pageSize: 12,
         });
@@ -125,7 +128,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
   const updateQuery = (newParams: { sort?: string; page?: number }) => {
     const params = new URLSearchParams(searchParams.toString());
     if (newParams.sort !== undefined) {
-      if (newParams.sort === 'newest') {
+      if (!newParams.sort || newParams.sort === 'newest') {
         params.delete('sort');
       } else {
         params.set('sort', newParams.sort);
@@ -153,7 +156,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ slug }) => {
   };
 
   const sortOptions = [
-    { value: 'newest', label: 'Featured & Newest' },
+    { value: '', label: 'Featured' },
     { value: 'price_asc', label: 'Price: Low to High' },
     { value: 'price_desc', label: 'Price: High to Low' },
     { value: 'name', label: 'Name: A to Z' },

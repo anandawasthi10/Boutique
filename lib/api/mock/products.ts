@@ -59,7 +59,7 @@ export async function getProducts(params: ProductsQueryParams = {}): Promise<Pro
         filtered = filtered.filter((p) => p.basePrice <= (params.priceMax ?? Infinity));
       }
 
-      // Sorting
+      // Sorting - CONTRACT-GAP (CG-12): supports price_asc, price_desc, name. newest unsupported.
       if (params.sort) {
         if (params.sort === 'price_asc') {
           filtered.sort((a, b) => a.basePrice - b.basePrice);
