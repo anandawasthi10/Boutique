@@ -11,7 +11,10 @@ import { CategoryRepository } from './repositories/category-repository.js';
 import { ProductRepository } from './repositories/product-repository.js';
 import { CartRepository } from './repositories/cart-repository.js';
 import { AddressRepository } from './repositories/address-repository.js';
+import { IdempotencyRepository } from './repositories/idempotency-repository.js';
+import { OrderRepository } from './repositories/order-repository.js';
 import { EmailAdapter, getEmailAdapter } from './adapters/email/index.js';
+import { PaymentAdapter, getPaymentAdapter } from './adapters/payment/index.js';
 import { AuthService } from './services/auth-service.js';
 import { AuthController } from './controllers/auth-controller.js';
 import { CatalogueService } from './services/catalogue-service.js';
@@ -20,11 +23,15 @@ import { CartService } from './services/cart-service.js';
 import { CartController } from './controllers/cart-controller.js';
 import { AddressService } from './services/address-service.js';
 import { AddressController } from './controllers/address-controller.js';
+import { CheckoutService } from './services/checkout-service.js';
+import { PaymentService } from './services/payment-service.js';
+import { CheckoutController } from './controllers/checkout-controller.js';
 import { createAuthMiddleware } from './middleware/auth.js';
 import { registerAuthRoutes } from './routes/auth-routes.js';
 import { registerCatalogueRoutes } from './routes/catalogue-routes.js';
 import { registerCartRoutes } from './routes/cart-routes.js';
 import { registerAddressRoutes } from './routes/address-routes.js';
+import { registerCheckoutRoutes } from './routes/checkout-routes.js';
 
 export interface AppOptions extends FastifyServerOptions {
   trustProxy?: boolean;
@@ -35,6 +42,7 @@ export interface AppOptions extends FastifyServerOptions {
   cookieDomain?: string;
   db?: AppDatabase;
   emailAdapter?: EmailAdapter;
+  paymentAdapter?: PaymentAdapter;
 }
 
 export function buildApp(options: AppOptions = {}): FastifyInstance {
@@ -87,6 +95,7 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     }
 
     const emailAdapter = options.emailAdapter ?? getEmailAdapter();
+    const paymentAdapter = options.paymentAdapter ?? getPaymentAdapter();
 
     // Repositories
     const userRepo = new UserRepository(db);
@@ -96,6 +105,8 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     const productRepo = new ProductRepository(db);
     const cartRepo = new CartRepository(db);
     const addressRepo = new AddressRepository(db);
+    const orderRepo = new OrderRepository(db);
+    const idempotencyRepo = new IdempotencyRepository(db);
 
     // Middleware
     const authMiddleware = createAuthMiddleware(sessionRepo, process.env.STAFF_API_KEY);
@@ -105,6 +116,16 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     const catalogueService = new CatalogueService(categoryRepo, productRepo);
     const cartService = new CartService(cartRepo, productRepo, catalogueService);
     const addressService = new AddressService(addressRepo);
+    const checkoutService = new CheckoutService(
+      cartRepo,
+      addressRepo,
+      productRepo,
+      orderRepo,
+      idempotencyRepo,
+      catalogueService,
+      paymentAdapter
+    );
+    const paymentService = new PaymentService(paymentAdapter, orderRepo, userRepo, emailAdapter);
 
     // Controllers
     const authController = new AuthController(
@@ -119,12 +140,14 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     const catalogueController = new CatalogueController(catalogueService);
     const cartController = new CartController(cartService);
     const addressController = new AddressController(addressService);
+    const checkoutController = new CheckoutController(checkoutService, paymentService);
 
     // Routes
     registerAuthRoutes(instance, authController, authMiddleware.authenticateCustomer);
     registerCatalogueRoutes(instance, catalogueController);
     registerCartRoutes(instance, cartController, authMiddleware.authenticateCustomer);
     registerAddressRoutes(instance, addressController, authMiddleware.authenticateCustomer);
+    registerCheckoutRoutes(instance, checkoutController, authMiddleware.authenticateCustomer);
   });
 
   // Health check routes

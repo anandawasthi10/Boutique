@@ -1,4 +1,4 @@
-import { eq, and, desc, sql } from 'drizzle-orm';
+import { eq, and, desc } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 import { AppDatabase } from '../db/index.js';
 import { addresses } from '../db/schema.js';
