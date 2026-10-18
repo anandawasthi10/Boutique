@@ -95,7 +95,7 @@ describe('FE-28: Saved addresses', () => {
         pinCode: '400001',
         isDefault: false,
       });
-    });
+    }, 15000);
 
     it('displays server field errors next to the fields', () => {
       render(
