@@ -7,11 +7,16 @@ import { AppDatabase, initDatabase } from './db/index.js';
 import { UserRepository } from './repositories/user-repository.js';
 import { SessionRepository } from './repositories/session-repository.js';
 import { ResetTokenRepository } from './repositories/reset-token-repository.js';
+import { CategoryRepository } from './repositories/category-repository.js';
+import { ProductRepository } from './repositories/product-repository.js';
 import { EmailAdapter, getEmailAdapter } from './adapters/email/index.js';
 import { AuthService } from './services/auth-service.js';
 import { AuthController } from './controllers/auth-controller.js';
+import { CatalogueService } from './services/catalogue-service.js';
+import { CatalogueController } from './controllers/catalogue-controller.js';
 import { createAuthMiddleware } from './middleware/auth.js';
 import { registerAuthRoutes } from './routes/auth-routes.js';
+import { registerCatalogueRoutes } from './routes/catalogue-routes.js';
 
 export interface AppOptions extends FastifyServerOptions {
   trustProxy?: boolean;
@@ -79,12 +84,15 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     const userRepo = new UserRepository(db);
     const sessionRepo = new SessionRepository(db);
     const resetTokenRepo = new ResetTokenRepository(db);
+    const categoryRepo = new CategoryRepository(db);
+    const productRepo = new ProductRepository(db);
 
     // Middleware
     const authMiddleware = createAuthMiddleware(sessionRepo, process.env.STAFF_API_KEY);
 
     // Services
     const authService = new AuthService(userRepo, sessionRepo, resetTokenRepo, emailAdapter);
+    const catalogueService = new CatalogueService(categoryRepo, productRepo);
 
     // Controllers
     const authController = new AuthController(
@@ -96,9 +104,11 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
       },
       frontendOrigin
     );
+    const catalogueController = new CatalogueController(catalogueService);
 
     // Routes
     registerAuthRoutes(instance, authController, authMiddleware.authenticateCustomer);
+    registerCatalogueRoutes(instance, catalogueController);
   });
 
   // Health check routes
