@@ -5,10 +5,16 @@ import { ProductGallery } from '@/components/product/ProductGallery';
 import { ProductCard } from '@/components/catalogue/ProductCard';
 
 // Mock next/image to inspect props passed to it
+/* eslint-disable @next/next/no-img-element */
+interface MockImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  priority?: boolean;
+  preload?: boolean;
+}
+
 vi.mock('next/image', () => {
   return {
     __esModule: true,
-    default: ({ src, alt, priority, preload, fill, ...props }: any) => {
+    default: ({ src, alt, priority, preload, ...props }: MockImageProps) => {
       return (
         <img
           src={src}
