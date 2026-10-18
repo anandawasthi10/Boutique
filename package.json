@@ -9,7 +9,14 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:test": "npm --prefix backend test",
+    "backend:lint": "npm --prefix backend run lint",
+    "backend:typecheck": "npm --prefix backend run typecheck",
+    "backend:migrate": "npm --prefix backend run db:migrate",
+    "backend:seed": "npm --prefix backend run db:seed"
   },
   "dependencies": {
     "framer-motion": "^14.1.0",
