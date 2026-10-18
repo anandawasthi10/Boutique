@@ -2,8 +2,10 @@ import { eq } from 'drizzle-orm';
 import { AppDatabase } from '../db/index.js';
 import { users } from '../db/schema.js';
 
+import { randomUUID } from 'crypto';
+
 export interface CreateUserData {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   passwordHash: string;
@@ -32,10 +34,11 @@ export class UserRepository {
   }
 
   async create(data: CreateUserData) {
+    const id = data.id ?? `usr_${randomUUID()}`;
     const results = await this.db
       .insert(users)
       .values({
-        id: data.id,
+        id,
         name: data.name.trim(),
         email: data.email.toLowerCase().trim(),
         passwordHash: data.passwordHash,

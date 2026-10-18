@@ -44,3 +44,6 @@ export function hashToken(token: string): string {
 export function generateSecureToken(bytes = 32): string {
   return randomBytes(bytes).toString('hex');
 }
+
+export const generateToken = generateSecureToken;
+

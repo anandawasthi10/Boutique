@@ -1,9 +1,10 @@
 import { eq, and, gt } from 'drizzle-orm';
+import { randomUUID } from 'crypto';
 import { AppDatabase } from '../db/index.js';
 import { sessions, users } from '../db/schema.js';
 
 export interface CreateSessionData {
-  id: string;
+  id?: string;
   sessionIdHash: string;
   userId: string;
   expiresAt: Date;
@@ -13,10 +14,11 @@ export class SessionRepository {
   constructor(private db: AppDatabase) {}
 
   async create(data: CreateSessionData) {
+    const id = data.id ?? `sess_${randomUUID()}`;
     const results = await this.db
       .insert(sessions)
       .values({
-        id: data.id,
+        id,
         sessionIdHash: data.sessionIdHash,
         userId: data.userId,
         expiresAt: data.expiresAt,

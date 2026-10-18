@@ -25,16 +25,14 @@ export const productDetailParamsSchema = z
     id: z.string().trim().min(1, 'Product identifier is required').optional(),
   });
 
+export const selectionItemSchema = z.object({
+  groupId: z.string().trim().min(1, 'groupId is required'),
+  optionId: z.string().trim().min(1, 'optionId is required'),
+});
+
 export const quoteBodySchema = z
   .object({
-    selections: z
-      .array(
-        z.object({
-          groupId: z.string().trim().min(1, 'groupId is required'),
-          optionId: z.string().trim().min(1, 'optionId is required'),
-        })
-      )
-      .optional(),
+    selections: z.array(selectionItemSchema).optional(),
     selectedOptionIds: z.array(z.string().trim().min(1)).optional(),
     quantity: z.coerce.number().int().positive('Quantity must be at least 1').default(1),
   })
