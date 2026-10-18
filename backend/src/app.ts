@@ -1,4 +1,6 @@
 import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
+import { setupRequestId } from './middleware/request-id.js';
+import { setupErrorHandler } from './middleware/error-handler.js';
 
 export interface AppOptions extends FastifyServerOptions {
   trustProxy?: boolean;
@@ -10,6 +12,12 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
     trustProxy: options.trustProxy ?? true,
     ...options,
   });
+
+  // Request ID setup
+  setupRequestId(app);
+
+  // Global Error Handler
+  setupErrorHandler(app);
 
   // Health check routes - serving both /api/v1/health and /health per decisions
   const healthHandler = async (_request: unknown, reply: any) => {
