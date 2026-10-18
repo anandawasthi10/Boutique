@@ -1,9 +1,11 @@
 import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
 import { setupRequestId } from './middleware/request-id.js';
 import { setupErrorHandler } from './middleware/error-handler.js';
+import { setupSecurity } from './middleware/security.js';
 
 export interface AppOptions extends FastifyServerOptions {
   trustProxy?: boolean;
+  frontendOrigin?: string;
 }
 
 export function buildApp(options: AppOptions = {}): FastifyInstance {
@@ -18,6 +20,11 @@ export function buildApp(options: AppOptions = {}): FastifyInstance {
 
   // Global Error Handler
   setupErrorHandler(app);
+
+  // Security headers & CORS
+  setupSecurity(app, {
+    frontendOrigin: options.frontendOrigin ?? process.env.FRONTEND_ORIGIN ?? 'http://localhost:3000',
+  });
 
   // Health check routes - serving both /api/v1/health and /health per decisions
   const healthHandler = async (_request: unknown, reply: any) => {
