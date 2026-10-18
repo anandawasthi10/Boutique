@@ -5,12 +5,23 @@ import NextLink from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { AlertCircle, RotateCcw } from 'lucide-react';
 
-interface GlobalErrorProps {
+export interface GlobalErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
+  title?: string;
+  description?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
 }
 
-export default function GlobalError({ error, reset }: GlobalErrorProps) {
+export default function GlobalError({
+  error,
+  reset,
+  title = 'Something went wrong',
+  description = "We're sorry, an unexpected error occurred while loading this page. Please try again or return to the homepage.",
+  secondaryHref = '/',
+  secondaryLabel = 'Return Home',
+}: GlobalErrorProps) {
   useEffect(() => {
     // Error monitoring hook (if added in the future, per Technical Architecture)
     // Never log personal data or payment credentials to console
@@ -29,9 +40,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
 
         <div className="space-y-2">
           <span className="text-label text-[var(--color-text-muted)]">Notice</span>
-          <h1 className="text-h1 text-[var(--color-text)]">Something went wrong</h1>
+          <h1 className="text-h1 text-[var(--color-text)]">{title}</h1>
           <p className="text-body text-[var(--color-text-muted)]">
-            We&apos;re sorry, an unexpected error occurred while loading this page. Please try again or return to the homepage.
+            {description}
           </p>
         </div>
 
@@ -44,9 +55,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           >
             Try Again
           </Button>
-          <NextLink href="/" className="w-full sm:w-auto">
+          <NextLink href={secondaryHref} className="w-full sm:w-auto">
             <Button variant="secondary" className="w-full sm:w-auto">
-              Return Home
+              {secondaryLabel}
             </Button>
           </NextLink>
         </div>
