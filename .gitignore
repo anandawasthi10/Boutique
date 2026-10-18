@@ -48,6 +48,9 @@ next-env.d.ts
 /docs/
 AGENTS.md
 .agents/
+testreport.md
+PROJECT_RULES.md
+GSD-STYLE.md
 
 # (Optional) Tests and test configs if you only want the app code
 # /tests/
