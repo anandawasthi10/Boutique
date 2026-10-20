@@ -54,9 +54,7 @@ backend/.env.production
 *.tsbuildinfo
 next-env.d.ts
 
-# Editor settings
-.vscode/
-.idea/
+<<<<<<< HEAD
 
 # Internal documentation and agent records
 /docs/
@@ -65,6 +63,11 @@ AGENTS.md
 testreport.md
 PROJECT_RULES.md
 GSD-STYLE.md
+=======
+# Editor settings
+.vscode/
+.idea/
+>>>>>>> origin/main
 
 # (Optional) Tests and test configs if you only want the app code
 # /tests/
