@@ -133,6 +133,7 @@ export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.
       required BOOLEAN NOT NULL DEFAULT TRUE,
       sort_order INTEGER NOT NULL DEFAULT 0,
       default_option_id VARCHAR(64),
+      affects_image BOOLEAN NOT NULL DEFAULT FALSE,
       PRIMARY KEY (product_id, id)
     );
 
@@ -149,7 +150,8 @@ export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.
       available BOOLEAN NOT NULL DEFAULT TRUE,
       unavailable_reason TEXT,
       sort_order INTEGER NOT NULL DEFAULT 0,
-      PRIMARY KEY (product_id, group_id, id)
+      PRIMARY KEY (product_id, group_id, id),
+      FOREIGN KEY (product_id, group_id) REFERENCES option_groups(product_id, id) ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS option_compatibility_rules (
@@ -157,7 +159,8 @@ export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.
       product_id VARCHAR(64) NOT NULL REFERENCES products(id) ON DELETE CASCADE,
       primary_option_id VARCHAR(64) NOT NULL,
       incompatible_option_id VARCHAR(64) NOT NULL,
-      message TEXT NOT NULL
+      message TEXT NOT NULL,
+      UNIQUE (product_id, primary_option_id, incompatible_option_id)
     );
 
     CREATE TABLE IF NOT EXISTS carts (
@@ -226,7 +229,7 @@ export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.
 
     CREATE TABLE IF NOT EXISTS payments (
       id VARCHAR(64) PRIMARY KEY,
-      order_id VARCHAR(64) NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+      order_id VARCHAR(64) NOT NULL REFERENCES orders(id) ON DELETE RESTRICT,
       gateway TEXT NOT NULL,
       gateway_order_id TEXT,
       gateway_payment_id TEXT,
@@ -279,6 +282,17 @@ export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.
       changed_by TEXT NOT NULL,
       reason TEXT,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS product_variant_images (
+      id VARCHAR(64) PRIMARY KEY,
+      product_id VARCHAR(64) NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+      signature TEXT NOT NULL,
+      image_url TEXT NOT NULL,
+      alt_text TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (product_id, signature)
     );
   `);
 

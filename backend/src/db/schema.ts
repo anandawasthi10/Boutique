@@ -9,6 +9,8 @@ import {
   index,
   primaryKey,
   varchar,
+  foreignKey,
+  unique,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -23,10 +25,7 @@ export const users = pgTable(
     role: text('role').notNull().default('customer'), // 'customer' | 'staff'
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (table) => [
-    index('idx_users_email').on(table.email),
-  ]
+  }
 );
 
 // 2. Sessions (Session tokens are hashed in DB per D-05)
@@ -45,7 +44,6 @@ export const sessions = pgTable(
   (table) => [
     index('idx_sessions_user_id').on(table.userId),
     index('idx_sessions_expires_at').on(table.expiresAt),
-    index('idx_sessions_hash').on(table.sessionIdHash),
   ]
 );
 
@@ -84,7 +82,6 @@ export const categories = pgTable(
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    index('idx_categories_slug').on(table.slug),
     index('idx_categories_sort_order').on(table.sortOrder),
     index('idx_categories_published').on(table.published),
   ]
@@ -112,7 +109,6 @@ export const products = pgTable(
     index('idx_products_category_id').on(table.categoryId),
     index('idx_products_published').on(table.published),
     index('idx_products_base_price').on(table.basePrice),
-    index('idx_products_slug').on(table.slug),
     index('idx_products_name').on(table.name),
   ]
 );
@@ -130,6 +126,7 @@ export const optionGroups = pgTable(
     required: boolean('required').notNull().default(true),
     sortOrder: integer('sort_order').notNull().default(0),
     defaultOptionId: varchar('default_option_id', { length: 64 }),
+    affectsImage: boolean('affects_image').notNull().default(false),
   },
   (table) => [
     primaryKey({ columns: [table.productId, table.id] }),
@@ -156,6 +153,10 @@ export const options = pgTable(
   },
   (table) => [
     primaryKey({ columns: [table.productId, table.groupId, table.id] }),
+    foreignKey({
+      columns: [table.productId, table.groupId],
+      foreignColumns: [optionGroups.productId, optionGroups.id],
+    }).onDelete('cascade'),
     index('idx_options_group').on(table.productId, table.groupId),
     index('idx_options_available').on(table.available),
   ]
@@ -174,6 +175,7 @@ export const optionCompatibilityRules = pgTable(
     message: text('message').notNull(),
   },
   (table) => [
+    unique().on(table.productId, table.primaryOptionId, table.incompatibleOptionId),
     index('idx_compatibility_product').on(table.productId),
   ]
 );
@@ -313,7 +315,7 @@ export const payments = pgTable(
     id: varchar('id', { length: 64 }).primaryKey(),
     orderId: varchar('order_id', { length: 64 })
       .notNull()
-      .references(() => orders.id, { onDelete: 'cascade' }),
+      .references(() => orders.id, { onDelete: 'restrict' }),
     gateway: text('gateway').notNull(), // 'fake' | 'razorpay'
     gatewayOrderId: text('gateway_order_id'),
     gatewayPaymentId: text('gateway_payment_id'),
@@ -378,7 +380,10 @@ export const contactMessages = pgTable(
     phone: text('phone'),
     message: text('message').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-  }
+  },
+  (table) => [
+    index('idx_contact_messages_created_at').on(table.createdAt),
+  ]
 );
 
 // 18. Order Status History
@@ -399,3 +404,23 @@ export const orderStatusHistory = pgTable(
     index('idx_order_status_history_order').on(table.orderId),
   ]
 );
+
+// 19. Product Variant Images
+export const productVariantImages = pgTable(
+  'product_variant_images',
+  {
+    id: varchar('id', { length: 64 }).primaryKey(),
+    productId: varchar('product_id', { length: 64 })
+      .notNull()
+      .references(() => products.id, { onDelete: 'cascade' }),
+    signature: text('signature').notNull(),
+    imageUrl: text('image_url').notNull(),
+    altText: text('alt_text'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    unique().on(table.productId, table.signature),
+  ]
+);
+
