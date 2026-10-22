@@ -131,6 +131,7 @@ export const optionGroups = pgTable(
     required: boolean('required').notNull().default(true),
     sortOrder: integer('sort_order').notNull().default(0),
     defaultOptionId: varchar('default_option_id', { length: 64 }),
+    affectsImage: boolean('affects_image').notNull().default(false),
   },
   (table) => [
     primaryKey({ columns: [table.productId, table.id] }),
