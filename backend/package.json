@@ -13,10 +13,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx src/db/migrate.ts",
-    "db:migrate:prod": "node dist/src/db/migrate.js",
-    "db:seed": "tsx scripts/seed.ts",
-    "db:seed:prod": "node dist/scripts/seed.js",
+    "db:migrate": "node dist/src/db/migrate.js",
+    "db:migrate:dev": "tsx src/db/migrate.ts",
+    "db:seed": "node dist/scripts/seed.js",
+    "db:seed:dev": "tsx scripts/seed.ts",
     "import-products": "tsx scripts/import-products.ts"
   },
   "dependencies": {
