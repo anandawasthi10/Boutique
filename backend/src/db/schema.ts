@@ -10,6 +10,7 @@ import {
   primaryKey,
   varchar,
   foreignKey,
+  unique,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -180,6 +181,7 @@ export const optionCompatibilityRules = pgTable(
     message: text('message').notNull(),
   },
   (table) => [
+    unique().on(table.productId, table.primaryOptionId, table.incompatibleOptionId),
     index('idx_compatibility_product').on(table.productId),
   ]
 );
