@@ -1,7 +1,6 @@
 import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 import * as schema from './schema.js';
-import { newDb } from 'pg-mem';
 
 const { Pool } = pg;
 
@@ -50,6 +49,8 @@ function patchQueryMethod(originalQuery: Function) {
 }
 
 export async function createTestDatabase(): Promise<{ db: AppDatabase; pool: pg.Pool }> {
+  // @ts-expect-error pg-mem is a development-only dependency
+  const { newDb } = await import('pg-mem');
   const mem = newDb({
     autoCreateForeignKeyIndices: true,
   });
