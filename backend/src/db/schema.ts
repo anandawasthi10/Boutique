@@ -9,6 +9,7 @@ import {
   index,
   primaryKey,
   varchar,
+  foreignKey,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -156,6 +157,10 @@ export const options = pgTable(
   },
   (table) => [
     primaryKey({ columns: [table.productId, table.groupId, table.id] }),
+    foreignKey({
+      columns: [table.productId, table.groupId],
+      foreignColumns: [optionGroups.productId, optionGroups.id],
+    }).onDelete('cascade'),
     index('idx_options_group').on(table.productId, table.groupId),
     index('idx_options_available').on(table.available),
   ]
