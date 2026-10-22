@@ -404,3 +404,23 @@ export const orderStatusHistory = pgTable(
     index('idx_order_status_history_order').on(table.orderId),
   ]
 );
+
+// 19. Product Variant Images
+export const productVariantImages = pgTable(
+  'product_variant_images',
+  {
+    id: varchar('id', { length: 64 }).primaryKey(),
+    productId: varchar('product_id', { length: 64 })
+      .notNull()
+      .references(() => products.id, { onDelete: 'cascade' }),
+    signature: text('signature').notNull(),
+    imageUrl: text('image_url').notNull(),
+    altText: text('alt_text'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    unique().on(table.productId, table.signature),
+  ]
+);
+
