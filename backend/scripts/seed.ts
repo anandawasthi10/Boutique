@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import {
   categories,
   products,
+  optionGroups,
+  options,
   users,
   addresses,
 } from '../src/db/schema.js';
@@ -97,6 +99,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-bow-scrunchie',
@@ -108,6 +111,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-everyday-makeup-pouch',
@@ -119,6 +123,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-mini-pouch',
@@ -130,6 +135,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-soft-eyewear-sleeve',
@@ -141,6 +147,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-padded-laptop-sleeve',
@@ -152,6 +159,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: true,
   },
   {
     id: 'prod-classic-hair-bow',
@@ -163,6 +171,7 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: false,
   },
   {
     id: 'prod-large-hair-bow',
@@ -174,8 +183,30 @@ export const SEED_PRODUCTS = [
     currency: 'INR',
     images: [],
     published: true,
+    hasSize: false,
   },
 ];
+
+// Standard option definitions per Section 7
+const FABRIC_OPTIONS = [
+  { id: 'opt-floral-cotton', label: 'Floral Cotton', colourValue: null, priceDelta: 0, sortOrder: 1 },
+  { id: 'opt-corduroy', label: 'Corduroy', colourValue: null, priceDelta: 0, sortOrder: 2 },
+  { id: 'opt-leopard-print', label: 'Leopard Print', colourValue: null, priceDelta: 0, sortOrder: 3 },
+];
+
+const COLOUR_OPTIONS = [
+  { id: 'opt-blush-pink', label: 'Blush Pink', colourValue: '#E9C9CF', priceDelta: 0, sortOrder: 1 },
+  { id: 'opt-dusty-blue', label: 'Dusty Blue', colourValue: '#7186A1', priceDelta: 0, sortOrder: 2 },
+  { id: 'opt-sage-green', label: 'Sage Green', colourValue: '#A3AD8B', priceDelta: 0, sortOrder: 3 },
+];
+
+function getSizeOptions(productId: string) {
+  const largeDelta = CATALOGUE_PRICES[productId]?.largeDelta ?? 0;
+  return [
+    { id: 'opt-regular', label: 'Regular', colourValue: null, priceDelta: 0, sortOrder: 1 },
+    { id: 'opt-large', label: 'Large', colourValue: null, priceDelta: largeDelta, sortOrder: 2 },
+  ];
+}
 
 async function seed() {
   const devPassword = process.env.SEED_DEV_USER_PASSWORD;
@@ -252,26 +283,196 @@ async function seed() {
       // 2. Seed Products (idempotent upsert on id)
       console.log(`Upserting ${SEED_PRODUCTS.length} products...`);
       for (const prod of SEED_PRODUCTS) {
+        const { hasSize: _, ...prodValues } = prod;
         await tx
           .insert(products)
-          .values(prod)
+          .values(prodValues)
           .onConflictDoUpdate({
             target: products.id,
             set: {
-              name: prod.name,
-              slug: prod.slug,
-              description: prod.description,
-              categoryId: prod.categoryId,
-              basePrice: prod.basePrice,
-              currency: prod.currency,
-              images: prod.images,
-              published: prod.published,
+              name: prodValues.name,
+              slug: prodValues.slug,
+              description: prodValues.description,
+              categoryId: prodValues.categoryId,
+              basePrice: prodValues.basePrice,
+              currency: prodValues.currency,
+              images: prodValues.images,
+              published: prodValues.published,
               updatedAt: new Date(),
             },
           });
       }
 
-      // 3. Dev test customer and address
+      // 3. Seed Option Groups and Options per product
+      let totalGroups = 0;
+      let totalOptions = 0;
+
+      for (const prod of SEED_PRODUCTS) {
+        // Group 1: Fabric (all 8 products, affects_image = true, type = swatch, sort_order = 1)
+        const fabricGroup = {
+          productId: prod.id,
+          id: 'fabric',
+          name: 'Fabric',
+          type: 'swatch',
+          affectsImage: true,
+          required: true,
+          sortOrder: 1,
+          defaultOptionId: 'opt-floral-cotton',
+        };
+        await tx
+          .insert(optionGroups)
+          .values(fabricGroup)
+          .onConflictDoUpdate({
+            target: [optionGroups.productId, optionGroups.id],
+            set: {
+              name: fabricGroup.name,
+              type: fabricGroup.type,
+              affectsImage: fabricGroup.affectsImage,
+              required: fabricGroup.required,
+              sortOrder: fabricGroup.sortOrder,
+              defaultOptionId: fabricGroup.defaultOptionId,
+            },
+          });
+        totalGroups++;
+
+        for (const opt of FABRIC_OPTIONS) {
+          await tx
+            .insert(options)
+            .values({
+              productId: prod.id,
+              groupId: 'fabric',
+              id: opt.id,
+              label: opt.label,
+              colourValue: opt.colourValue,
+              priceDelta: opt.priceDelta,
+              sortOrder: opt.sortOrder,
+              available: true,
+            })
+            .onConflictDoUpdate({
+              target: [options.productId, options.groupId, options.id],
+              set: {
+                label: opt.label,
+                colourValue: opt.colourValue,
+                priceDelta: opt.priceDelta,
+                sortOrder: opt.sortOrder,
+                available: true,
+              },
+            });
+          totalOptions++;
+        }
+
+        // Group 2: Colour (all 8 products, affects_image = true, type = colour, sort_order = 2)
+        const colourGroup = {
+          productId: prod.id,
+          id: 'colour',
+          name: 'Colour',
+          type: 'colour',
+          affectsImage: true,
+          required: true,
+          sortOrder: 2,
+          defaultOptionId: 'opt-blush-pink',
+        };
+        await tx
+          .insert(optionGroups)
+          .values(colourGroup)
+          .onConflictDoUpdate({
+            target: [optionGroups.productId, optionGroups.id],
+            set: {
+              name: colourGroup.name,
+              type: colourGroup.type,
+              affectsImage: colourGroup.affectsImage,
+              required: colourGroup.required,
+              sortOrder: colourGroup.sortOrder,
+              defaultOptionId: colourGroup.defaultOptionId,
+            },
+          });
+        totalGroups++;
+
+        for (const opt of COLOUR_OPTIONS) {
+          await tx
+            .insert(options)
+            .values({
+              productId: prod.id,
+              groupId: 'colour',
+              id: opt.id,
+              label: opt.label,
+              colourValue: opt.colourValue,
+              priceDelta: opt.priceDelta,
+              sortOrder: opt.sortOrder,
+              available: true,
+            })
+            .onConflictDoUpdate({
+              target: [options.productId, options.groupId, options.id],
+              set: {
+                label: opt.label,
+                colourValue: opt.colourValue,
+                priceDelta: opt.priceDelta,
+                sortOrder: opt.sortOrder,
+                available: true,
+              },
+            });
+          totalOptions++;
+        }
+
+        // Group 3: Size (only for 6 non-hair-bow products, affects_image = false, type = chips, sort_order = 3)
+        if (prod.hasSize) {
+          const sizeGroup = {
+            productId: prod.id,
+            id: 'size',
+            name: 'Size',
+            type: 'chips',
+            affectsImage: false,
+            required: true,
+            sortOrder: 3,
+            defaultOptionId: 'opt-regular',
+          };
+          await tx
+            .insert(optionGroups)
+            .values(sizeGroup)
+            .onConflictDoUpdate({
+              target: [optionGroups.productId, optionGroups.id],
+              set: {
+                name: sizeGroup.name,
+                type: sizeGroup.type,
+                affectsImage: sizeGroup.affectsImage,
+                required: sizeGroup.required,
+                sortOrder: sizeGroup.sortOrder,
+                defaultOptionId: sizeGroup.defaultOptionId,
+              },
+            });
+          totalGroups++;
+
+          const sizeOptions = getSizeOptions(prod.id);
+          for (const opt of sizeOptions) {
+            await tx
+              .insert(options)
+              .values({
+                productId: prod.id,
+                groupId: 'size',
+                id: opt.id,
+                label: opt.label,
+                colourValue: opt.colourValue,
+                priceDelta: opt.priceDelta,
+                sortOrder: opt.sortOrder,
+                available: true,
+              })
+              .onConflictDoUpdate({
+                target: [options.productId, options.groupId, options.id],
+                set: {
+                  label: opt.label,
+                  colourValue: opt.colourValue,
+                  priceDelta: opt.priceDelta,
+                  sortOrder: opt.sortOrder,
+                  available: true,
+                },
+              });
+            totalOptions++;
+          }
+        }
+      }
+      console.log(`Upserted ${totalGroups} option groups and ${totalOptions} options across all products.`);
+
+      // 4. Dev test customer and address
       const devPasswordHash = await hashPassword(devPassword);
 
       const devUser = {
@@ -329,6 +530,7 @@ async function seed() {
           },
         });
 
+      console.log('Dev customer and address seeded successfully.');
       console.log('Transaction committed successfully.');
     });
 
