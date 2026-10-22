@@ -380,7 +380,10 @@ export const contactMessages = pgTable(
     phone: text('phone'),
     message: text('message').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-  }
+  },
+  (table) => [
+    index('idx_contact_messages_created_at').on(table.createdAt),
+  ]
 );
 
 // 18. Order Status History
