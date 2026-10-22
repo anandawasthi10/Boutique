@@ -25,10 +25,7 @@ export const users = pgTable(
     role: text('role').notNull().default('customer'), // 'customer' | 'staff'
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (table) => [
-    index('idx_users_email').on(table.email),
-  ]
+  }
 );
 
 // 2. Sessions (Session tokens are hashed in DB per D-05)
@@ -47,7 +44,6 @@ export const sessions = pgTable(
   (table) => [
     index('idx_sessions_user_id').on(table.userId),
     index('idx_sessions_expires_at').on(table.expiresAt),
-    index('idx_sessions_hash').on(table.sessionIdHash),
   ]
 );
 
@@ -86,7 +82,6 @@ export const categories = pgTable(
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    index('idx_categories_slug').on(table.slug),
     index('idx_categories_sort_order').on(table.sortOrder),
     index('idx_categories_published').on(table.published),
   ]
@@ -114,7 +109,6 @@ export const products = pgTable(
     index('idx_products_category_id').on(table.categoryId),
     index('idx_products_published').on(table.published),
     index('idx_products_base_price').on(table.basePrice),
-    index('idx_products_slug').on(table.slug),
     index('idx_products_name').on(table.name),
   ]
 );
