@@ -3,11 +3,16 @@ import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import pg from 'pg';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 dotenv.config();
 
 const { Pool } = pg;
 
-const migrationsFolder = path.resolve(__dirname, '../../drizzle');
+const migrationsFolder = fs.existsSync(path.resolve(__dirname, '../../drizzle'))
+  ? path.resolve(__dirname, '../../drizzle')
+  : fs.existsSync(path.resolve(__dirname, '../../../drizzle'))
+  ? path.resolve(__dirname, '../../../drizzle')
+  : path.resolve(process.cwd(), 'drizzle');
 
 const rawDirectUrl = process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL;
 
