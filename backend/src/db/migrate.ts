@@ -3,22 +3,20 @@ import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import pg from 'pg';
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
 dotenv.config();
 
 const { Pool } = pg;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const migrationsFolder = path.resolve(__dirname, '../../drizzle');
 
-const directUrl = process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL;
+const rawDirectUrl = process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL;
 
-if (!directUrl) {
+if (!rawDirectUrl) {
   console.error('Error: DATABASE_URL_DIRECT or DATABASE_URL is not set.');
   process.exit(1);
 }
+
+const directUrl: string = rawDirectUrl;
 
 function maskUrl(urlStr: string): string {
   try {
