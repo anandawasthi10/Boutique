@@ -1,11 +1,12 @@
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
+
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 import dotenv from 'dotenv';
 import {
   categories,
   products,
-  optionGroups,
-  options,
   users,
   addresses,
 } from '../src/db/schema.js';
@@ -15,7 +16,7 @@ dotenv.config();
 
 const { Pool } = pg;
 
-const directUrl = process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL;
+const directUrl: string = process.env.DATABASE_URL_DIRECT || process.env.DATABASE_URL || '';
 
 if (!directUrl) {
   console.error('Error: DATABASE_URL_DIRECT or DATABASE_URL is not set.');
@@ -31,462 +32,159 @@ function maskUrl(urlStr: string): string {
   }
 }
 
-// Catalogue mock data sourced from lib/api/mock/data.ts
-// Prices converted from rupees to integer paise (* 100)
-const SEED_CATEGORIES = [
+// TODO: Real catalogue prices are not decided yet. Replace placeholder base_price values (in integer paise) and Large delta values once finalised.
+export const CATALOGUE_PRICES: Record<string, { basePrice: number; largeDelta: number }> = {
+  'prod-classic-scrunchie': { basePrice: 24900, largeDelta: 5000 },
+  'prod-bow-scrunchie': { basePrice: 29900, largeDelta: 5000 },
+  'prod-everyday-makeup-pouch': { basePrice: 69900, largeDelta: 10000 },
+  'prod-mini-pouch': { basePrice: 49900, largeDelta: 10000 },
+  'prod-soft-eyewear-sleeve': { basePrice: 39900, largeDelta: 10000 },
+  'prod-padded-laptop-sleeve': { basePrice: 129900, largeDelta: 20000 },
+  'prod-classic-hair-bow': { basePrice: 34900, largeDelta: 0 },
+  'prod-large-hair-bow': { basePrice: 39900, largeDelta: 0 },
+};
+
+// 4 Categories from section 7
+export const SEED_CATEGORIES = [
   {
     id: 'cat-scrunchies',
-    slug: 'scrunchies',
     name: 'Scrunchies',
+    slug: 'scrunchies',
     description: 'Generously gathered fabric hair ties in pure cotton, corduroy, and linen.',
-    image: '/images/productimages/scrunchies-category.jpg',
+    image: null,
     sortOrder: 1,
     published: true,
   },
   {
     id: 'cat-pouches',
-    slug: 'pouches',
     name: 'Pouches',
+    slug: 'pouches',
     description: 'Everyday zippered makeup and utility pouches.',
-    image: '/images/productimages/pouches-category.jpg',
+    image: null,
     sortOrder: 2,
     published: true,
   },
   {
     id: 'cat-sleeves',
-    slug: 'sleeves',
     name: 'Sleeves',
+    slug: 'sleeves',
     description: 'Protective quilted sleeves for glasses, laptops, and essentials.',
-    image: '/images/productimages/sleeves-category.jpg',
+    image: null,
     sortOrder: 3,
+    published: true,
+  },
+  {
+    id: 'cat-hair-accessories',
+    name: 'Hair Accessories',
+    slug: 'hair-accessories',
+    description: 'Handcrafted fabric hair bows and handcrafted hair accessories.',
+    image: null,
+    sortOrder: 4,
     published: true,
   },
 ];
 
-const SEED_PRODUCTS = [
+// 8 Products from section 7
+// TODO: Replace short placeholder product descriptions with finalized marketing copy.
+export const SEED_PRODUCTS = [
   {
-    id: 'prod-scrunchie',
-    slug: 'classic-scrunchie',
+    id: 'prod-classic-scrunchie',
     name: 'Classic Scrunchie',
-    description:
-      'A softly gathered fabric scrunchie designed to hold hair comfortably without pulling. Cut, sewn and finished by hand with durable elastic.',
+    slug: 'classic-scrunchie',
+    description: 'Handcrafted classic fabric scrunchie designed for everyday comfort.',
     categoryId: 'cat-scrunchies',
-    basePrice: 24900, // 249 INR -> 24900 paise
+    basePrice: CATALOGUE_PRICES['prod-classic-scrunchie'].basePrice,
     currency: 'INR',
+    images: [],
     published: true,
-    images: [
-      { url: '/images/productimages/classic-scrunchie-1.jpg', alt: 'Classic Scrunchie in floral print', order: 1 },
-      { url: '/images/placeholders/scrunchie-2.svg', alt: 'Classic Scrunchie fabric texture detail (Placeholder)', order: 2 },
-    ],
-    optionGroups: [
-      {
-        id: 'group-fabric',
-        name: 'Fabric Choice',
-        type: 'swatch',
-        required: true,
-        sortOrder: 1,
-        defaultOptionId: 'opt-floral',
-        options: [
-          {
-            id: 'opt-floral',
-            label: 'Floral',
-            priceDelta: 0,
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
-            previewImageUrl: '/images/productimages/classic-scrunchie-1.jpg',
-            detail: 'Soft printed cotton',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-corduroy',
-            label: 'Corduroy',
-            priceDelta: 5000, // 50 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
-            previewImageUrl: '/images/placeholders/scrunchie-2.svg',
-            detail: 'Fine-wale washed corduroy',
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-check',
-            label: 'Check',
-            priceDelta: 3000, // 30 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-check.svg',
-            detail: 'Yarn-dyed check weave',
-            sortOrder: 3,
-          },
-          {
-            id: 'opt-linen',
-            label: 'Linen',
-            priceDelta: 4000, // 40 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
-            detail: 'Breathable pure linen',
-            sortOrder: 4,
-          },
-        ],
-      },
-      {
-        id: 'group-size',
-        name: 'Size',
-        type: 'chips',
-        required: true,
-        sortOrder: 2,
-        defaultOptionId: 'opt-size-regular',
-        options: [
-          {
-            id: 'opt-size-regular',
-            label: 'Regular',
-            priceDelta: 0,
-            available: true,
-            detail: 'Approx 9 cm diameter',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-size-large',
-            label: 'Large',
-            priceDelta: 5000, // 50 INR
-            available: true,
-            detail: 'Approx 11 cm diameter',
-            sortOrder: 2,
-          },
-        ],
-      },
-    ],
   },
   {
-    id: 'prod-pouch',
-    slug: 'makeup-pouch',
+    id: 'prod-bow-scrunchie',
+    name: 'Bow Scrunchie',
+    slug: 'bow-scrunchie',
+    description: 'Delicately tied bow scrunchie handmade from premium fabric.',
+    categoryId: 'cat-scrunchies',
+    basePrice: CATALOGUE_PRICES['prod-bow-scrunchie'].basePrice,
+    currency: 'INR',
+    images: [],
+    published: true,
+  },
+  {
+    id: 'prod-everyday-makeup-pouch',
     name: 'Everyday Makeup Pouch',
-    description:
-      'Structured pouch with wide base and zip opening. Roomy enough for cosmetics, skincare, and travel essentials.',
+    slug: 'everyday-makeup-pouch',
+    description: 'Spacious zippered cosmetic pouch for everyday essentials.',
     categoryId: 'cat-pouches',
-    basePrice: 59900, // 599 INR -> 59900 paise
+    basePrice: CATALOGUE_PRICES['prod-everyday-makeup-pouch'].basePrice,
     currency: 'INR',
+    images: [],
     published: true,
-    images: [
-      { url: '/images/productimages/makeup-pouch-1.jpg', alt: 'Everyday Makeup Pouch in floral print', order: 1 },
-      { url: '/images/placeholders/pouch-2.svg', alt: 'Everyday Makeup Pouch open interior (Placeholder)', order: 2 },
-    ],
-    optionGroups: [
-      {
-        id: 'group-fabric',
-        name: 'Fabric Choice',
-        type: 'swatch',
-        required: true,
-        sortOrder: 1,
-        defaultOptionId: 'opt-floral',
-        options: [
-          {
-            id: 'opt-floral',
-            label: 'Floral',
-            priceDelta: 0,
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
-            previewImageUrl: '/images/productimages/makeup-pouch-1.jpg',
-            detail: 'Soft printed cotton',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-corduroy',
-            label: 'Corduroy',
-            priceDelta: 7000, // 70 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-check',
-            label: 'Check',
-            priceDelta: 4000, // 40 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-check.svg',
-            sortOrder: 3,
-          },
-          {
-            id: 'opt-linen',
-            label: 'Linen',
-            priceDelta: 6000, // 60 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
-            sortOrder: 4,
-          },
-        ],
-      },
-      {
-        id: 'group-size',
-        name: 'Size',
-        type: 'chips',
-        required: true,
-        sortOrder: 2,
-        defaultOptionId: 'opt-size-regular',
-        options: [
-          {
-            id: 'opt-size-regular',
-            label: 'Regular',
-            priceDelta: 0,
-            available: true,
-            detail: '18 x 12 x 7 cm',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-size-large',
-            label: 'Large',
-            priceDelta: 10000, // 100 INR
-            available: true,
-            detail: '24 x 16 x 9 cm',
-            sortOrder: 2,
-          },
-        ],
-      },
-      {
-        id: 'group-zipper',
-        name: 'Zipper Finish',
-        type: 'colour',
-        required: true,
-        sortOrder: 3,
-        defaultOptionId: 'opt-zip-brass',
-        options: [
-          {
-            id: 'opt-zip-brass',
-            label: 'Antique Brass',
-            priceDelta: 0,
-            available: true,
-            colourValue: '#B8860B',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-zip-rose',
-            label: 'Rose Gold',
-            priceDelta: 3000, // 30 INR
-            available: true,
-            colourValue: '#B76E79',
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-zip-gunmetal',
-            label: 'Gunmetal',
-            priceDelta: 2000, // 20 INR
-            available: true,
-            colourValue: '#2A2A2A',
-            sortOrder: 3,
-          },
-        ],
-      },
-    ],
   },
   {
-    id: 'prod-eyewear',
-    slug: 'eyewear-sleeve',
+    id: 'prod-mini-pouch',
+    name: 'Mini Pouch',
+    slug: 'mini-pouch',
+    description: 'Compact fabric zipper pouch for coins, cards, and small accessories.',
+    categoryId: 'cat-pouches',
+    basePrice: CATALOGUE_PRICES['prod-mini-pouch'].basePrice,
+    currency: 'INR',
+    images: [],
+    published: true,
+  },
+  {
+    id: 'prod-soft-eyewear-sleeve',
     name: 'Soft Eyewear Sleeve',
-    description: 'Slim cushioned fabric case for glasses or sunglasses with a secure top closure.',
+    slug: 'soft-eyewear-sleeve',
+    description: 'Cushioned fabric sleeve designed to protect glasses and sunglasses.',
     categoryId: 'cat-sleeves',
-    basePrice: 39900, // 399 INR -> 39900 paise
+    basePrice: CATALOGUE_PRICES['prod-soft-eyewear-sleeve'].basePrice,
     currency: 'INR',
+    images: [],
     published: true,
-    images: [
-      { url: '/images/productimages/eyewear-sleeve-1.jpg', alt: 'Soft Eyewear Sleeve in floral print', order: 1 },
-    ],
-    optionGroups: [
-      {
-        id: 'group-fabric',
-        name: 'Fabric Choice',
-        type: 'swatch',
-        required: true,
-        sortOrder: 1,
-        defaultOptionId: 'opt-floral',
-        options: [
-          {
-            id: 'opt-floral',
-            label: 'Floral',
-            priceDelta: 0,
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
-            previewImageUrl: '/images/productimages/eyewear-sleeve-1.jpg',
-            detail: 'Soft printed cotton',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-corduroy',
-            label: 'Corduroy',
-            priceDelta: 6000, // 60 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-check',
-            label: 'Check',
-            priceDelta: 4000, // 40 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-check.svg',
-            sortOrder: 3,
-          },
-          {
-            id: 'opt-linen',
-            label: 'Linen',
-            priceDelta: 5000, // 50 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
-            sortOrder: 4,
-          },
-        ],
-      },
-      {
-        id: 'group-closure',
-        name: 'Closure Type',
-        type: 'chips',
-        required: true,
-        sortOrder: 2,
-        defaultOptionId: 'opt-closure-magnetic',
-        options: [
-          {
-            id: 'opt-closure-magnetic',
-            label: 'Magnetic Snap',
-            priceDelta: 0,
-            available: true,
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-closure-button',
-            label: 'Horn Button',
-            priceDelta: 4000, // 40 INR
-            available: true,
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-closure-tie',
-            label: 'Tie Ribbon',
-            priceDelta: 2000, // 20 INR
-            available: true,
-            sortOrder: 3,
-          },
-        ],
-      },
-    ],
   },
   {
-    id: 'prod-laptop',
-    slug: 'laptop-sleeve',
+    id: 'prod-padded-laptop-sleeve',
     name: 'Padded Laptop Sleeve',
-    description:
-      'Padded tech sleeve with protective inner lining and clean edge stitching. Fits standard laptops.',
+    slug: 'padded-laptop-sleeve',
+    description: 'Padded quilted sleeve for laptops with secure closure.',
     categoryId: 'cat-sleeves',
-    basePrice: 119900, // 1199 INR -> 119900 paise
+    basePrice: CATALOGUE_PRICES['prod-padded-laptop-sleeve'].basePrice,
     currency: 'INR',
+    images: [],
     published: true,
-    images: [
-      { url: '/images/productimages/laptop-sleeve-1.jpg', alt: 'Padded Laptop Sleeve in floral print', order: 1 },
-    ],
-    optionGroups: [
-      {
-        id: 'group-fabric',
-        name: 'Fabric Choice',
-        type: 'swatch',
-        required: true,
-        sortOrder: 1,
-        defaultOptionId: 'opt-floral',
-        options: [
-          {
-            id: 'opt-floral',
-            label: 'Floral',
-            priceDelta: 0,
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-floral.svg',
-            previewImageUrl: '/images/productimages/laptop-sleeve-1.jpg',
-            detail: 'Soft printed cotton',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-corduroy',
-            label: 'Corduroy',
-            priceDelta: 0,
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-corduroy.svg',
-            sortOrder: 2,
-          },
-          {
-            id: 'opt-linen',
-            label: 'Linen',
-            priceDelta: 8000, // 80 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-linen.svg',
-            sortOrder: 3,
-          },
-          {
-            id: 'opt-check',
-            label: 'Check',
-            priceDelta: 5000, // 50 INR
-            available: true,
-            swatchImageUrl: '/images/placeholders/fabric-check.svg',
-            sortOrder: 4,
-          },
-        ],
-      },
-      {
-        id: 'group-size',
-        name: 'Size',
-        type: 'chips',
-        required: true,
-        sortOrder: 2,
-        defaultOptionId: 'opt-laptop-13',
-        options: [
-          {
-            id: 'opt-laptop-13',
-            label: '13-inch',
-            priceDelta: 0,
-            available: true,
-            detail: 'Fits devices up to 31 x 22 cm',
-            sortOrder: 1,
-          },
-          {
-            id: 'opt-laptop-15',
-            label: '15-inch',
-            priceDelta: 15000, // 150 INR
-            available: true,
-            detail: 'Fits devices up to 35 x 25 cm',
-            sortOrder: 2,
-          },
-        ],
-      },
-      {
-        id: 'group-waterproof',
-        name: 'Water-resistant Lining',
-        type: 'toggle',
-        required: false,
-        sortOrder: 3,
-        options: [
-          {
-            id: 'opt-waterproof-on',
-            label: 'Include water-resistant lining',
-            priceDelta: 12000, // 120 INR
-            available: true,
-            sortOrder: 1,
-          },
-        ],
-      },
-      {
-        id: 'group-strap',
-        name: 'Detachable Shoulder Strap',
-        type: 'toggle',
-        required: false,
-        sortOrder: 4,
-        options: [
-          {
-            id: 'opt-strap-on',
-            label: 'Include matching shoulder strap',
-            priceDelta: 20000, // 200 INR
-            available: true,
-            sortOrder: 1,
-          },
-        ],
-      },
-    ],
+  },
+  {
+    id: 'prod-classic-hair-bow',
+    name: 'Classic Hair Bow',
+    slug: 'classic-hair-bow',
+    description: 'Timeless fabric hair bow with sturdy alligator clip attachment.',
+    categoryId: 'cat-hair-accessories',
+    basePrice: CATALOGUE_PRICES['prod-classic-hair-bow'].basePrice,
+    currency: 'INR',
+    images: [],
+    published: true,
+  },
+  {
+    id: 'prod-large-hair-bow',
+    name: 'Large Hair Bow',
+    slug: 'large-hair-bow',
+    description: 'Statement oversized fabric hair bow handcrafted with premium fabrics.',
+    categoryId: 'cat-hair-accessories',
+    basePrice: CATALOGUE_PRICES['prod-large-hair-bow'].basePrice,
+    currency: 'INR',
+    images: [],
+    published: true,
   },
 ];
 
 async function seed() {
+  const devPassword = process.env.SEED_DEV_USER_PASSWORD;
+  if (!devPassword || devPassword.trim() === '') {
+    throw new Error(
+      'SEED_DEV_USER_PASSWORD environment variable is required and cannot be empty. Please define it in backend/.env'
+    );
+  }
+
   console.log(`Connecting to database for seeding: ${maskUrl(directUrl)}`);
 
   const maxRetries = 3;
@@ -531,16 +229,17 @@ async function seed() {
     await db.transaction(async (tx) => {
       console.log('Starting seed transaction...');
 
-      // 1. Seed Categories (idempotent upsert on slug)
+      // 1. Seed Categories (idempotent upsert on id)
       console.log(`Upserting ${SEED_CATEGORIES.length} categories...`);
       for (const cat of SEED_CATEGORIES) {
         await tx
           .insert(categories)
           .values(cat)
           .onConflictDoUpdate({
-            target: categories.slug,
+            target: categories.id,
             set: {
               name: cat.name,
+              slug: cat.slug,
               description: cat.description,
               image: cat.image,
               sortOrder: cat.sortOrder,
@@ -550,162 +249,85 @@ async function seed() {
           });
       }
 
-      // 2. Seed Products, Option Groups, Options (idempotent upsert on slug & composite keys)
+      // 2. Seed Products (idempotent upsert on id)
       console.log(`Upserting ${SEED_PRODUCTS.length} products...`);
       for (const prod of SEED_PRODUCTS) {
         await tx
           .insert(products)
-          .values({
-            id: prod.id,
-            slug: prod.slug,
-            name: prod.name,
-            description: prod.description,
-            categoryId: prod.categoryId,
-            basePrice: prod.basePrice,
-            currency: prod.currency,
-            published: prod.published,
-            images: prod.images,
-          })
+          .values(prod)
           .onConflictDoUpdate({
-            target: products.slug,
+            target: products.id,
             set: {
               name: prod.name,
+              slug: prod.slug,
               description: prod.description,
               categoryId: prod.categoryId,
               basePrice: prod.basePrice,
               currency: prod.currency,
-              published: prod.published,
               images: prod.images,
+              published: prod.published,
               updatedAt: new Date(),
             },
           });
-
-        for (const group of prod.optionGroups) {
-          await tx
-            .insert(optionGroups)
-            .values({
-              id: group.id,
-              productId: prod.id,
-              name: group.name,
-              type: group.type,
-              required: group.required,
-              sortOrder: group.sortOrder,
-              defaultOptionId: group.defaultOptionId || null,
-            })
-            .onConflictDoUpdate({
-              target: [optionGroups.productId, optionGroups.id],
-              set: {
-                name: group.name,
-                type: group.type,
-                required: group.required,
-                sortOrder: group.sortOrder,
-                defaultOptionId: group.defaultOptionId || null,
-              },
-            });
-
-          for (const opt of group.options) {
-            await tx
-              .insert(options)
-              .values({
-                id: opt.id,
-                productId: prod.id,
-                groupId: group.id,
-                label: opt.label,
-                priceDelta: opt.priceDelta,
-                swatchImageUrl: opt.swatchImageUrl || null,
-                colourValue: opt.colourValue || null,
-                previewImageUrl: opt.previewImageUrl || null,
-                detail: opt.detail || null,
-                available: opt.available ?? true,
-                sortOrder: opt.sortOrder,
-              })
-              .onConflictDoUpdate({
-                target: [options.productId, options.groupId, options.id],
-                set: {
-                  label: opt.label,
-                  priceDelta: opt.priceDelta,
-                  swatchImageUrl: opt.swatchImageUrl || null,
-                  colourValue: opt.colourValue || null,
-                  previewImageUrl: opt.previewImageUrl || null,
-                  detail: opt.detail || null,
-                  available: opt.available ?? true,
-                  sortOrder: opt.sortOrder,
-                },
-              });
-          }
-        }
       }
 
-      // 3. Dev-only seed for one test customer and one test address
-      if (process.env.NODE_ENV === 'production') {
-        console.log('Production environment detected: skipping dev-only customer and address seed.');
-      } else {
-        const devPassword = process.env.SEED_DEV_USER_PASSWORD;
-        if (!devPassword) {
-          throw new Error(
-            'SEED_DEV_USER_PASSWORD environment variable is required to seed dev user. Please define it in backend/.env'
-          );
-        }
+      // 3. Dev test customer and address
+      const devPasswordHash = await hashPassword(devPassword);
 
-        console.log('Seeding dev-only customer and address...');
-        const devPasswordHash = await hashPassword(devPassword);
+      const devUser = {
+        id: 'usr-dev-customer-1',
+        name: 'Anvi Sharma',
+        email: 'anvi@example.com',
+        passwordHash: devPasswordHash,
+        role: 'customer',
+      };
 
-        const devUser = {
-          id: 'usr-dev-customer-1',
-          name: 'Anvi Sharma',
-          email: 'anvi@example.com',
-          passwordHash: devPasswordHash,
-          role: 'customer',
-        };
+      await tx
+        .insert(users)
+        .values(devUser)
+        .onConflictDoUpdate({
+          target: users.id,
+          set: {
+            name: devUser.name,
+            email: devUser.email,
+            passwordHash: devPasswordHash,
+            role: devUser.role,
+            updatedAt: new Date(),
+          },
+        });
 
-        await tx
-          .insert(users)
-          .values(devUser)
-          .onConflictDoUpdate({
-            target: users.email,
-            set: {
-              name: devUser.name,
-              passwordHash: devPasswordHash,
-              role: devUser.role,
-              updatedAt: new Date(),
-            },
-          });
+      const devAddress = {
+        id: 'addr-dev-default-1',
+        userId: devUser.id,
+        fullName: 'Anvi Sharma',
+        phone: '9876543210',
+        line1: 'Flat 302, Rosewood Apartments',
+        line2: '14th Cross, Indiranagar',
+        landmark: 'Near Metro Station',
+        city: 'Bengaluru',
+        state: 'Karnataka',
+        pincode: '560038',
+        isDefault: true,
+      };
 
-        const devAddress = {
-          id: 'addr-dev-default-1',
-          userId: devUser.id,
-          fullName: 'Anvi Sharma',
-          phone: '9876543210',
-          line1: 'Flat 302, Rosewood Apartments',
-          line2: '14th Cross, Indiranagar',
-          landmark: 'Near Metro Station',
-          city: 'Bengaluru',
-          state: 'Karnataka',
-          pincode: '560038',
-          isDefault: true,
-        };
-
-        await tx
-          .insert(addresses)
-          .values(devAddress)
-          .onConflictDoUpdate({
-            target: addresses.id,
-            set: {
-              fullName: devAddress.fullName,
-              phone: devAddress.phone,
-              line1: devAddress.line1,
-              line2: devAddress.line2,
-              landmark: devAddress.landmark,
-              city: devAddress.city,
-              state: devAddress.state,
-              pincode: devAddress.pincode,
-              isDefault: devAddress.isDefault,
-              updatedAt: new Date(),
-            },
-          });
-
-        console.log('Dev customer and address seeded successfully.');
-      }
+      await tx
+        .insert(addresses)
+        .values(devAddress)
+        .onConflictDoUpdate({
+          target: addresses.id,
+          set: {
+            fullName: devAddress.fullName,
+            phone: devAddress.phone,
+            line1: devAddress.line1,
+            line2: devAddress.line2,
+            landmark: devAddress.landmark,
+            city: devAddress.city,
+            state: devAddress.state,
+            pincode: devAddress.pincode,
+            isDefault: devAddress.isDefault,
+            updatedAt: new Date(),
+          },
+        });
 
       console.log('Transaction committed successfully.');
     });
