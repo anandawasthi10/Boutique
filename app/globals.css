@@ -185,6 +185,16 @@ body {
   font-family: var(--font-script);
 }
 
+
+/* Custom scrollbar hide */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -196,3 +206,4 @@ body {
     scroll-behavior: auto !important;
   }
 }
+

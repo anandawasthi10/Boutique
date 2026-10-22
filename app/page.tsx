@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { ProductGrid } from '@/components/catalogue/ProductGrid';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
+import { ReviewsSection } from '@/components/reviews';
 
 export default function HomePage() {
   const [categories, setCategories] = useState<CategorySummary[]>([]);
@@ -226,8 +227,11 @@ export default function HomePage() {
           emptyDescription="We are updating our catalogue. Please check back shortly."
         />
       </section>
-
-      {/* 4. BRAND STORY BAND */}
+ 
+      {/* 4. RATINGS & REVIEWS SECTION */}
+      <ReviewsSection />
+ 
+      {/* 5. BRAND STORY BAND */}
       <section className="w-full bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-4 sm:px-8 text-center space-y-6">
           <span className="text-label text-[var(--color-text-muted)]">About The Studio</span>
