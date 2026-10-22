@@ -321,7 +321,7 @@ export const payments = pgTable(
     id: varchar('id', { length: 64 }).primaryKey(),
     orderId: varchar('order_id', { length: 64 })
       .notNull()
-      .references(() => orders.id, { onDelete: 'cascade' }),
+      .references(() => orders.id, { onDelete: 'restrict' }),
     gateway: text('gateway').notNull(), // 'fake' | 'razorpay'
     gatewayOrderId: text('gateway_order_id'),
     gatewayPaymentId: text('gateway_payment_id'),
