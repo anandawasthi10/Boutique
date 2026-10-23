@@ -167,18 +167,18 @@ export const ReviewsSection: React.FC = () => {
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="w-full max-w-md bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl p-6 sm:p-8 shadow-2xl relative text-[var(--color-text)]"
+            className="w-full max-w-md bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-2xl relative text-stone-900"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--color-border)]">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200">
               <div className="flex items-center gap-2">
                 <MessageSquareQuote className="w-5 h-5 text-amber-600" />
-                <h3 className="text-h3 font-medium">Leave a Review</h3>
+                <h3 className="text-h3 font-medium text-stone-900">Leave a Review</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-[var(--color-text)] text-xl font-bold p-1"
+                className="text-stone-400 hover:text-stone-700 text-xl font-bold p-1"
                 aria-label="Close review dialog"
               >
                 ✕
