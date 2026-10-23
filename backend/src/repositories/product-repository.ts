@@ -6,6 +6,7 @@ import {
   optionGroups,
   options,
   optionCompatibilityRules,
+  productVariantImages,
 } from '../db/schema.js';
 
 export interface ProductFilterParams {
@@ -186,6 +187,12 @@ export class ProductRepository {
       .from(optionCompatibilityRules)
       .where(eq(optionCompatibilityRules.productId, product.id));
 
+    // Fetch variant images
+    const variantImageRows = await this.db
+      .select()
+      .from(productVariantImages)
+      .where(eq(productVariantImages.productId, product.id));
+
     // Group options by optionGroup
     const optionGroupsWithNestedOptions = groups.map((g) => ({
       id: g.id,
@@ -194,6 +201,7 @@ export class ProductRepository {
       type: g.type,
       required: g.required,
       sortOrder: g.sortOrder,
+      affectsImage: g.affectsImage ?? false,
       defaultOptionId: g.defaultOptionId || undefined,
       options: allOptions
         .filter((opt) => opt.groupId === g.id)
@@ -211,8 +219,30 @@ export class ProductRepository {
         })),
     }));
 
+    const variantImages = variantImageRows.map((v) => ({
+      id: v.id,
+      productId: v.productId,
+      signature: v.signature,
+      imageUrl: v.imageUrl,
+      altText: v.altText || undefined,
+      fabricOptionId: v.fabricOptionId || undefined,
+      colourOptionId: v.colourOptionId || undefined,
+      filename: v.filename || undefined,
+    }));
+
+    const images =
+      product.images && product.images.length > 0
+        ? product.images
+        : variantImages.map((v, i) => ({
+            url: v.imageUrl,
+            alt: v.altText || `${product.name} view ${i + 1}`,
+            order: i + 1,
+          }));
+
     return {
       ...product,
+      images,
+      variantImages,
       optionGroups: optionGroupsWithNestedOptions,
       compatibilityRules: rules,
     };
