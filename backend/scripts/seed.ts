@@ -53,7 +53,7 @@ export const SEED_CATEGORIES = [
     name: 'Scrunchies',
     slug: 'scrunchies',
     description: 'Generously gathered fabric hair ties in pure cotton, corduroy, and linen.',
-    image: null,
+    image: 'https://res.cloudinary.com/iip3povd/image/upload/v1792752531/Scrunchie_Category_tile.png',
     sortOrder: 1,
     published: true,
   },
