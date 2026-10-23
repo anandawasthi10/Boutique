@@ -22,6 +22,11 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
   const touchEndX = useRef<number | null>(null);
   const { reducedMotion } = usePreferences();
 
+  const firstImageUrl = images[0]?.url;
+  React.useEffect(() => {
+    setSelectedIndex(0);
+  }, [firstImageUrl]);
+
   const count = images.length;
 
   const handleNext = useCallback(() => {

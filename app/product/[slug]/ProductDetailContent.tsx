@@ -24,6 +24,46 @@ export const ProductDetailContent: React.FC<ProductDetailContentProps> = ({
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedOptionIds, setSelectedOptionIds] = useState<Record<string, string>>({});
+
+  const displayImages = React.useMemo(() => {
+    if (!product) return [];
+    const baseImages = product.images || [];
+    if (!product.variantImages || product.variantImages.length === 0) {
+      return baseImages;
+    }
+
+    const matchingVariant = product.variantImages.find((vi) => {
+      if (vi.fabricOptionId && vi.colourOptionId) {
+        const matchesFabric = selectedOptionIds['fabric'] === vi.fabricOptionId;
+        const matchesColour = selectedOptionIds['colour'] === vi.colourOptionId;
+        if (matchesFabric && matchesColour) return true;
+      }
+      if (vi.signature) {
+        const parts = vi.signature.split('|');
+        return (
+          parts.length > 0 &&
+          parts.every((p) => {
+            const [grp, opt] = p.split(':');
+            return selectedOptionIds[grp] === opt;
+          })
+        );
+      }
+      return false;
+    });
+
+    if (matchingVariant) {
+      const activeImage = {
+        url: matchingVariant.imageUrl,
+        alt: matchingVariant.altText || `${product.name} customised view`,
+        order: 1,
+      };
+      const remaining = baseImages.filter((img) => img.url !== matchingVariant.imageUrl);
+      return [activeImage, ...remaining];
+    }
+
+    return baseImages;
+  }, [product, selectedOptionIds]);
 
   const loadData = useCallback(() => {
     setIsLoading(true);
@@ -134,7 +174,7 @@ export const ProductDetailContent: React.FC<ProductDetailContentProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pt-4">
         {/* Left Column: Gallery */}
         <div className="lg:col-span-7">
-          <ProductGallery images={product.images} productName={product.name} />
+          <ProductGallery images={displayImages} productName={product.name} />
         </div>
 
         {/* Right Column: Sticky Purchase & Configurator Area */}
@@ -163,7 +203,10 @@ export const ProductDetailContent: React.FC<ProductDetailContentProps> = ({
               {configuratorSlot !== undefined ? (
                 configuratorSlot
               ) : (
-                <ProductConfigurator product={product} />
+                <ProductConfigurator
+                  product={product}
+                  onSelectionChange={setSelectedOptionIds}
+                />
               )}
             </div>
           </div>
