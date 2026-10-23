@@ -24,12 +24,24 @@ export interface OptionGroup {
   required: boolean;
   options: Option[];
   defaultOptionId?: string;
+  affectsImage?: boolean;
 }
 
 export interface ProductImage {
   url: string;
   alt: string;
   order: number;
+}
+
+export interface VariantImage {
+  id: string;
+  productId: string;
+  signature: string;
+  imageUrl: string;
+  altText?: string;
+  fabricOptionId?: string;
+  colourOptionId?: string;
+  filename?: string;
 }
 
 // CONTRACT-GAP (CG-04): Category metadata fields (slug, description, image, sortOrder)
@@ -66,6 +78,7 @@ export interface Product {
   };
   basePrice: number;
   images: ProductImage[];
+  variantImages?: VariantImage[];
   optionGroups: OptionGroup[];
   active?: boolean;
 }
