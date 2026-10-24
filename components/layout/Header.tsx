@@ -26,10 +26,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
       {/* Skip to Content Link - First focusable element */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[var(--color-primary)] focus:text-[var(--color-primary-text)] focus:rounded-[4px] focus:shadow-md focus:font-medium"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[var(--color-primary)] focus:text-[var(--color-on-primary)] focus:rounded-[4px] focus:shadow-md focus:font-medium"
       >
         Skip to main content
       </a>
+
+      {/* Top Announcement Bar */}
+      <div className="w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs py-1.5 px-4 text-center font-medium tracking-wide">
+        Complimentary standard shipping on all orders
+      </div>
 
       <header className="sticky top-0 z-40 w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] transition-colors">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
@@ -124,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
               {cartCount > 0 && (
                 <span
                   data-testid="cart-count-badge"
-                  className="absolute top-1.5 right-1.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-[var(--color-primary)] text-[var(--color-primary-text)] text-[11px] font-semibold rounded-full leading-none"
+                  className="absolute top-1.5 right-1.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[11px] font-semibold rounded-full leading-none"
                 >
                   {cartCount}
                 </span>
