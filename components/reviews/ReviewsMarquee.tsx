@@ -89,11 +89,11 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
 
       {/* Left and Right gradient fades for luxury boutique depth */}
       <div
-        className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-r from-[var(--color-bg)] to-transparent"
+        className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-r from-[var(--color-primary)] to-transparent"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-l from-[var(--color-bg)] to-transparent"
+        className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-l from-[var(--color-primary)] to-transparent"
         aria-hidden="true"
       />
 
@@ -126,7 +126,12 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
           </div>
 
           {/* Group 2: Cloned stream for 100% gapless continuous infinite loop */}
-          <div className="flex shrink-0 items-stretch gap-5 pr-5" aria-hidden="true">
+          {/* inert ensures focusable elements in cloned track are not reachable, satisfying WCAG aria-hidden-focus */}
+          <div
+            className="flex shrink-0 items-stretch gap-5 pr-5"
+            aria-hidden="true"
+            {...({ inert: '' } as React.HTMLAttributes<HTMLDivElement>)}
+          >
             {groupItems.map((review, idx) => (
               <ReviewCard
                 key={`g2-${review.id}-${idx}`}
@@ -139,13 +144,13 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
       </div>
 
       {/* Status hint for user */}
-      <div className="flex items-center justify-center gap-2 sm:gap-3 mt-3 text-xs text-[var(--color-text-muted)] flex-wrap px-4">
+      <div className="flex items-center justify-center gap-2 sm:gap-3 mt-3 text-xs text-[var(--color-on-primary)]/80 flex-wrap px-4">
         <div className="flex items-center gap-1.5">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-medium text-[var(--color-text)]">
+          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-medium text-[var(--color-on-primary)]">
             Continuous Stream
           </span>
-          <span className="text-amber-500 font-medium">
+          <span className="text-[var(--color-accent)] font-medium">
             ({direction === 'ltr' ? 'Moving Left → Right' : 'Moving Right → Left'})
           </span>
         </div>

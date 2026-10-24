@@ -23,7 +23,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '3 months ago',
     avatarText: 'A',
-    avatarBg: 'bg-[#D81B60]',
+    avatarBg: 'bg-[var(--color-accent-text)]',
     content:
       'I’ve absolutely loved everything Jyoti & Sakshi have made for me over the years, and most recently for my two-year-old as well ❤️ Despite sharing only measurements and requirements over the phone, they’ve managed to get the fit, style, and perfection every single time!',
     initialLikes: 1,
@@ -39,7 +39,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '3 months ago',
     avatarText: 'N',
-    avatarBg: 'bg-[#00897B]',
+    avatarBg: 'bg-[var(--color-primary)]',
     content:
       'Had a wonderful experience with this boutique every time I visit. I’ve purchased dresses and also got outfits stitched here, and the quality has always been great. Whether it’s Indian, Western, or Indo-Western styles, they have a really nice and versatile collection. The designs are trendy, and the fitting is always on point.',
     initialLikes: 2,
@@ -54,7 +54,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '3 months ago',
     avatarImage: '/images/avatars/gehna.jpg',
-    avatarBg: 'bg-[#E5D7CC]',
+    avatarBg: 'bg-[var(--color-plum-raised)]',
     content:
       'Great quality, beautiful designs, and comfortable fabrics. Highly recommended!',
     initialLikes: 1,
@@ -69,7 +69,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '3 months ago',
     avatarText: 'K',
-    avatarBg: 'bg-[#546E7A]',
+    avatarBg: 'bg-[var(--color-accent-text)]',
     content:
       'Beautiful collection, amazing customer service! Completely satisfied',
     initialLikes: 1,
@@ -84,7 +84,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '3 months ago',
     avatarText: 'C',
-    avatarBg: 'bg-[#5C6BC0]',
+    avatarBg: 'bg-[var(--color-primary)]',
     content: 'Good experience all the time I have visited ..',
     initialLikes: 1,
     isInitiallyHearted: false,
@@ -98,7 +98,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 5,
     timeAgo: '2 years ago',
     avatarText: 'A',
-    avatarBg: 'bg-[#00ACC1]',
+    avatarBg: 'bg-[var(--color-plum-raised)]',
     content:
       'Could not be more happier with what I’ve found 1.5 years ago. I’ve great experience with chic Wadrobe store. Both Jyoti & Sakshi are humble , talented and way more understanding when it comes to their clients need.',
     initialLikes: 3,
@@ -114,7 +114,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 4,
     timeAgo: '1 month ago',
     avatarText: 'S',
-    avatarBg: 'bg-[#D97706]',
+    avatarBg: 'bg-[var(--color-accent-text)]',
     content:
       'Superb tailoring and thoughtful craftsmanship. Delivered just in time for our family celebration with exact custom sizing and neat seams.',
     initialLikes: 2,
@@ -129,7 +129,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     rating: 4,
     timeAgo: '4 months ago',
     avatarText: 'P',
-    avatarBg: 'bg-[#BE185D]',
+    avatarBg: 'bg-[var(--color-primary)]',
     content:
       'Loved the silhouette, breathable cotton fabrics, and tailored finish. Sakshi was very helpful in helping me select colors that match.',
     initialLikes: 1,
