@@ -97,7 +97,58 @@ export const SEED_PRODUCTS = [
     categoryId: 'cat-scrunchies',
     basePrice: CATALOGUE_PRICES['prod-classic-scrunchie'].basePrice,
     currency: 'INR',
-    images: [],
+    images: [
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792877124/Classic_Scrunchies.png',
+        alt: 'Classic Scrunchie collection',
+        order: 1,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717463/classic-scrunchie__floral-cotton__blush-pink.webp.png',
+        alt: 'Classic Scrunchie in floral cotton / blush pink',
+        order: 2,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717471/classic-scrunchie__floral-cotton__dusty-blue.webp.png',
+        alt: 'Classic Scrunchie in floral cotton / dusty blue',
+        order: 3,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717637/classic-scrunchie__floral-cotton__sage-green.webp.png',
+        alt: 'Classic Scrunchie in floral cotton / sage green',
+        order: 4,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717647/classic-scrunchie__corduroy__blush-pink.webp.png',
+        alt: 'Classic Scrunchie in corduroy / blush pink',
+        order: 5,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717658/classic-scrunchie__corduroy__dusty-blue.webp.png',
+        alt: 'Classic Scrunchie in corduroy / dusty blue',
+        order: 6,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717661/classic-scrunchie__corduroy__sage-green.webp.png',
+        alt: 'Classic Scrunchie in corduroy / sage green',
+        order: 7,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717661/classic-scrunchie__leopard-print__blush-pink.webp.png',
+        alt: 'Classic Scrunchie in leopard print / blush pink',
+        order: 8,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717684/classic-scrunchie__leopard-print__dusty-blue.webp.png',
+        alt: 'Classic Scrunchie in leopard print / dusty blue',
+        order: 9,
+      },
+      {
+        url: 'https://res.cloudinary.com/iip3povd/image/upload/v1792717693/classic-scrunchie__leopard-print__sage-green.webp.png',
+        alt: 'Classic Scrunchie in leopard print / sage green',
+        order: 10,
+      },
+    ],
     published: true,
     hasSize: true,
   },
