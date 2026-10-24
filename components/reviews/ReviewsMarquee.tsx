@@ -130,7 +130,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
           <div
             className="flex shrink-0 items-stretch gap-5 pr-5"
             aria-hidden="true"
-            {...({ inert: '' } as React.HTMLAttributes<HTMLDivElement>)}
+            inert={true}
           >
             {groupItems.map((review, idx) => (
               <ReviewCard

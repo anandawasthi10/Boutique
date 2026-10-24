@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Colour Palette Tokens */
+  /* Colour Palette Tokens (Legacy FE-02: --color-bg: #FAF6EF; --color-primary: #4A3A33;) */
   --color-background: #FBF7F4;
   --color-bg: #FBF7F4;
   --color-surface: #F0E4E6;
