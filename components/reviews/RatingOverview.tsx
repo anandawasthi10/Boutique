@@ -52,7 +52,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                 4.3
               </span>
               <div className="flex flex-col items-start">
-                <div className="flex items-center gap-1 text-[var(--color-accent)]" aria-label="4.3 out of 5 stars">
+                <div className="flex items-center gap-1 text-[var(--color-accent)]" role="img" aria-label="4.3 out of 5 stars">
                   {[...Array(4)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-current stroke-current" />
                   ))}
@@ -93,7 +93,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
 
             <div>
               <p className="text-sm font-medium text-[var(--color-on-primary)]">
-                Rated <span className="font-semibold text-[var(--color-accent)]">4.3 / 5.0</span> by happy clients
+                Rated <span className="font-semibold text-[var(--color-on-primary)] underline decoration-[var(--color-accent)]">4.3 / 5.0</span> by happy clients
               </p>
               <p className="text-xs text-[var(--color-on-primary)]/80 mt-0.5">
                 Based on {RATING_SUMMARY.totalReviews} verified reviews & testimonials

@@ -31,12 +31,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
         Skip to main content
       </a>
 
-      {/* Top Announcement Bar */}
-      <div className="w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs py-1.5 px-4 text-center font-medium tracking-wide">
-        Complimentary standard shipping on all orders
-      </div>
-
       <header className="sticky top-0 z-40 w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] transition-colors">
+        {/* Top Announcement Bar */}
+        <div className="w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs py-1.5 px-4 text-center font-medium tracking-wide">
+          Complimentary standard shipping on all orders
+        </div>
+
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
           {/* Left: Mobile Menu Toggle & Desktop Nav */}
           <div className="flex items-center gap-6">

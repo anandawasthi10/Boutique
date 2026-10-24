@@ -159,7 +159,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
 
         {/* Stars and Date */}
         <div className="flex items-center gap-2 mb-2.5">
-          <div className="flex items-center gap-0.5" aria-label={`${review.rating} out of 5 stars`}>
+          <div className="flex items-center gap-0.5" role="img" aria-label={`${review.rating} out of 5 stars`}>
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
