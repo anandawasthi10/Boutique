@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        'bg-[var(--color-primary)] text-[var(--color-primary-text)] min-h-[48px] px-6 hover:bg-[#5D4940] active:bg-[#3E302A] disabled:bg-[var(--color-border)] disabled:text-[var(--color-text-muted)]',
+        'bg-[var(--color-primary)] text-[var(--color-on-primary)] min-h-[48px] px-6 hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary)] disabled:bg-[var(--color-border)] disabled:text-[var(--color-text-muted)]',
       secondary:
         'bg-transparent border border-[var(--color-primary)] text-[var(--color-primary)] min-h-[48px] px-6 hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-alt)] disabled:border-[var(--color-border)] disabled:text-[var(--color-text-muted)]',
       text:
