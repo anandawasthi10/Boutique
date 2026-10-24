@@ -117,7 +117,7 @@ export const CheckoutContent: React.FC = () => {
           >
             <Link
               href="/shop"
-              className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-primary-text)] font-medium text-sm hover:bg-[#5D4940] transition-colors uppercase tracking-wide"
+              className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium text-sm hover:bg-[var(--color-primary-hover)] transition-colors uppercase tracking-wide"
             >
               Shop Accessories
             </Link>

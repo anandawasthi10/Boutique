@@ -301,7 +301,7 @@ export const AddressesContent: React.FC = () => {
               disabled={isDeleting}
               isLoading={isDeleting}
               onClick={handleConfirmDelete}
-              className="bg-[var(--color-error)] hover:bg-[#8F2824] text-white"
+              className="bg-[var(--color-error)] hover:opacity-90 text-white"
               data-testid="confirm-delete-btn"
             >
               <Trash2 className="w-4 h-4 mr-1.5" />
