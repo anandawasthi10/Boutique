@@ -1,4 +1,8 @@
+import 'dotenv/config';
+import dns from 'dns';
 import { buildApp } from './app.js';
+
+dns.setDefaultResultOrder('ipv4first');
 
 const PORT = parseInt(process.env.PORT || '3001', 10);
 const HOST = '0.0.0.0';
