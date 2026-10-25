@@ -79,7 +79,7 @@ export const ContactContent: React.FC = () => {
                   </div>
                   <a
                     href={`mailto:${config.email}`}
-                    className="text-base font-medium underline underline-offset-4 transition-colors"
+                    className="min-h-[44px] inline-flex items-center text-base font-medium underline underline-offset-4 transition-colors"
                     style={{ color: 'var(--color-primary)' }}
                   >
                     {config.email}
@@ -95,7 +95,7 @@ export const ContactContent: React.FC = () => {
                   </div>
                   <a
                     href={`tel:${config.phone}`}
-                    className="text-base font-medium underline underline-offset-4 transition-colors"
+                    className="min-h-[44px] inline-flex items-center text-base font-medium underline underline-offset-4 transition-colors"
                     style={{ color: 'var(--color-primary)' }}
                   >
                     {config.formattedPhone}

@@ -35,9 +35,9 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={onDecrement}
         disabled={disabled || isLoading || quantity <= min}
         aria-label={`Decrease quantity of ${itemName}`}
-        className="p-1.5 text-[var(--color-text)] hover:bg-[var(--color-surface)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-l-[3px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-focus)]"
+        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text)] hover:bg-[var(--color-surface)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-l-[3px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-focus)]"
       >
-        <Minus className="w-3.5 h-3.5" />
+        <Minus className="w-4 h-4" />
       </button>
 
       <span
@@ -52,9 +52,9 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={onIncrement}
         disabled={disabled || isLoading || quantity >= max}
         aria-label={`Increase quantity of ${itemName}`}
-        className="p-1.5 text-[var(--color-text)] hover:bg-[var(--color-surface)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-r-[3px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-focus)]"
+        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text)] hover:bg-[var(--color-surface)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-r-[3px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-focus)]"
       >
-        <Plus className="w-3.5 h-3.5" />
+        <Plus className="w-4 h-4" />
       </button>
     </div>
   );

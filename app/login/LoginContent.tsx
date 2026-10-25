@@ -172,16 +172,16 @@ export const LoginContent: React.FC = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                     aria-pressed={showPassword}
-                    className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] p-1 rounded transition-colors cursor-pointer"
+                    className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] p-2 rounded transition-colors cursor-pointer"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 }
               />
-              <div className="flex justify-end mt-1">
+              <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-xs text-[var(--color-primary)] hover:underline font-medium"
+                  className="min-h-[44px] inline-flex items-center text-xs text-[var(--color-primary)] hover:underline font-medium"
                 >
                   Forgot your password?
                 </Link>
@@ -195,7 +195,7 @@ export const LoginContent: React.FC = () => {
               size="lg"
               disabled={isSubmitting}
               isLoading={isSubmitting}
-              className="w-full justify-center mt-2 font-medium tracking-wide uppercase text-sm"
+              className="w-full min-h-[44px] justify-center mt-2 font-medium tracking-wide uppercase text-sm"
               data-testid="login-submit-btn"
             >
               <span>Sign In</span>
@@ -203,11 +203,11 @@ export const LoginContent: React.FC = () => {
           </form>
 
           {/* Footer Navigation */}
-          <div className="mt-8 pt-6 border-t border-[var(--color-border)] text-center text-xs text-[var(--color-text-muted)]">
+          <div className="mt-8 pt-6 border-t border-[var(--color-border)] text-center text-xs text-[var(--color-text-muted)] flex items-center justify-center gap-1 flex-wrap">
             <span>Don&apos;t have an account yet? </span>
             <Link
               href={signupLink}
-              className="text-[var(--color-primary)] hover:underline font-semibold"
+              className="min-h-[44px] inline-flex items-center text-[var(--color-primary)] hover:underline font-semibold px-1"
             >
               Create an account
             </Link>

@@ -71,7 +71,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
                   type="button"
                   onClick={() => handleCategoryClick(cat.slug)}
                   aria-pressed={selected}
-                  className={`px-3 py-1.5 text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
+                  className={`px-3.5 py-2 min-h-[44px] inline-flex items-center justify-center text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
                     selected
                       ? 'bg-[var(--color-primary)] text-[var(--color-primary-text)] border-[var(--color-primary)]'
                       : 'bg-[var(--color-bg)] text-[var(--color-text)] border-[var(--color-border)] hover:bg-[var(--color-surface)]'
@@ -99,7 +99,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
                 type="button"
                 onClick={() => handleFabricClick(fabric)}
                 aria-pressed={selected}
-                className={`px-3 py-1.5 text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
+                className={`px-3.5 py-2 min-h-[44px] inline-flex items-center justify-center text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
                   selected
                     ? 'bg-[var(--color-primary)] text-[var(--color-primary-text)] border-[var(--color-primary)]'
                     : 'bg-[var(--color-bg)] text-[var(--color-text)] border-[var(--color-border)] hover:bg-[var(--color-surface)]'
@@ -126,7 +126,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
                 type="button"
                 onClick={() => handlePriceClick(price.id)}
                 aria-pressed={selected}
-                className={`px-3 py-1.5 text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
+                className={`px-3.5 py-2 min-h-[44px] inline-flex items-center justify-center text-body-small rounded-[4px] border transition-colors cursor-pointer select-none ${
                   selected
                     ? 'bg-[var(--color-primary)] text-[var(--color-primary-text)] border-[var(--color-primary)]'
                     : 'bg-[var(--color-bg)] text-[var(--color-text)] border-[var(--color-border)] hover:bg-[var(--color-surface)]'
@@ -141,7 +141,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
       {/* Reset Action */}
       <div className="pt-2">
-        <Button variant="secondary" onClick={onReset} className="w-full text-center">
+        <Button variant="secondary" onClick={onReset} className="w-full min-h-[44px] text-center">
           Reset all filters
         </Button>
       </div>
