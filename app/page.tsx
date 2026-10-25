@@ -93,48 +93,55 @@ export default function HomePage() {
       <section
         id="hero"
         data-tone="dark"
-        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden"
+        className="section-screen relative w-full bg-[var(--color-plum)] text-[var(--color-ivory)] overflow-hidden"
       >
-        <div className="container-custom py-4 sm:py-6 lg:py-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center my-auto">
+        <div className="container-custom grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center my-auto">
           {/* Top on mobile, right on desktop: Hero Image */}
-          <div className="order-1 lg:order-2 lg:col-span-5 w-full flex items-center justify-center">
-            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none h-[32svh] sm:h-[38svh] lg:h-auto lg:aspect-4/5 max-h-[42svh] lg:max-h-[calc(100svh-var(--header-h)-4rem)] rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-soft)]">
+          <div className="order-1 lg:order-2 lg:col-span-5 w-full flex items-center justify-center lg:justify-end">
+            <div className="relative w-full h-[28svh] min-h-[160px] sm:h-[38svh] max-h-[42svh] lg:h-auto lg:aspect-4/5 lg:max-h-[calc(100svh-var(--header-h)-96px)] rounded-[4px] overflow-hidden">
               <Image
                 src="/images/productimages/pouch-and-scrunchies.jpg"
                 alt="Handmade accessories featured collection: floral pouch and fabric scrunchies"
                 fill
                 priority
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 40vw"
-                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 42vw"
+                className="object-cover object-center"
               />
             </div>
           </div>
 
           {/* Bottom on mobile, left on desktop: Text Column */}
           <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col items-start gap-3 sm:gap-4 lg:gap-6">
-            <div className="inline-flex items-center px-2.5 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px]">
-              <span className="text-label text-[var(--color-text)]">Handmade Accessories</span>
+            <div className="inline-flex items-center px-3 py-1 bg-transparent border border-[rgba(251,247,244,0.45)] rounded-[4px]">
+              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-ivory)]">
+                Handmade Accessories
+              </span>
             </div>
 
-            <h1 className="text-display text-[var(--color-text)] tracking-tight">
-              Crafted in fabric, <span className="text-script block sm:inline font-normal text-[var(--color-text-muted)]">tailored by you.</span>
+            <h1 className="font-heading text-[var(--color-ivory)] text-[clamp(2rem,5vw,3.75rem)] leading-[1.1] tracking-tight [text-wrap:balance]">
+              Crafted in fabric,{' '}
+              <span className="font-script text-[var(--color-rose-light)] font-normal italic block sm:inline">
+                tailored by you.
+              </span>
             </h1>
 
-            <p className="text-body text-[var(--color-text-muted)] max-w-xl text-sm sm:text-base leading-relaxed">
+            <p className="text-[rgba(251,247,244,0.82)] text-base leading-[1.6] max-w-xl">
               Choose your fabric, size, and finishes for hair ties, everyday pouches, and tech sleeves.
               Made by hand with tactile materials, designed to last.
             </p>
 
             <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 sm:pt-2">
-              <NextLink href="/shop" className="w-full sm:w-auto">
-                <Button variant="primary" className="w-full min-h-[44px]">
-                  Shop All Collection
-                </Button>
+              <NextLink
+                href="/shop"
+                className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-[var(--color-ivory)] text-[var(--color-plum)] hover:bg-[var(--color-surface)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              >
+                Shop All Collection
               </NextLink>
-              <NextLink href="/build-your-own" className="w-full sm:w-auto">
-                <Button variant="secondary" className="w-full min-h-[44px]">
-                  Build Your Own
-                </Button>
+              <NextLink
+                href="/build-your-own"
+                className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-transparent border border-[var(--color-ivory)] text-[var(--color-ivory)] hover:bg-[var(--color-ivory)] hover:text-[var(--color-plum)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              >
+                Build Your Own
               </NextLink>
             </div>
           </div>
