@@ -223,28 +223,42 @@ export default function HomePage() {
       </section>
 
       {/* 3. FEATURED PRODUCTS SECTION */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 w-full space-y-8">
-        <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-4">
-          <div>
-            <span className="text-label text-[var(--color-text-muted)]">Catalogue</span>
-            <h2 className="text-h2 text-[var(--color-text)] mt-1">Featured Pieces</h2>
+      <section
+        id="featured-pieces"
+        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
+      >
+        <div className="container-custom flex flex-col justify-center space-y-6 my-auto">
+          <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-3 sm:pb-4">
+            <div>
+              <span className="text-label text-[var(--color-text-muted)]">Catalogue</span>
+              <h2 className="text-h2 text-[var(--color-text)] mt-1">Featured Pieces</h2>
+            </div>
+            <NextLink
+              href="/shop"
+              className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
+            >
+              View full range
+            </NextLink>
           </div>
-          <NextLink
-            href="/shop"
-            className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
-          >
-            View full range
-          </NextLink>
-        </div>
 
-        <ProductGrid
-          products={products}
-          isLoading={productsLoading}
-          error={productsError}
-          onRetry={loadData}
-          emptyTitle="No featured products"
-          emptyDescription="We are updating our catalogue. Please check back shortly."
-        />
+          <ProductGrid
+            products={products}
+            isLoading={productsLoading}
+            error={productsError}
+            onRetry={loadData}
+            emptyTitle="No featured products"
+            emptyDescription="We are updating our catalogue. Please check back shortly."
+          />
+
+          {/* Mobile View Full Range Outline Button */}
+          <div className="sm:hidden pt-2">
+            <NextLink href="/shop" className="w-full block">
+              <Button variant="secondary" className="w-full min-h-[44px]">
+                View full range
+              </Button>
+            </NextLink>
+          </div>
+        </div>
       </section>
  
       {/* 4. RATINGS & REVIEWS SECTION */}
