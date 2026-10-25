@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 
 export interface DrawerProps {
+  id?: string;
   isOpen: boolean;
   onClose: () => void;
   title: string;
@@ -13,6 +14,7 @@ export interface DrawerProps {
 }
 
 export const Drawer: React.FC<DrawerProps> = ({
+  id,
   isOpen,
   onClose,
   title,
@@ -85,6 +87,7 @@ export const Drawer: React.FC<DrawerProps> = ({
 
   return (
     <div
+      id={id}
       role="dialog"
       aria-modal="true"
       aria-labelledby="drawer-title"

@@ -40,11 +40,21 @@
   --radius-card: 4px;
   --radius-panel: 4px;
 
+  /* Layout Tokens */
+  --header-h: 64px;
+
   /* Shadows */
   --shadow-soft: 0 8px 30px rgba(61, 36, 56, 0.08);
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 80px;
+  }
+}
+
 @theme {
+  --header-h: var(--header-h);
   --color-background: var(--color-background);
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);
@@ -102,57 +112,82 @@ body {
   outline-offset: 2px !important;
 }
 
+/* Headings text-wrap balance */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
 /* Typography Utility Classes */
 .text-display {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: 40px;
-  line-height: 1.1;
-}
-@media (min-width: 768px) {
-  .text-display {
-    font-size: 64px;
-    line-height: 1.05;
-  }
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 .text-h1 {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: 32px;
-  line-height: 1.15;
-}
-@media (min-width: 768px) {
-  .text-h1 {
-    font-size: 48px;
-    line-height: 1.1;
-  }
+  font-size: clamp(1.85rem, 4vw, 3rem);
+  line-height: 1.12;
+  text-wrap: balance;
 }
 
 .text-h2 {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: 26px;
-  line-height: 1.2;
-}
-@media (min-width: 768px) {
-  .text-h2 {
-    font-size: 36px;
-    line-height: 1.15;
-  }
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1.18;
+  text-wrap: balance;
 }
 
 .text-h3 {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 20px;
-  line-height: 1.3;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.25;
+  text-wrap: balance;
 }
-@media (min-width: 768px) {
-  .text-h3 {
-    font-size: 24px;
-    line-height: 1.25;
+
+/* Mobile-first Reusable Section Screen */
+.section-screen {
+  min-height: calc(100dvh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(1.5rem, 4vh, 3.5rem);
+  padding-bottom: clamp(1.5rem, 4vh, 3.5rem);
+  scroll-margin-top: var(--header-h);
+  box-sizing: border-box;
+}
+
+/* Shared Responsive Container (16px mobile, 24px tablet, 32px desktop) */
+.container-custom {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 24px;
+    padding-right: 24px;
   }
+}
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* Prevent iOS zoom on inputs */
+input, select, textarea {
+  font-size: 16px;
 }
 
 .text-body {

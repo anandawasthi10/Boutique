@@ -33,17 +33,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
 
       <header className="sticky top-0 z-40 w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] transition-colors">
         {/* Top Announcement Bar */}
-        <div className="w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs py-1.5 px-4 text-center font-medium tracking-wide">
+        <div className="w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-[11px] sm:text-xs h-6 lg:h-7 flex items-center justify-center px-4 text-center font-medium tracking-wide">
           Complimentary standard shipping on all orders
         </div>
 
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-[calc(var(--header-h)-1.5rem)] lg:h-[calc(var(--header-h)-1.75rem)] flex items-center justify-between">
           {/* Left: Mobile Menu Toggle & Desktop Nav */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 lg:gap-6 lg:w-1/3">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open mobile navigation menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation-menu"
               className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-primary)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors cursor-pointer"
             >
               <Menu className="w-6 h-6" />
@@ -62,24 +64,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
             </nav>
           </div>
 
-          {/* Center: Brand Logo Placeholder */}
-          <div className="flex items-center justify-center">
+          {/* Center: Brand Logo */}
+          <div className="flex-1 lg:flex-initial flex items-center justify-center text-center">
             <Link
               href="/"
               aria-label={`${SITE_CONFIG.brandName} homepage`}
-              className="group flex flex-col items-center select-none"
+              className="group min-h-[44px] flex flex-col items-center justify-center select-none"
             >
-              <span className="font-heading text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-[var(--color-text)] group-hover:opacity-85 transition-opacity">
+              <span className="font-heading text-xl sm:text-2xl lg:text-3xl font-medium tracking-tight text-[var(--color-text)] group-hover:opacity-85 transition-opacity">
                 {SITE_CONFIG.brandName}
               </span>
-              <span className="hidden sm:block text-[11px] uppercase tracking-widest text-[var(--color-text-muted)] -mt-1 font-body">
+              <span className="hidden sm:block text-[10px] lg:text-[11px] uppercase tracking-widest text-[var(--color-text-muted)] -mt-1 font-body">
                 {SITE_CONFIG.tagline}
               </span>
             </Link>
           </div>
 
           {/* Right: Actions (Search, Sound, Account, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center justify-end gap-1 sm:gap-2 lg:w-1/3">
             {/* Search */}
             <Link
               href="/shop"
@@ -92,15 +94,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
             {/* Sound Toggle (hidden while showSoundToggle is false) */}
             {SITE_CONFIG.showSoundToggle && <SoundToggle />}
 
-            {/* Account / Login */}
+            {/* Account / Login - desktop in header, mobile in menu */}
             {user ? (
               <Link
                 href="/account"
                 aria-label={`My account (${user.name})`}
-                className="min-w-[44px] min-h-[44px] hidden sm:flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors gap-2 px-2"
+                className="min-w-[44px] min-h-[44px] hidden lg:flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors gap-2 px-2"
               >
                 <UserIcon className="w-5 h-5 text-[var(--color-text)]" />
-                <span className="text-body-small font-medium text-[var(--color-text)] hidden md:inline">
+                <span className="text-body-small font-medium text-[var(--color-text)] hidden xl:inline">
                   Account
                 </span>
               </Link>
@@ -108,10 +110,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
               <Link
                 href="/login"
                 aria-label="Log in to your account"
-                className="min-w-[44px] min-h-[44px] hidden sm:flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors gap-1.5 px-2"
+                className="min-w-[44px] min-h-[44px] hidden lg:flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-[4px] transition-colors gap-1.5 px-2"
               >
                 <LogIn className="w-5 h-5 text-[var(--color-text)]" />
-                <span className="text-body-small font-medium text-[var(--color-text)] hidden md:inline">
+                <span className="text-body-small font-medium text-[var(--color-text)] hidden xl:inline">
                   Log in
                 </span>
               </Link>

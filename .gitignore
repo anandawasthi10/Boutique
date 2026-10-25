@@ -64,5 +64,6 @@ GSD-STYLE.md
 
 # Editor settings
 .vscode/
-.idea/
-
+# Screenshots
+/screenshots/
+*.csv
