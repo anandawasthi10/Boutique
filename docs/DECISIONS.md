@@ -62,3 +62,31 @@ This document records the architectural decisions, specification resolutions, an
 | **Product Detail Route** | API Spec: `GET /products/{slug}` & `GET /products/{id}` | **Unified Resolution**: The endpoint accepts either a slug or ID parameter, looks up by ID first, and falls back to slug. |
 | **Address Field Naming** | API Spec: `fullName`, `pincode`<br>Frontend types: `recipientName`, `pinCode` | **Bi-directional Support**: Request schemas accept either field name using Zod pre-processing/aliases, and response objects include both canonical and alias fields. |
 | **Quote Response Shape** | API Spec: `{ valid, unitPrice, total, currency, problems }`<br>Frontend types: `{ valid, lines, total, problems }` | **Unified Response**: Quote returns `{ valid, unitPrice, lines, total, currency: "INR", problems }` satisfying all consumers. |
+
+---
+
+## 3. Responsive Layout & Mobile-First Architecture Decisions
+
+### D-09: Section-Screen Utility & Viewport Height Conventions
+- **Decision**: Created reusable `.section-screen` CSS utility in `app/globals.css`:
+  - `min-height: calc(100dvh - var(--header-h));`
+  - `min-height: calc(100svh - var(--header-h));`
+  - `display: flex; flex-direction: column; justify-content: center;`
+  - `padding-top: clamp(1.5rem, 4vh, 3.5rem);`
+  - `padding-bottom: clamp(1.5rem, 4vh, 3.5rem);`
+  - `scroll-margin-top: var(--header-h);`
+- **Application**: Applied to Hero, Explore by Type, Featured Pieces, and Ratings & Reviews. The Footer does NOT use `section-screen`.
+- **Rationale**: Guarantees each section feels like its own focused "screen" on mobile viewports (~390px) and scales gracefully on tablet/desktop, while using `min-height` rather than fixed height so content expands naturally without overflow truncation.
+
+### D-10: Breakpoints and Container System
+- **Breakpoints**: Pure mobile-first min-width queries (`sm: 640px`, `md: 768px`, `lg: 1024px`, `xl: 1280px`). Zero `max-width` media queries in application CSS.
+- **Header Height Variable**: `--header-h` defined as `64px` on mobile (< 1024px) and `80px` on desktop (>= 1024px).
+- **Shared Container**: `.container-custom` utility defined with max-width 1200px, centered with horizontal padding `16px` on mobile, `24px` on tablet (`sm:`), and `32px` on desktop (`lg:`).
+
+### D-11: Mobile Interaction & Navigation Choices
+- **Header**: Mobile layout uses slim bar with hamburger drawer button on the left, centered logo, search and cart icons on the right. "Log in" link collapses into drawer menu on mobile. Drawer opens full-width with links >= 48px tall, closing on link tap, Escape key, or route transition with full ARIA accessibility (`aria-expanded`, `aria-controls`).
+- **Explore by Type (2x2 Grid)**: Mobile uses a 2x2 grid with equal 4:5 aspect ratio cards, title + description clamped to 2 lines, and a full-width outline button below grid. Desktop expands to 4 columns in a single row.
+- **Featured Pieces Grid**: Scales from 2 columns on mobile, to 3 on tablet, and 4 on desktop. Titles clamped to 2 lines with price on its own line and full-width CTA on mobile.
+- **Ratings & Reviews (Mobile Swipeable Row)**: Replaced continuous auto-moving marquee on mobile with a manual swipeable row (`85vw` card width, row-level snap alignment). Speed and Flow controls hidden on mobile; pause/play and manual navigation available. Desktop preserves continuous marquee and all speed/flow controls.
+- **Touch Targets & Form Sizing**: All tappable elements (buttons, links, drawer items, pills) enforced at `>= 44x44px`. All text inputs and textareas use at least `16px` font size to prevent iOS Safari auto-zooming on focus.
+
