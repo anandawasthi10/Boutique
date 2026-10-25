@@ -90,11 +90,28 @@ export default function HomePage() {
   return (
     <div className="w-full flex flex-col gap-16 md:gap-24 pb-20">
       {/* 1. HERO SECTION */}
-      <section className="relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-12 md:py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Text Column */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6">
-            <div className="inline-flex items-center px-3 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px]">
+      <section
+        id="hero"
+        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden"
+      >
+        <div className="container-custom py-4 sm:py-6 lg:py-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center my-auto">
+          {/* Top on mobile, right on desktop: Hero Image */}
+          <div className="order-1 lg:order-2 lg:col-span-5 w-full flex items-center justify-center">
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none h-[32svh] sm:h-[38svh] lg:h-auto lg:aspect-4/5 max-h-[42svh] lg:max-h-[calc(100svh-var(--header-h)-4rem)] rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-soft)]">
+              <Image
+                src="/images/productimages/pouch-and-scrunchies.jpg"
+                alt="Handmade accessories featured collection: floral pouch and fabric scrunchies"
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Bottom on mobile, left on desktop: Text Column */}
+          <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col items-start gap-3 sm:gap-4 lg:gap-6">
+            <div className="inline-flex items-center px-2.5 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px]">
               <span className="text-label text-[var(--color-text)]">Handmade Accessories</span>
             </div>
 
@@ -102,34 +119,22 @@ export default function HomePage() {
               Crafted in fabric, <span className="text-script block sm:inline font-normal text-[var(--color-text-muted)]">tailored by you.</span>
             </h1>
 
-            <p className="text-body text-[var(--color-text-muted)] max-w-xl">
+            <p className="text-body text-[var(--color-text-muted)] max-w-xl text-sm sm:text-base leading-relaxed">
               Choose your fabric, size, and finishes for hair ties, everyday pouches, and tech sleeves.
               Made by hand with tactile materials, designed to last.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <NextLink href="/shop">
-                <Button variant="primary">Shop All Collection</Button>
+            <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 sm:pt-2">
+              <NextLink href="/shop" className="w-full sm:w-auto">
+                <Button variant="primary" className="w-full min-h-[44px]">
+                  Shop All Collection
+                </Button>
               </NextLink>
-              <NextLink href="/build-your-own">
-                <Button variant="secondary">
+              <NextLink href="/build-your-own" className="w-full sm:w-auto">
+                <Button variant="secondary" className="w-full min-h-[44px]">
                   Build Your Own
                 </Button>
               </NextLink>
-            </div>
-          </div>
-
-          {/* Right Hero Image Column */}
-          <div className="lg:col-span-5 w-full">
-            <div className="relative aspect-4/5 w-full rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-soft)]">
-              <Image
-                src="/images/productimages/pouch-and-scrunchies.jpg"
-                alt="Handmade accessories featured collection: floral pouch and fabric scrunchies"
-                fill
-                preload
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-              />
             </div>
           </div>
         </div>
