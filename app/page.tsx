@@ -140,72 +140,86 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. CATEGORY ROW */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 w-full space-y-6">
-        <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-4">
-          <div>
-            <span className="text-label text-[var(--color-text-muted)]">Categories</span>
-            <h2 className="text-h2 text-[var(--color-text)] mt-1">Explore by Type</h2>
+      {/* 2. CATEGORY ROW (EXPLORE BY TYPE) */}
+      <section
+        id="explore-by-type"
+        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
+      >
+        <div className="container-custom flex flex-col justify-center space-y-6 my-auto">
+          <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-3 sm:pb-4">
+            <div>
+              <span className="text-label text-[var(--color-text-muted)]">Categories</span>
+              <h2 className="text-h2 text-[var(--color-text)] mt-1">Explore by Type</h2>
+            </div>
+            <NextLink
+              href="/shop"
+              className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
+            >
+              All products
+            </NextLink>
           </div>
-          <NextLink
-            href="/shop"
-            className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
-          >
-            All products
-          </NextLink>
+
+          {categoriesLoading && (
+            <div data-testid="categories-loading" className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="space-y-2 sm:space-y-3">
+                  <Skeleton className="aspect-4/5 w-full rounded-[4px]" />
+                  <Skeleton className="h-5 sm:h-6 w-24 sm:w-32 rounded-[4px]" />
+                  <Skeleton className="h-3 sm:h-4 w-36 sm:w-48 rounded-[4px]" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {categoriesError && (
+            <ErrorState
+              title="Could not load categories"
+              message={categoriesError}
+              onRetry={loadData}
+            />
+          )}
+
+          {!categoriesLoading && !categoriesError && categories.length > 0 && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 items-start">
+              {categories.map((cat) => (
+                <NextLink
+                  key={cat.id}
+                  href={`/shop?category=${cat.slug}`}
+                  className="group flex flex-col w-full min-h-[44px]"
+                >
+                  <div className="relative w-full aspect-4/5 rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
+                    <Image
+                      src={cat.image || '/images/placeholders/scrunchie-1.svg'}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  <div className="mt-2.5 sm:mt-3 flex flex-col gap-0.5 sm:gap-1">
+                    <h3 className="text-h3 text-[var(--color-text)] font-medium group-hover:underline underline-offset-4 line-clamp-1">
+                      {cat.name}
+                    </h3>
+                    {cat.description && (
+                      <p className="text-body-small text-[var(--color-text-muted)] line-clamp-2">
+                        {cat.description}
+                      </p>
+                    )}
+                  </div>
+                </NextLink>
+              ))}
+            </div>
+          )}
+
+          {/* Mobile All Products Outline Button */}
+          <div className="sm:hidden pt-2">
+            <NextLink href="/shop" className="w-full block">
+              <Button variant="secondary" className="w-full min-h-[44px]">
+                All products
+              </Button>
+            </NextLink>
+          </div>
         </div>
-
-        {categoriesLoading && (
-          <div data-testid="categories-loading" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="space-y-3">
-                <Skeleton className="aspect-square w-full rounded-[4px]" />
-                <Skeleton className="h-6 w-32 rounded-[4px]" />
-                <Skeleton className="h-4 w-48 rounded-[4px]" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {categoriesError && (
-          <ErrorState
-            title="Could not load categories"
-            message={categoriesError}
-            onRetry={loadData}
-          />
-        )}
-
-        {!categoriesLoading && !categoriesError && categories.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-            {categories.map((cat) => (
-              <NextLink
-                key={cat.id}
-                href={`/shop?category=${cat.slug}`}
-                className="group flex flex-col w-full"
-              >
-                <div className="relative w-full aspect-square rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
-                  <Image
-                    src={cat.image || '/images/placeholders/scrunchie-1.svg'}
-                    alt={cat.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                  />
-                </div>
-                <div className="mt-3">
-                  <h3 className="text-h3 text-[var(--color-text)] font-medium group-hover:underline underline-offset-4">
-                    {cat.name}
-                  </h3>
-                  {cat.description && (
-                    <p className="text-body-small text-[var(--color-text-muted)] mt-1 line-clamp-2">
-                      {cat.description}
-                    </p>
-                  )}
-                </div>
-              </NextLink>
-            ))}
-          </div>
-        )}
       </section>
 
       {/* 3. FEATURED PRODUCTS SECTION */}
