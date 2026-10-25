@@ -4,7 +4,7 @@ import { SITE_CONFIG } from '@/lib/config/site';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[var(--color-surface)] border-t border-[var(--color-border)] text-[var(--color-text)] mt-auto">
+    <footer data-tone="dark" className="w-full bg-[var(--color-surface)] border-t border-[var(--color-border)] text-[var(--color-text)] mt-auto">
       <div className="container-custom py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand Story Column */}

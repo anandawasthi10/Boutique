@@ -92,6 +92,7 @@ export default function HomePage() {
       {/* 1. HERO SECTION */}
       <section
         id="hero"
+        data-tone="dark"
         className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden"
       >
         <div className="container-custom py-4 sm:py-6 lg:py-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center my-auto">
@@ -143,6 +144,7 @@ export default function HomePage() {
       {/* 2. CATEGORY ROW (EXPLORE BY TYPE) */}
       <section
         id="explore-by-type"
+        data-tone="light"
         className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
       >
         <div className="container-custom flex flex-col justify-center space-y-6 my-auto">
@@ -225,6 +227,7 @@ export default function HomePage() {
       {/* 3. FEATURED PRODUCTS SECTION */}
       <section
         id="featured-pieces"
+        data-tone="light"
         className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
       >
         <div className="container-custom flex flex-col justify-center space-y-6 my-auto">

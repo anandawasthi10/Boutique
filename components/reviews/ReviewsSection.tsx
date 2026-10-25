@@ -91,6 +91,7 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section
       id="reviews-section"
+      data-tone="dark"
       className="section-screen relative w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] border-y border-[var(--color-border)] overflow-hidden"
       aria-label="Client Ratings and Reviews"
     >

@@ -106,20 +106,20 @@ export const Drawer: React.FC<DrawerProps> = ({
       <div
         ref={drawerRef}
         tabIndex={-1}
-        className={`relative z-10 w-full sm:max-w-md h-full bg-[var(--color-surface)] shadow-[var(--shadow-soft)] flex flex-col focus:outline-none transition-transform duration-300 ${
+        className={`relative z-10 w-full sm:max-w-md h-full bg-[var(--color-ivory)] text-[var(--color-ink)] shadow-[var(--shadow-soft)] flex flex-col focus:outline-none transition-transform duration-300 ${
           side === 'right' ? 'ml-auto' : 'mr-auto'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
-          <h2 id="drawer-title" className="text-h3 text-[var(--color-text)]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-line)]">
+          <h2 id="drawer-title" className="text-h3 font-heading font-medium text-[var(--color-ink)]">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close drawer"
-            className="p-2 text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] rounded-[4px] transition-colors cursor-pointer"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-ink)] hover:opacity-75 rounded-[4px] transition-opacity cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
           >
             <X className="w-5 h-5" />
           </button>
