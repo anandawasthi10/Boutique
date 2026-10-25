@@ -22,8 +22,23 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
   pauseOnHover = false,
   containerRef: externalContainerRef,
 }) => {
-  const localContainerRef = useRef<HTMLDivElement | null>(null);
-  const scrollContainerRef = externalContainerRef || localContainerRef;
+  const desktopContainerRef = useRef<HTMLDivElement | null>(null);
+  const mobileContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Synchronize external ref so that handlePrev/handleNext scrolls the active container
+  React.useEffect(() => {
+    if (!externalContainerRef) return;
+    const target = {
+      scrollBy: (options: ScrollToOptions) => {
+        if (window.innerWidth >= 1024) {
+          desktopContainerRef.current?.scrollBy(options);
+        } else {
+          mobileContainerRef.current?.scrollBy(options);
+        }
+      },
+    };
+    (externalContainerRef as any).current = target;
+  }, [externalContainerRef]);
 
   // Speeds in seconds for a full 50% loop
   // 'fast': 18s (lively smooth continuous scroll)
@@ -87,20 +102,37 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
         }
       `}</style>
 
-      {/* Left and Right gradient fades for luxury boutique depth */}
+      {/* MOBILE ONLY: Manual swipeable row, 85vw wide cards, snap alignment */}
       <div
-        className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-r from-[var(--color-primary)] to-transparent"
+        ref={mobileContainerRef}
+        className="lg:hidden w-full overflow-x-auto no-scrollbar snap-x snap-mandatory flex gap-4 py-2"
+        tabIndex={0}
+        aria-label="Customer reviews swipeable row"
+      >
+        {reviews.map((review, idx) => (
+          <div
+            key={`mobile-rev-${review.id}-${idx}`}
+            className="w-[85vw] max-w-[360px] shrink-0 snap-center"
+          >
+            <ReviewCard review={review} className="w-full h-full" />
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP ONLY: Left and Right gradient fades for luxury boutique depth */}
+      <div
+        className="hidden lg:block pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[var(--color-primary)] to-transparent"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-l from-[var(--color-primary)] to-transparent"
+        className="hidden lg:block pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[var(--color-primary)] to-transparent"
         aria-hidden="true"
       />
 
-      {/* Marquee Wrapper */}
+      {/* DESKTOP ONLY: Continuous Marquee Wrapper */}
       <div
-        ref={scrollContainerRef}
-        className="reviews-marquee-container w-full overflow-x-hidden no-scrollbar"
+        ref={desktopContainerRef}
+        className="hidden lg:block reviews-marquee-container w-full overflow-x-hidden no-scrollbar"
         tabIndex={0}
         aria-label="Continuous auto-scrolling customer reviews moving left to right"
       >
@@ -126,7 +158,6 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
           </div>
 
           {/* Group 2: Cloned stream for 100% gapless continuous infinite loop */}
-          {/* inert ensures focusable elements in cloned track are not reachable, satisfying WCAG aria-hidden-focus */}
           <div
             className="flex shrink-0 items-stretch gap-5 pr-5"
             aria-hidden="true"
@@ -143,8 +174,8 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
         </div>
       </div>
 
-      {/* Status hint for user */}
-      <div className="flex items-center justify-center gap-2 sm:gap-3 mt-3 text-xs text-[var(--color-on-primary)]/80 flex-wrap px-4">
+      {/* Desktop status hint */}
+      <div className="hidden lg:flex items-center justify-center gap-3 mt-3 text-xs text-[var(--color-on-primary)]/80 flex-wrap px-4">
         <div className="flex items-center gap-1.5">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="font-medium text-[var(--color-on-primary)]">
@@ -154,8 +185,8 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
             ({direction === 'ltr' ? 'Moving Left → Right' : 'Moving Right → Left'})
           </span>
         </div>
-        <span className="hidden sm:inline opacity-30">•</span>
-        <span className="hidden sm:inline">Use controls above to toggle direction, speed or pause</span>
+        <span className="opacity-30">•</span>
+        <span>Use controls above to toggle direction, speed or pause</span>
       </div>
     </div>
   );

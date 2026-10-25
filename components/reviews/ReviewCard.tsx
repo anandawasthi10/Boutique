@@ -51,7 +51,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
 
   return (
     <div
-      className={`group relative flex flex-col justify-between w-[340px] sm:w-[380px] shrink-0 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] rounded-xl p-5 border border-white/15 shadow-lg hover:border-[var(--color-accent)]/50 transition-all duration-300 select-none ${className}`}
+      className={`group relative flex flex-col justify-between shrink-0 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] rounded-xl p-5 border border-white/15 shadow-lg hover:border-[var(--color-accent)]/50 transition-all duration-300 select-none ${className || 'w-[340px] sm:w-[380px]'}`}
       data-testid={`review-card-${review.id}`}
     >
       {/* Top Header */}
@@ -134,17 +134,17 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 setShowMenu(!showMenu);
               }}
               aria-label="Review options"
-              className="p-1 text-[var(--color-on-primary)]/75 hover:text-[var(--color-on-primary)] rounded hover:bg-white/10 transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--color-on-primary)]/75 hover:text-[var(--color-on-primary)] rounded hover:bg-white/10 transition-colors"
             >
               <MoreVertical className="w-4 h-4" />
             </button>
 
             {showMenu && (
-              <div className="absolute right-0 top-7 z-20 w-36 bg-[var(--color-primary)] border border-white/20 rounded-md shadow-xl py-1 text-xs text-[var(--color-on-primary)]">
+              <div className="absolute right-0 top-10 z-20 w-36 bg-[var(--color-primary)] border border-white/20 rounded-md shadow-xl py-1 text-xs text-[var(--color-on-primary)]">
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-white/10 flex items-center gap-2 min-h-[44px]"
                 >
                   <Share2 className="w-3.5 h-3.5" />
                   <span>Copy Review</span>
@@ -191,7 +191,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
-              className="inline-block ml-1.5 text-xs text-[var(--color-on-primary)] hover:underline font-medium underline underline-offset-2"
+              className="inline-block ml-1.5 text-xs text-[var(--color-on-primary)] hover:underline font-medium underline underline-offset-2 min-h-[44px] py-1"
             >
               {isExpanded ? 'Show less' : 'More'}
             </button>
@@ -201,13 +201,13 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
 
       {/* Footer Reaction Bar */}
       <div className="pt-4 mt-4 border-t border-white/15 flex items-center justify-between text-xs text-[var(--color-on-primary)]/75">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Heart button */}
           <button
             type="button"
             onClick={handleLike}
             aria-label="React with heart"
-            className="group/btn flex items-center gap-1.5 py-1 px-2 rounded-full hover:bg-white/10 transition-colors"
+            className="group/btn flex items-center gap-1.5 py-2 px-3 min-h-[44px] rounded-full hover:bg-white/10 transition-colors"
           >
             <Heart
               className={`w-4 h-4 transition-transform group-hover/btn:scale-110 ${
@@ -217,7 +217,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
               }`}
             />
             <span className={liked ? 'text-[var(--color-accent)] font-medium' : 'text-[var(--color-on-primary)]/75'}>
-              {likeCount > 0 ? likeCount : 'Hover to react'}
+              {likeCount > 0 ? likeCount : 'React'}
             </span>
           </button>
 
@@ -226,12 +226,12 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
             type="button"
             onClick={handleShare}
             aria-label="Share review"
-            className="flex items-center gap-1 py-1 px-2 rounded-full hover:bg-white/10 transition-colors text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]"
+            className="flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]"
           >
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-                <span className="text-[11px] text-[var(--color-accent)] font-medium">Copied!</span>
+                <span className="text-[11px] text-[var(--color-accent)] font-medium ml-1">Copied!</span>
               </>
             ) : (
               <Share2 className="w-4 h-4" />

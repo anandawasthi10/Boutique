@@ -149,31 +149,33 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
       </div>
 
       {/* Control Bar: Filters + Fast Speed Controls + Manual Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2">
-          {filters.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => onFilterChange(tab.id)}
-              className={`text-xs px-3.5 py-1.5 rounded-full font-medium transition-all ${
-                activeFilter === tab.id
-                  ? 'bg-[var(--color-on-primary)] text-[var(--color-primary)] shadow-sm font-semibold'
-                  : 'bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] hover:bg-white/10 border border-white/20'
-              }`}
-            >
-              {tab.label}
-              {activeFilter === tab.id && ` (${totalFilteredCount})`}
-            </button>
-          ))}
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        {/* Filter Pills: Single horizontally scrollable row */}
+        <div className="w-full lg:w-auto overflow-x-auto no-scrollbar py-1">
+          <div className="flex items-center gap-2 flex-nowrap w-max">
+            {filters.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => onFilterChange(tab.id)}
+                className={`text-xs px-4 min-h-[44px] rounded-full font-medium transition-all shrink-0 inline-flex items-center justify-center ${
+                  activeFilter === tab.id
+                    ? 'bg-[var(--color-on-primary)] text-[var(--color-primary)] shadow-sm font-semibold'
+                    : 'bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] hover:bg-white/10 border border-white/20'
+                }`}
+              >
+                {tab.label}
+                {activeFilter === tab.id && ` (${totalFilteredCount})`}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Speed Controls & Navigation Controls */}
-        <div className="flex items-center gap-3 ml-auto">
-          {/* Speed Preset Selector */}
-          <div className="inline-flex items-center bg-[var(--color-plum-raised)] border border-white/20 rounded-lg p-1 text-xs">
-            <span className="px-2 text-[11px] font-semibold text-[var(--color-on-primary)]/80 uppercase tracking-wider hidden sm:inline">
+        <div className="flex items-center justify-end gap-3 w-full lg:w-auto ml-auto">
+          {/* Speed Preset Selector - Hidden on mobile, visible on desktop */}
+          <div className="hidden lg:inline-flex items-center bg-[var(--color-plum-raised)] border border-white/20 rounded-lg p-1 text-xs">
+            <span className="px-2 text-[11px] font-semibold text-[var(--color-on-primary)]/80 uppercase tracking-wider">
               Speed:
             </span>
             <button
@@ -216,12 +218,12 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             </button>
           </div>
 
-          {/* Direction Selector */}
+          {/* Direction Selector (Flow) - Hidden on mobile, visible on desktop */}
           {onDirectionChange && (
             <button
               type="button"
               onClick={() => onDirectionChange(direction === 'ltr' ? 'rtl' : 'ltr')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
+              className={`hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
                 direction === 'ltr'
                   ? 'bg-[var(--color-plum-raised)] border-white/30 text-[var(--color-on-primary)] shadow-xs'
                   : 'bg-[var(--color-plum-raised)] border-white/15 text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]'
@@ -238,16 +240,16 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                   direction === 'rtl' ? 'rotate-180' : ''
                 }`}
               />
-              <span className="hidden sm:inline">Flow:</span>
+              <span>Flow:</span>
               <span>{direction === 'ltr' ? 'Left → Right' : 'Right → Left'}</span>
             </button>
           )}
 
-          {/* Pause / Play Toggle */}
+          {/* Pause / Play Toggle (Visible on mobile & desktop) */}
           <button
             type="button"
             onClick={onTogglePause}
-            className={`p-2 rounded-lg border border-white/20 transition-colors ${
+            className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg border border-white/20 transition-colors ${
               isPaused
                 ? 'bg-[var(--color-accent)] text-[var(--color-primary)] font-bold'
                 : 'bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] hover:bg-white/10'
@@ -255,7 +257,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             title={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
             aria-label={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
           >
-            {isPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5" />}
+            {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4" />}
           </button>
 
           {/* Left / Right manual scroll nudge */}
@@ -263,20 +265,20 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={onPrev}
-              className="p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
               title="Scroll left"
               aria-label="Previous review"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               type="button"
               onClick={onNext}
-              className="p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
               title="Scroll right"
               aria-label="Next review"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>

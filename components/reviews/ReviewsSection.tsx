@@ -91,10 +91,10 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section
       id="reviews-section"
-      className="w-full py-12 md:py-20 bg-[var(--color-primary)] text-[var(--color-on-primary)] border-y border-[var(--color-border)] overflow-hidden"
+      className="section-screen relative w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] border-y border-[var(--color-border)] overflow-hidden"
       aria-label="Client Ratings and Reviews"
     >
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 flex flex-col gap-10">
+      <div className="container-custom flex flex-col justify-center gap-6 sm:gap-8 my-auto w-full">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/15 pb-6">
           <div className="space-y-2">
@@ -113,11 +113,12 @@ export const ReviewsSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Action buttons: Stack full-width on mobile, inline on tablet/desktop */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-on-primary)] text-[var(--color-primary)] text-xs font-semibold hover:bg-[var(--color-surface)] transition-colors shadow-sm"
+              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-on-primary)] text-[var(--color-primary)] text-xs font-semibold hover:bg-[var(--color-surface)] transition-colors shadow-sm"
             >
               <Plus className="w-4 h-4" />
               <span>Write a Review</span>
@@ -126,7 +127,7 @@ export const ReviewsSection: React.FC = () => {
               href="https://maps.google.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-white/20 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] text-xs font-medium hover:bg-white/10 transition-colors"
+              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-white/20 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] text-xs font-medium hover:bg-white/10 transition-colors"
             >
               <span>View on Google</span>
               <ExternalLink className="w-3.5 h-3.5 text-[var(--color-on-primary)]/70" />
@@ -207,7 +208,7 @@ export const ReviewsSection: React.FC = () => {
                     value={authorName}
                     onChange={(e) => setAuthorName(e.target.value)}
                     placeholder="e.g. Nikita, Priya, Ritu"
-                    className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-base focus:outline-hidden focus:border-[var(--color-primary)]"
                   />
                 </div>
 
@@ -215,13 +216,13 @@ export const ReviewsSection: React.FC = () => {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
                     Rating
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
                         type="button"
                         onClick={() => setRatingVal(star)}
-                        className="p-1 hover:scale-110 transition-transform"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-1 hover:scale-110 transition-transform"
                       >
                         <Star
                           className={`w-6 h-6 ${
@@ -248,7 +249,7 @@ export const ReviewsSection: React.FC = () => {
                     value={reviewBody}
                     onChange={(e) => setReviewBody(e.target.value)}
                     placeholder="Share your thoughts about Jyoti & Sakshi's designs, fitting, fabric quality, and service..."
-                    className="w-full px-3.5 py-2 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-sm focus:outline-hidden focus:border-[var(--color-primary)] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-base focus:outline-hidden focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
 
@@ -256,11 +257,11 @@ export const ReviewsSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                    className="min-h-[44px] px-4 py-2 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
                   >
                     Cancel
                   </button>
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" className="min-h-[44px]">
                     Submit Review
                   </Button>
                 </div>
