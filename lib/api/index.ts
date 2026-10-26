@@ -122,3 +122,6 @@ export const ordersApi = {
   getOrderById: (id: string): Promise<Order> =>
     isMockEnabled() ? mockOrders.getOrderById(id) : realOrders.getOrderById(id),
 };
+
+export { hasActiveSession, setActiveSession } from './auth';
+

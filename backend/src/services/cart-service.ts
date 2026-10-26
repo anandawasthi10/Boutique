@@ -110,9 +110,24 @@ export class CartService {
       throw new NotFoundError('Product not found');
     }
 
+    // 0. Normalize selections from selections or selectedOptionIds
+    const normalizedSelections: Array<{ groupId: string; optionId: string }> = [];
+    if (input.selections && input.selections.length > 0) {
+      normalizedSelections.push(...input.selections);
+    } else if (input.selectedOptionIds && input.selectedOptionIds.length > 0) {
+      for (const optId of input.selectedOptionIds) {
+        for (const g of product.optionGroups) {
+          if (g.options.some((o) => o.id === optId)) {
+            normalizedSelections.push({ groupId: g.id, optionId: optId });
+            break;
+          }
+        }
+      }
+    }
+
     // 1. Validate configuration and calculate price
     const quote = await this.catalogueService.calculateQuote(product.id, {
-      selections: input.selections,
+      selections: normalizedSelections,
       quantity: input.quantity,
     });
 
@@ -131,7 +146,7 @@ export class CartService {
 
     // 2. Build full snapshot of selected options
     const enrichedOptions: CartItemOption[] = [];
-    for (const sel of input.selections) {
+    for (const sel of normalizedSelections) {
       const group = product.optionGroups.find((g) => g.id === sel.groupId);
       const option = group?.options.find((o) => o.id === sel.optionId);
 
@@ -188,9 +203,24 @@ export class CartService {
     let selectedOptions = item.selectedOptions as CartItemOption[];
     let unitPrice = item.unitPriceAtAdd;
 
-    if (input.selections) {
+    let normalizedUpdateSelections: Array<{ groupId: string; optionId: string }> | undefined;
+    if (input.selections && input.selections.length > 0) {
+      normalizedUpdateSelections = input.selections;
+    } else if (input.selectedOptionIds && input.selectedOptionIds.length > 0) {
+      normalizedUpdateSelections = [];
+      for (const optId of input.selectedOptionIds) {
+        for (const g of product.optionGroups) {
+          if (g.options.some((o) => o.id === optId)) {
+            normalizedUpdateSelections.push({ groupId: g.id, optionId: optId });
+            break;
+          }
+        }
+      }
+    }
+
+    if (normalizedUpdateSelections) {
       const quote = await this.catalogueService.calculateQuote(product.id, {
-        selections: input.selections,
+        selections: normalizedUpdateSelections,
         quantity,
       });
 
@@ -210,7 +240,7 @@ export class CartService {
       unitPrice = quote.unitPrice;
       selectedOptions = [];
 
-      for (const sel of input.selections) {
+      for (const sel of normalizedUpdateSelections) {
         const group = product.optionGroups.find((g) => g.id === sel.groupId);
         const option = group?.options.find((o) => o.id === sel.optionId);
 

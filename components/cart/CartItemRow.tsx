@@ -58,6 +58,10 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
     item.notice || item.status === 'price_changed' || item.status === 'unavailable'
   );
 
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const initialSrc = item.image || '/images/products/placeholder.svg';
+  const effectiveSrc = failedSrc === initialSrc ? '/images/products/placeholder.svg' : initialSrc;
+
   return (
     <div
       data-testid={`cart-item-${item.id}`}
@@ -67,11 +71,16 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
         {/* Item Thumbnail */}
         <div className="relative w-16 h-16 rounded-[4px] overflow-hidden bg-[var(--color-surface-alt)] shrink-0 border border-[var(--color-border)]">
           <Image
-            src={item.image || '/images/products/placeholder.svg'}
+            src={effectiveSrc}
             alt=""
             fill
             sizes="64px"
             className="object-cover"
+            onError={() => {
+              if (effectiveSrc !== '/images/products/placeholder.svg') {
+                setFailedSrc(effectiveSrc);
+              }
+            }}
           />
         </div>
 

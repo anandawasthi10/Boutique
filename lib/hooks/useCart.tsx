@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Cart, AddToCartRequest } from '@/lib/types';
-import { cartApi } from '@/lib/api';
+import { cartApi, hasActiveSession } from '@/lib/api';
 
 export type CartActionType = 'add' | 'update' | 'remove' | 'refresh';
 
@@ -36,8 +36,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
   children,
   initialCart,
 }) => {
-  const [cart, setCart] = useState<Cart | null>(initialCart ?? null);
-  const [isLoading, setIsLoading] = useState<boolean>(!initialCart);
+  const [cart, setCart] = useState<Cart | null>(() => {
+    if (initialCart) return initialCart;
+    if (!hasActiveSession()) {
+      return { items: [], subtotal: 0, shipping: 0, total: 0, notices: [] };
+    }
+    return null;
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(() => !initialCart && hasActiveSession());
   const [error, setError] = useState<string | null>(null);
   const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
@@ -58,24 +64,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
     dispatchCartEvent();
   }, [dispatchCartEvent]);
 
-  // Clear cart upon auth logout
-  useEffect(() => {
-    const handleAuthLogout = () => {
-      setCart({ items: [], subtotal: 0, shipping: 0, total: 0, notices: [] });
-      setError(null);
-      dispatchCartEvent();
-    };
-
-    window.addEventListener('auth:logout', handleAuthLogout);
-    window.addEventListener('auth-logout', handleAuthLogout);
-    return () => {
-      window.removeEventListener('auth:logout', handleAuthLogout);
-      window.removeEventListener('auth-logout', handleAuthLogout);
-    };
-  }, [dispatchCartEvent]);
-
   // Fetch initial cart from API on mount
   const refreshCart = useCallback(async (): Promise<Cart | null> => {
+    if (!hasActiveSession()) {
+      setCart({ items: [], subtotal: 0, shipping: 0, total: 0, notices: [] });
+      setIsLoading(false);
+      return null;
+    }
+
     try {
       setIsLoading(true);
       setError(null);
@@ -92,8 +88,32 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
     }
   }, [dispatchCartEvent]);
 
+  // Clear cart upon auth logout or refresh upon auth login
   useEffect(() => {
-    if (!initialCart) {
+    const handleAuthLogout = () => {
+      setCart({ items: [], subtotal: 0, shipping: 0, total: 0, notices: [] });
+      setError(null);
+      dispatchCartEvent();
+    };
+
+    const handleAuthLogin = () => {
+      refreshCart();
+    };
+
+    window.addEventListener('auth:logout', handleAuthLogout);
+    window.addEventListener('auth-logout', handleAuthLogout);
+    window.addEventListener('auth:login', handleAuthLogin);
+    window.addEventListener('auth-changed', handleAuthLogin);
+    return () => {
+      window.removeEventListener('auth:logout', handleAuthLogout);
+      window.removeEventListener('auth-logout', handleAuthLogout);
+      window.removeEventListener('auth:login', handleAuthLogin);
+      window.removeEventListener('auth-changed', handleAuthLogin);
+    };
+  }, [dispatchCartEvent, refreshCart]);
+
+  useEffect(() => {
+    if (!initialCart && hasActiveSession()) {
       let active = true;
       cartApi
         .getCart()
@@ -228,7 +248,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode; initialCart?: C
   );
 
   const itemCount = useMemo(() => {
-    return cart?.items.reduce((total, item) => total + item.quantity, 0) ?? 0;
+    return cart?.items?.reduce((total, item) => total + item.quantity, 0) ?? 0;
   }, [cart]);
 
   const isItemPending = useCallback(

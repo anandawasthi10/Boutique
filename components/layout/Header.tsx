@@ -15,26 +15,28 @@ export interface HeaderProps {
   onOpenCart?: () => void;
 }
 
-let usePathnameHook: (() => string) | null = null;
+let readPathname: (() => string | null) | null = null;
 try {
-  if (typeof (Navigation as any).usePathname === 'function') {
-    usePathnameHook = (Navigation as any).usePathname;
+  const nav = Navigation as { usePathname?: () => string | null };
+  if (typeof nav.usePathname === 'function') {
+    readPathname = nav.usePathname;
   }
 } catch {
-  usePathnameHook = null;
+  readPathname = null;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { count: cartCount } = useCartCount();
+  const { count: standaloneCount } = useCartCount();
   const { user } = useCurrentUser();
-  const { openDrawer } = useCart();
+  const { openDrawer, itemCount } = useCart();
+  const cartCount = itemCount > 0 ? itemCount : standaloneCount;
   const headerRef = useRef<HTMLElement | null>(null);
 
   let pathname = '/';
   try {
-    if (usePathnameHook) {
-      pathname = usePathnameHook() || '/';
+    if (readPathname) {
+      pathname = readPathname() || '/';
     }
   } catch {
     pathname = '/';
@@ -74,7 +76,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
 
   // Update on route change, scroll, and resize
   useEffect(() => {
-    updateTone();
+    window.requestAnimationFrame(() => {
+      updateTone();
+    });
 
     let ticking = false;
     const onScrollOrResize = () => {
