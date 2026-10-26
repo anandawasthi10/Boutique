@@ -14,6 +14,7 @@ export interface AuthContextValue {
   logout: () => Promise<void>;
   refreshUser: () => Promise<User | null>;
   clearError: () => void;
+  setAuthenticatedUser?: (user: User | null) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -138,6 +139,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, initialUse
     }
   }, []);
 
+  const setAuthenticatedUser = useCallback((newUser: User | null) => {
+    setUser(newUser);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('auth-changed'));
+      window.dispatchEvent(new CustomEvent('auth:login'));
+    }
+  }, []);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -149,8 +158,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, initialUse
       logout,
       refreshUser,
       clearError,
+      setAuthenticatedUser,
     }),
-    [user, isLoading, error, login, signup, logout, refreshUser, clearError]
+    [user, isLoading, error, login, signup, logout, refreshUser, clearError, setAuthenticatedUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

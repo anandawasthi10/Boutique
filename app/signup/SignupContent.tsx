@@ -8,12 +8,15 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { sanitizeReturnUrl } from '@/lib/utils/url';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { signInWithGoogle } from '@/lib/neon-auth';
+import { Loader2 } from 'lucide-react';
 
 export const SignupContent: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnTo = searchParams?.get('returnTo') ?? null;
-  const { signup } = useAuth();
+  const { signup, setAuthenticatedUser } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,6 +24,7 @@ export const SignupContent: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
@@ -28,6 +32,28 @@ export const SignupContent: React.FC = () => {
     password?: string;
     phone?: string;
   }>({});
+
+  const handleGoogleSignup = async () => {
+    if (isGoogleLoading || isSubmitting) return;
+    setIsGoogleLoading(true);
+    setFormError(null);
+    try {
+      const result = await signInWithGoogle({ returnTo: returnTo || '/account' });
+      if (result.success) {
+        if (result.user && setAuthenticatedUser) {
+          setAuthenticatedUser(result.user);
+        }
+        const destination = sanitizeReturnUrl(returnTo, '/account');
+        router.push(destination);
+      } else {
+        setFormError(result.error || 'Google signup failed. Please try again.');
+      }
+    } catch {
+      setFormError('Failed to initialize Google signup.');
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -167,6 +193,31 @@ export const SignupContent: React.FC = () => {
               <span>{formError}</span>
             </div>
           )}
+
+          {/* Sign Up with Google */}
+          <div className="flex flex-col gap-4 mb-6">
+            <button
+              type="button"
+              onClick={handleGoogleSignup}
+              disabled={isGoogleLoading || isSubmitting}
+              className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-[4px] border border-[var(--color-border)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-border)] text-sm font-medium text-[var(--color-text)] transition-all duration-150 shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
+              aria-label="Sign up with Google"
+            >
+              {isGoogleLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin text-[var(--color-primary)]" />
+              ) : (
+                <GoogleIcon className="w-4 h-4 transition-transform group-hover:scale-105" />
+              )}
+              <span>{isGoogleLoading ? 'Connecting to Google...' : 'Sign up with Google'}</span>
+            </button>
+
+            <div className="relative flex items-center justify-center">
+              <div className="w-full border-t border-[var(--color-border)]" />
+              <span className="absolute bg-[var(--color-surface)] px-3 text-[11px] uppercase tracking-wider font-medium text-[var(--color-text-muted)]">
+                or register with email / mobile
+              </span>
+            </div>
+          </div>
 
           {/* Signup Form */}
           <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
