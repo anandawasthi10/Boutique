@@ -47,11 +47,12 @@ export async function login(request: LoginRequest): Promise<User> {
         return;
       }
 
+      const isPhone = !request.email.includes('@') && /^\d+$/.test(request.email);
       currentUserState = {
         id: 'usr-signedin-1',
-        name: request.email.split('@')[0] || 'Customer',
-        email: request.email,
-        phone: '9876543210',
+        name: isPhone ? `Customer (${request.email.slice(-4)})` : (request.email.split('@')[0] || 'Customer'),
+        email: isPhone ? `${request.email}@boutique.store` : request.email,
+        phone: isPhone ? request.email : '9876543210',
       };
 
       resolve({ ...currentUserState });

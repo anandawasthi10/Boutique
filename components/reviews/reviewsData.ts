@@ -53,7 +53,7 @@ export const REVIEWS_DATA: ReviewItem[] = [
     meta: '1 review',
     rating: 5,
     timeAgo: '3 months ago',
-    avatarImage: '/images/avatars/gehna.jpg',
+    avatarText: 'G',
     avatarBg: 'bg-[var(--color-plum-raised)]',
     content:
       'Great quality, beautiful designs, and comfortable fabrics. Highly recommended!',

@@ -32,16 +32,16 @@ export default function GlobalError({
       <div
         role="alert"
         aria-live="assertive"
-        className="max-w-md w-full text-center space-y-6 p-8 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] shadow-[var(--shadow-soft)]"
+        className="max-w-md w-full text-center space-y-6 p-8 bg-surface border border-border rounded-sm shadow-soft"
       >
-        <div className="w-14 h-14 mx-auto rounded-full bg-[var(--color-surface-alt)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-error)]">
+        <div className="w-14 h-14 mx-auto rounded-full bg-surface-alt border border-border flex items-center justify-center text-error">
           <AlertCircle className="w-7 h-7" aria-hidden="true" />
         </div>
 
         <div className="space-y-2">
-          <span className="text-label text-[var(--color-text-muted)]">Notice</span>
-          <h1 className="text-h1 text-[var(--color-text)]">{title}</h1>
-          <p className="text-body text-[var(--color-text-muted)]">
+          <span className="text-label text-text-muted">Notice</span>
+          <h1 className="text-h1 text-text">{title}</h1>
+          <p className="text-body text-text-muted">
             {description}
           </p>
         </div>
