@@ -122,7 +122,7 @@ export const ResetPasswordContent: React.FC = () => {
               <div className="flex flex-col gap-3">
                 <Link
                   href="/forgot-password"
-                  className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-primary-text)] text-sm font-medium uppercase tracking-wide hover:bg-[#5D4940] transition-colors"
+                  className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-on-primary)] text-sm font-medium uppercase tracking-wide hover:bg-[var(--color-primary-hover)] transition-colors"
                 >
                   Request a New Link
                 </Link>
@@ -148,7 +148,7 @@ export const ResetPasswordContent: React.FC = () => {
               </p>
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center min-h-[48px] w-full px-6 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-primary-text)] text-sm font-medium uppercase tracking-wide hover:bg-[#5D4940] transition-colors"
+                className="inline-flex items-center justify-center min-h-[48px] w-full px-6 rounded-[4px] bg-[var(--color-primary)] text-[var(--color-on-primary)] text-sm font-medium uppercase tracking-wide hover:bg-[var(--color-primary-hover)] transition-colors"
               >
                 <span>Sign In</span>
               </Link>

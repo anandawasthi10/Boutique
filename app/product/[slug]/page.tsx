@@ -16,6 +16,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  'use cache';
   try {
     const { slug } = await params;
     const product = await productsApi.getProductBySlug(slug);

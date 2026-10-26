@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { cartApi } from '../api';
+import { cartApi, hasActiveSession } from '../api';
 
 export function useCartCount() {
   const [count, setCount] = useState<number>(0);
@@ -11,10 +11,18 @@ export function useCartCount() {
     let mounted = true;
 
     async function loadCart() {
+      if (!hasActiveSession()) {
+        if (mounted) {
+          setCount(0);
+          setLoading(false);
+        }
+        return;
+      }
+
       try {
         const cart = await cartApi.getCart();
         if (mounted) {
-          const totalQty = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+          const totalQty = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
           setCount(totalQty);
         }
       } catch {

@@ -118,7 +118,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
               type="button"
               onClick={handlePrev}
               aria-label="Previous gallery image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-[var(--color-bg)]/85 text-[var(--color-text)] rounded-full border border-[var(--color-border)] opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-[var(--color-bg)] cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-[var(--color-bg)]/85 text-[var(--color-text)] rounded-full border border-[var(--color-border)] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-[var(--color-bg)] cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -126,7 +126,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
               type="button"
               onClick={handleNext}
               aria-label="Next gallery image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[var(--color-bg)]/85 text-[var(--color-text)] rounded-full border border-[var(--color-border)] opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-[var(--color-bg)] cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-[var(--color-bg)]/85 text-[var(--color-text)] rounded-full border border-[var(--color-border)] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-[var(--color-bg)] cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

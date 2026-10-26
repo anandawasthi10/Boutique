@@ -14,6 +14,49 @@ import { ProductConfigurator } from '@/components/configurator/ProductConfigurat
 import { formatCurrency } from '@/lib/format/currency';
 import { ArrowLeft } from 'lucide-react';
 
+const ProductPickerCard: React.FC<{
+  prod: ProductSummary;
+  onSelect: (slug: string) => void;
+}> = ({ prod, onSelect }) => {
+  const [imgSrc, setImgSrc] = useState(prod.images[0]?.url || '/images/products/placeholder.svg');
+
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(prod.slug)}
+      data-testid={`picker-item-${prod.slug}`}
+      className="group flex flex-col text-left p-3 rounded-[4px] bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:shadow-xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]"
+    >
+      <div className="relative aspect-4/5 w-full rounded-[3px] overflow-hidden bg-[var(--color-surface-alt)] mb-3">
+        <Image
+          src={imgSrc}
+          alt={prod.name}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover group-hover:scale-102 transition-transform duration-300"
+          onError={() => {
+            if (imgSrc !== '/images/products/placeholder.svg') {
+              setImgSrc('/images/products/placeholder.svg');
+            }
+          }}
+        />
+      </div>
+      <span className="text-[11px] uppercase tracking-wider font-semibold text-[var(--color-text-muted)]">
+        {prod.category.name}
+      </span>
+      <h3 className="text-sm font-semibold text-[var(--color-text)] mt-0.5 line-clamp-1">
+        {prod.name}
+      </h3>
+      <p className="text-xs text-[var(--color-text)] font-medium mt-1">
+        From {formatCurrency(prod.basePrice)}
+      </p>
+      <div className="mt-3 pt-2.5 border-t border-[var(--color-border)] text-xs font-semibold text-[var(--color-primary)]">
+        <span>Customize this</span>
+      </div>
+    </button>
+  );
+};
+
 export const BuildYourOwnContent: React.FC = () => {
   const [products, setProducts] = useState<ProductSummary[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(true);
@@ -184,40 +227,13 @@ export const BuildYourOwnContent: React.FC = () => {
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map((prod) => {
-              const image = prod.images[0]?.url || '/images/products/placeholder.svg';
-              return (
-                <button
-                  key={prod.id}
-                  type="button"
-                  onClick={() => handleSelectProduct(prod.slug)}
-                  data-testid={`picker-item-${prod.slug}`}
-                  className="group flex flex-col text-left p-3 rounded-[4px] bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:shadow-xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]"
-                >
-                  <div className="relative aspect-4/5 w-full rounded-[3px] overflow-hidden bg-[var(--color-surface-alt)] mb-3">
-                    <Image
-                      src={image}
-                      alt={prod.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover group-hover:scale-102 transition-transform duration-300"
-                    />
-                  </div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[var(--color-text-muted)]">
-                    {prod.category.name}
-                  </span>
-                  <h3 className="text-sm font-semibold text-[var(--color-text)] mt-0.5 line-clamp-1">
-                    {prod.name}
-                  </h3>
-                  <p className="text-xs text-[var(--color-text)] font-medium mt-1">
-                    From {formatCurrency(prod.basePrice)}
-                  </p>
-                  <div className="mt-3 pt-2.5 border-t border-[var(--color-border)] text-xs font-semibold text-[var(--color-primary)]">
-                    <span>Customize this</span>
-                  </div>
-                </button>
-              );
-            })}
+            {products.map((prod) => (
+              <ProductPickerCard
+                key={prod.id}
+                prod={prod}
+                onSelect={handleSelectProduct}
+              />
+            ))}
           </div>
         </div>
       )}

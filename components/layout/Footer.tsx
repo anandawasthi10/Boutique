@@ -4,12 +4,12 @@ import { SITE_CONFIG } from '@/lib/config/site';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[var(--color-surface)] border-t border-[var(--color-border)] text-[var(--color-text)] mt-auto">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer data-tone="dark" className="w-full bg-[var(--color-surface)] border-t border-[var(--color-border)] text-[var(--color-text)] mt-auto">
+      <div className="container-custom py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand Story Column */}
-          <div className="md:col-span-2 space-y-4">
-            <span className="font-heading text-3xl font-medium tracking-tight text-[var(--color-text)]">
+          <div className="md:col-span-2 space-y-3">
+            <span className="font-heading text-2xl sm:text-3xl font-medium tracking-tight text-[var(--color-text)]">
               {SITE_CONFIG.brandName}
             </span>
             <p className="text-body text-[var(--color-text-muted)] max-w-md">
@@ -18,14 +18,14 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Navigation Links Column */}
-          <div className="space-y-4">
-            <h2 className="text-label text-[var(--color-text)]">Explore</h2>
-            <ul className="space-y-2.5">
+          <div className="space-y-2 sm:space-y-4">
+            <h2 className="text-label text-[var(--color-text)] font-semibold uppercase tracking-wider text-xs">Explore</h2>
+            <ul className="flex flex-col">
               {SITE_CONFIG.footerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-body-small text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:underline transition-colors"
+                    className="min-h-[44px] inline-flex items-center text-body-small text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:underline transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -35,14 +35,14 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Studio & Contact Column */}
-          <div className="space-y-4">
-            <h2 className="text-label text-[var(--color-text)]">Studio</h2>
-            <div className="text-body-small text-[var(--color-text-muted)] space-y-1.5">
-              <p>{SITE_CONFIG.contact.address}</p>
+          <div className="space-y-2 sm:space-y-4">
+            <h2 className="text-label text-[var(--color-text)] font-semibold uppercase tracking-wider text-xs">Studio</h2>
+            <div className="text-body-small text-[var(--color-text-muted)] flex flex-col">
+              <p className="min-h-[32px] inline-flex items-center">{SITE_CONFIG.contact.address}</p>
               <p>
                 <a
                   href={`mailto:${SITE_CONFIG.contact.email}`}
-                  className="hover:text-[var(--color-text)] underline underline-offset-2"
+                  className="min-h-[44px] inline-flex items-center hover:text-[var(--color-text)] underline underline-offset-2"
                 >
                   {SITE_CONFIG.contact.email}
                 </a>
@@ -50,7 +50,7 @@ export const Footer: React.FC = () => {
               <p>
                 <a
                   href={`tel:${SITE_CONFIG.contact.phone.replace(/\s+/g, '')}`}
-                  className="hover:text-[var(--color-text)]"
+                  className="min-h-[44px] inline-flex items-center hover:text-[var(--color-text)]"
                 >
                   {SITE_CONFIG.contact.phone}
                 </a>
@@ -60,18 +60,18 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-[var(--color-border)] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[var(--color-text-muted)]">
+        <div className="border-t border-[var(--color-border)] mt-10 pt-6 sm:mt-12 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[var(--color-text-muted)] text-center sm:text-left">
           <p>© 2026 {SITE_CONFIG.brandName}. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
             <Link
               href="/privacy"
-              className="hover:underline hover:text-[var(--color-text)] transition-colors"
+              className="min-h-[44px] inline-flex items-center hover:underline hover:text-[var(--color-text)] transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="hover:underline hover:text-[var(--color-text)] transition-colors"
+              className="min-h-[44px] inline-flex items-center hover:underline hover:text-[var(--color-text)] transition-colors"
             >
               Terms of Service
             </Link>

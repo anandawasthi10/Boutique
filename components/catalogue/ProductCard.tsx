@@ -86,7 +86,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           headingLevel,
           {
             className:
-              'text-h3 font-medium text-[var(--color-text)] group-hover:underline underline-offset-4 line-clamp-1',
+              'text-h3 font-medium text-[var(--color-text)] group-hover:underline underline-offset-4 line-clamp-2',
           },
           product.name
         )}

@@ -42,25 +42,25 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
 
   return (
     <div className="w-full flex flex-col gap-6">
-      {/* Top Banner / Rating Cards Grid with crisp White Background */}
-      <div className="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+      {/* Top Banner / Rating Cards Grid */}
+      <div className="bg-[var(--color-plum-raised)] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-xl text-[var(--color-on-primary)]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Main 4.3 Score Column */}
-          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start text-center sm:text-left gap-4 border-b lg:border-b-0 lg:border-r border-stone-200 pb-6 lg:pb-0 lg:pr-8">
+          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start text-center sm:text-left gap-4 border-b lg:border-b-0 lg:border-r border-white/15 pb-6 lg:pb-0 lg:pr-8">
             <div className="flex items-center gap-3">
-              <span className="text-5xl sm:text-6xl font-serif font-bold text-stone-900 tracking-tight">
+              <span className="text-5xl sm:text-6xl font-serif font-bold text-[var(--color-on-primary)] tracking-tight">
                 4.3
               </span>
               <div className="flex flex-col items-start">
-                <div className="flex items-center gap-1 text-[#F59E0B]" aria-label="4.3 out of 5 stars">
+                <div className="flex items-center gap-1 text-[var(--color-accent)]" role="img" aria-label="4.3 out of 5 stars">
                   {[...Array(4)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-current stroke-current" />
                   ))}
                   {/* Partial 0.3 star visual */}
                   <div className="relative w-5 h-5">
-                    <Star className="w-5 h-5 text-stone-300 fill-stone-200 stroke-stone-300" />
+                    <Star className="w-5 h-5 text-white/20 fill-white/20 stroke-white/20" />
                     <div className="absolute inset-0 overflow-hidden w-[40%]">
-                      <Star className="w-5 h-5 text-[#F59E0B] fill-[#F59E0B] stroke-[#F59E0B]" />
+                      <Star className="w-5 h-5 text-[var(--color-accent)] fill-[var(--color-accent)] stroke-[var(--color-accent)]" />
                     </div>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                       d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                     />
                   </svg>
-                  <span className="text-xs font-semibold text-stone-800 tracking-wider uppercase">
+                  <span className="text-xs font-semibold text-[var(--color-on-primary)] tracking-wider uppercase">
                     Google Reviews
                   </span>
                 </div>
@@ -92,29 +92,29 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             </div>
 
             <div>
-              <p className="text-sm font-medium text-stone-800">
-                Rated <span className="font-semibold text-amber-700">4.3 / 5.0</span> by happy clients
+              <p className="text-sm font-medium text-[var(--color-on-primary)]">
+                Rated <span className="font-semibold text-[var(--color-on-primary)] underline decoration-[var(--color-accent)]">4.3 / 5.0</span> by happy clients
               </p>
-              <p className="text-xs text-stone-500 mt-0.5">
+              <p className="text-xs text-[var(--color-on-primary)]/80 mt-0.5">
                 Based on {RATING_SUMMARY.totalReviews} verified reviews & testimonials
               </p>
             </div>
           </div>
 
           {/* Breakdown Bars Column */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-1.5 border-b lg:border-b-0 lg:border-r border-stone-200 pb-6 lg:pb-0 lg:pr-8">
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-1.5 border-b lg:border-b-0 lg:border-r border-white/15 pb-6 lg:pb-0 lg:pr-8">
             {RATING_SUMMARY.distribution.map((item) => (
               <div key={item.stars} className="flex items-center gap-3 text-xs">
-                <span className="w-8 font-medium text-stone-700 text-right">
+                <span className="w-8 font-medium text-[var(--color-on-primary)] text-right">
                   {item.stars} ★
                 </span>
-                <div className="flex-1 h-2 bg-stone-100 rounded-full overflow-hidden border border-stone-200/60">
+                <div className="flex-1 h-2 bg-[var(--color-primary)] rounded-full overflow-hidden border border-white/15">
                   <div
-                    className="h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full transition-all duration-500"
+                    className="h-full bg-[var(--color-accent)] rounded-full transition-all duration-500"
                     style={{ width: `${item.percentage}%` }}
                   />
                 </div>
-                <span className="w-10 text-stone-500 text-right font-medium">
+                <span className="w-10 text-[var(--color-on-primary)]/80 text-right font-medium">
                   {item.percentage}%
                 </span>
               </div>
@@ -123,24 +123,24 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
 
           {/* Highlights Column */}
           <div className="lg:col-span-3 flex flex-col justify-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-on-primary)]/80">
               Customer Highlights
             </span>
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2 text-xs text-stone-800 bg-stone-50 border border-stone-200/70 rounded-lg px-2.5 py-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-on-primary)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0" />
                 <span>Custom Phone Measurements & Sizing</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-stone-800 bg-stone-50 border border-stone-200/70 rounded-lg px-2.5 py-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-on-primary)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0" />
                 <span>Jyoti & Sakshi Personal Consultations</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-stone-800 bg-stone-50 border border-stone-200/70 rounded-lg px-2.5 py-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-on-primary)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0" />
                 <span>Indian, Western & Indo-Western Fits</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-stone-800 bg-stone-50 border border-stone-200/70 rounded-lg px-2.5 py-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-on-primary)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] shrink-0" />
                 <span>Premium Quality Fabric & Fast Service</span>
               </div>
             </div>
@@ -149,31 +149,33 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
       </div>
 
       {/* Control Bar: Filters + Fast Speed Controls + Manual Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2">
-          {filters.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => onFilterChange(tab.id)}
-              className={`text-xs px-3.5 py-1.5 rounded-full font-medium transition-all ${
-                activeFilter === tab.id
-                  ? 'bg-stone-900 text-white shadow-xs'
-                  : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200 hover:border-stone-300 shadow-2xs'
-              }`}
-            >
-              {tab.label}
-              {activeFilter === tab.id && ` (${totalFilteredCount})`}
-            </button>
-          ))}
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        {/* Filter Pills: Single horizontally scrollable row */}
+        <div className="w-full lg:w-auto overflow-x-auto no-scrollbar py-1">
+          <div className="flex items-center gap-2 flex-nowrap w-max">
+            {filters.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => onFilterChange(tab.id)}
+                className={`text-xs px-4 min-h-[44px] rounded-full font-medium transition-all shrink-0 inline-flex items-center justify-center ${
+                  activeFilter === tab.id
+                    ? 'bg-[var(--color-on-primary)] text-[var(--color-primary)] shadow-sm font-semibold'
+                    : 'bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] hover:bg-white/10 border border-white/20'
+                }`}
+              >
+                {tab.label}
+                {activeFilter === tab.id && ` (${totalFilteredCount})`}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Speed Controls & Navigation Controls */}
-        <div className="flex items-center gap-3 ml-auto">
-          {/* Speed Preset Selector */}
-          <div className="inline-flex items-center bg-white border border-stone-200 rounded-lg p-1 text-xs shadow-2xs">
-            <span className="px-2 text-[11px] font-semibold text-stone-500 uppercase tracking-wider hidden sm:inline">
+        <div className="flex items-center justify-end gap-3 w-full lg:w-auto ml-auto">
+          {/* Speed Preset Selector - Hidden on mobile, visible on desktop */}
+          <div className="hidden lg:inline-flex items-center bg-[var(--color-plum-raised)] border border-white/20 rounded-lg p-1 text-xs">
+            <span className="px-2 text-[11px] font-semibold text-[var(--color-on-primary)]/80 uppercase tracking-wider">
               Speed:
             </span>
             <button
@@ -181,8 +183,8 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
               onClick={() => onSpeedChange('fast')}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-colors ${
                 currentSpeed === 'fast'
-                  ? 'bg-amber-500 text-stone-900 font-bold shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-[var(--color-on-primary)] text-[var(--color-primary)] font-bold shadow-xs'
+                  : 'text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]'
               }`}
               title="Fast auto scroll"
             >
@@ -194,8 +196,8 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
               onClick={() => onSpeedChange('turbo')}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-colors ${
                 currentSpeed === 'turbo'
-                  ? 'bg-amber-600 text-white font-bold shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-[var(--color-accent)] text-[var(--color-primary)] font-bold shadow-xs'
+                  : 'text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]'
               }`}
               title="Ultra fast auto scroll"
             >
@@ -207,8 +209,8 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
               onClick={() => onSpeedChange('normal')}
               className={`px-2.5 py-1 rounded-md transition-colors ${
                 currentSpeed === 'normal'
-                  ? 'bg-stone-900 text-white font-medium shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-[var(--color-on-primary)] text-[var(--color-primary)] font-medium shadow-xs'
+                  : 'text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]'
               }`}
               title="Relaxed pace"
             >
@@ -216,15 +218,15 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             </button>
           </div>
 
-          {/* Direction Selector */}
+          {/* Direction Selector (Flow) - Hidden on mobile, visible on desktop */}
           {onDirectionChange && (
             <button
               type="button"
               onClick={() => onDirectionChange(direction === 'ltr' ? 'rtl' : 'ltr')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all shadow-2xs ${
+              className={`hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
                 direction === 'ltr'
-                  ? 'bg-amber-50 border-amber-300 text-amber-900'
-                  : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
+                  ? 'bg-[var(--color-plum-raised)] border-white/30 text-[var(--color-on-primary)] shadow-xs'
+                  : 'bg-[var(--color-plum-raised)] border-white/15 text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]'
               }`}
               title={
                 direction === 'ltr'
@@ -238,24 +240,24 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                   direction === 'rtl' ? 'rotate-180' : ''
                 }`}
               />
-              <span className="hidden sm:inline">Flow:</span>
+              <span>Flow:</span>
               <span>{direction === 'ltr' ? 'Left → Right' : 'Right → Left'}</span>
             </button>
           )}
 
-          {/* Pause / Play Toggle */}
+          {/* Pause / Play Toggle (Visible on mobile & desktop) */}
           <button
             type="button"
             onClick={onTogglePause}
-            className={`p-2 rounded-lg border border-stone-200 transition-colors shadow-2xs ${
+            className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg border border-white/20 transition-colors ${
               isPaused
-                ? 'bg-amber-500 text-stone-900 font-bold'
-                : 'bg-white text-stone-700 hover:bg-stone-50'
+                ? 'bg-[var(--color-accent)] text-[var(--color-primary)] font-bold'
+                : 'bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] hover:bg-white/10'
             }`}
             title={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
             aria-label={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
           >
-            {isPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5" />}
+            {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4" />}
           </button>
 
           {/* Left / Right manual scroll nudge */}
@@ -263,20 +265,20 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={onPrev}
-              className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-colors shadow-2xs"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
               title="Scroll left"
               aria-label="Previous review"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               type="button"
               onClick={onNext}
-              className="p-2 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-colors shadow-2xs"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg bg-[var(--color-plum-raised)] border border-white/20 text-[var(--color-on-primary)] hover:bg-white/10 transition-colors"
               title="Scroll right"
               aria-label="Next review"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>

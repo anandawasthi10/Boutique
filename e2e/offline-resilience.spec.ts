@@ -62,8 +62,8 @@ test.describe('Offline resilience: mock disabled with no backend running', () =>
     await expect(page.locator('footer')).toBeVisible();
 
     // Error state rendered
-    const alert = page.getByRole('alert');
-    await expect(alert).toBeVisible();
+    const alerts = page.getByRole('alert');
+    await expect(alerts.first()).toBeVisible();
     await expect(page.getByText(/could not load product/i)).toBeVisible();
 
     const retryBtn = page.getByRole('button', { name: /try again/i });

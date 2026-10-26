@@ -540,11 +540,11 @@ export const LoginContent: React.FC = () => {
           )}
 
           {/* Footer Navigation */}
-          <div className="mt-8 pt-6 border-t border-border text-center text-xs text-text-muted">
+          <div className="mt-8 pt-6 border-t border-border text-center text-xs text-text-muted flex items-center justify-center gap-1 flex-wrap">
             <span>Don&apos;t have an account yet? </span>
             <Link
               href={signupLink}
-              className="text-primary hover:underline font-semibold"
+              className="min-h-[44px] inline-flex items-center text-primary hover:underline font-semibold px-1"
             >
               Create an account
             </Link>

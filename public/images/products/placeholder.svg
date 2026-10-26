@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750" fill="none">
+  <!-- Warm ivory background matching theme -->
+  <rect width="100%" height="100%" fill="#FBF7F4"/>
+  <!-- Subtle border with rounded corners -->
+  <rect x="24" y="24" width="552" height="702" rx="6" fill="#F4EDE4" stroke="#E6D6D9" stroke-width="1.5"/>
+  <rect x="36" y="36" width="528" height="678" rx="4" fill="none" stroke="#E6D6D9" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- Centered bespoke accessory icon in deep plum -->
+  <g transform="translate(300, 330)">
+    <!-- Elegant gift / box / accessory pouch silhouette -->
+    <path d="M-40 -40 C-40 -52 -32 -60 -20 -60 C-8 -60 0 -48 0 -40 C0 -48 8 -60 20 -60 C32 -60 40 -52 40 -40 C40 -28 20 -10 0 10 C-20 -10 -40 -28 -40 -40 Z" fill="none" stroke="#3D2438" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="0" cy="-40" r="4" fill="#3D2438"/>
+    <!-- Outer delicate frame -->
+    <rect x="-65" y="-15" width="130" height="95" rx="6" fill="#FAF5F0" stroke="#3D2438" stroke-width="2"/>
+    <path d="M-65 15 L65 15" stroke="#E6D6D9" stroke-width="1.5"/>
+    <path d="M0 -15 L0 80" stroke="#E6D6D9" stroke-width="1.5"/>
+    <circle cx="0" cy="15" r="5" fill="#3D2438"/>
+  </g>
+
+  <!-- Typography matching brand -->
+  <text x="300" y="470" text-anchor="middle" font-family="serif" font-size="22" font-style="italic" fill="#3D2438" letter-spacing="1">Bespoke Accessory</text>
+  <text x="300" y="498" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="500" fill="#755E6D" letter-spacing="0.5">Handcrafted with care</text>
+  <text x="300" y="525" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#A8949E" letter-spacing="1.5">IMAGE COMING SOON</text>
+</svg>

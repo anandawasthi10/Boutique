@@ -257,10 +257,10 @@ export const ShopContent: React.FC = () => {
         </p>
 
         {/* Category Pills Navigation */}
-        <div className="flex items-center flex-wrap gap-2 mt-6">
+        <div className="flex items-center gap-2 mt-6 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex-nowrap sm:flex-wrap">
           <Link
             href="/shop"
-            className={`px-3.5 py-1.5 text-body-small font-medium rounded-full transition-colors cursor-pointer select-none ${
+            className={`min-h-[44px] px-4 py-2 text-body-small font-medium rounded-full transition-colors cursor-pointer select-none shrink-0 inline-flex items-center justify-center ${
               !categoryParam
                 ? 'bg-[var(--color-primary)] text-[var(--color-primary-text)]'
                 : 'bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] text-[var(--color-text)] border border-[var(--color-border)]'
@@ -277,7 +277,7 @@ export const ShopContent: React.FC = () => {
               <Link
                 key={cat.id}
                 href={`/category/${cat.slug}`}
-                className={`px-3.5 py-1.5 text-body-small font-medium rounded-full border transition-colors cursor-pointer select-none ${
+                className={`min-h-[44px] px-4 py-2 text-body-small font-medium rounded-full border transition-colors cursor-pointer select-none shrink-0 inline-flex items-center justify-center ${
                   isSelected
                     ? 'bg-[var(--color-primary)] text-[var(--color-primary-text)] border-[var(--color-primary)]'
                     : 'bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] text-[var(--color-text)] border-[var(--color-border)]'

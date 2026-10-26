@@ -41,6 +41,9 @@ export const ConfiguratorPreview: React.FC<ConfiguratorPreviewProps> = ({
   };
 
   const currentImageUrl = previewImageOption?.previewImageUrl || baseImage.url;
+  const [failedUrl, setFailedUrl] = React.useState<string | null>(null);
+  const effectiveImageUrl = failedUrl === currentImageUrl ? '/images/products/placeholder.svg' : currentImageUrl;
+
   const currentImageAlt = previewImageOption
     ? `${product.name} customised with ${previewImageOption.label}`
     : baseImage.alt;
@@ -57,12 +60,17 @@ export const ConfiguratorPreview: React.FC<ConfiguratorPreviewProps> = ({
       {/* Main Preview Container */}
       <div className="relative aspect-4/5 w-full overflow-hidden rounded-[4px] bg-[var(--color-surface)] border border-[var(--color-border)]">
         <Image
-          src={currentImageUrl}
+          src={effectiveImageUrl}
           alt={currentImageAlt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
           priority
           className={`object-cover ${transitionClass}`}
+          onError={() => {
+            if (effectiveImageUrl !== '/images/products/placeholder.svg') {
+              setFailedUrl(effectiveImageUrl);
+            }
+          }}
         />
 
         {previewImageOption && (
