@@ -33,10 +33,16 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, user }) =
   }
 
   const prevPathnameRef = React.useRef(pathname);
+  const isFirstRender = React.useRef(true);
 
   // Close drawer automatically only when route actually changes
   useEffect(() => {
-    if (prevPathnameRef.current !== pathname) {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      prevPathnameRef.current = pathname;
+      return;
+    }
+    if (prevPathnameRef.current && pathname && prevPathnameRef.current !== pathname) {
       prevPathnameRef.current = pathname;
       onClose();
     }

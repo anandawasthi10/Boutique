@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
       >
         <div className="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Left: Mobile Hamburger Toggle & Desktop Nav */}
-          <div className="flex items-center gap-4 lg:gap-6 lg:w-1/3">
+          <div className="flex items-center gap-4 lg:gap-6 flex-1 min-w-0">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -128,12 +128,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
               <Menu className="w-6 h-6" />
             </button>
 
-            <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-4 xl:gap-7">
               {SITE_CONFIG.navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="header-nav-link text-[12px] uppercase tracking-[0.12em] font-medium text-current transition-colors"
+                  className="header-nav-link whitespace-nowrap text-[11px] xl:text-[12px] uppercase tracking-[0.08em] xl:tracking-[0.12em] font-medium text-current transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -142,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
           </div>
 
           {/* Center: Brand Logo */}
-          <div className="flex-1 lg:flex-initial flex items-center justify-center text-center">
+          <div className="shrink-0 flex items-center justify-center text-center px-2 sm:px-4">
             <Link
               href="/"
               aria-label={`${SITE_CONFIG.brandName} homepage`}
@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCart }) => {
           </div>
 
           {/* Right: Actions (Search, Sound, Account / Log in, Cart) */}
-          <div className="flex items-center justify-end gap-1 sm:gap-2 lg:w-1/3">
+          <div className="flex items-center justify-end gap-1 sm:gap-2 flex-1 min-w-0">
             {/* Search */}
             <Link
               href="/shop"
