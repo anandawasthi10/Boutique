@@ -72,14 +72,14 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-      <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-8 max-w-md w-full text-center shadow-soft">
+      <div className="bg-surface border border-border rounded-sm p-8 max-w-md w-full text-center shadow-soft">
         {status === 'verifying' && (
           <div className="flex flex-col items-center gap-4">
-            <Loader2 className="w-8 h-8 animate-spin text-[var(--color-primary)]" />
-            <h2 className="text-h3 font-serif text-[var(--color-text)]">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <h2 className="text-h3 font-serif text-text">
               Verifying Authentication
             </h2>
-            <p className="text-body-small text-[var(--color-text-muted)]">
+            <p className="text-body-small text-text-muted">
               Connecting with Neon Auth and finalizing your secure session...
             </p>
           </div>
@@ -87,11 +87,11 @@ export default function AuthCallbackPage() {
 
         {status === 'success' && (
           <div className="flex flex-col items-center gap-4">
-            <CheckCircle className="w-10 h-10 text-[var(--color-success)]" />
-            <h2 className="text-h3 font-serif text-[var(--color-text)]">
+            <CheckCircle className="w-10 h-10 text-success" />
+            <h2 className="text-h3 font-serif text-text">
               Authentication Confirmed
             </h2>
-            <p className="text-body-small text-[var(--color-text-muted)]">
+            <p className="text-body-small text-text-muted">
               Redirecting you to your account...
             </p>
           </div>
@@ -99,16 +99,16 @@ export default function AuthCallbackPage() {
 
         {status === 'error' && (
           <div className="flex flex-col items-center gap-4">
-            <AlertCircle className="w-10 h-10 text-[var(--color-error)]" />
-            <h2 className="text-h3 font-serif text-[var(--color-text)]">
+            <AlertCircle className="w-10 h-10 text-error" />
+            <h2 className="text-h3 font-serif text-text">
               Authentication Notice
             </h2>
-            <p className="text-body-small text-[var(--color-text-muted)]">
+            <p className="text-body-small text-text-muted">
               {errorMessage || 'Unable to complete sign-in. Please try again.'}
             </p>
             <button
               onClick={() => router.push('/login')}
-              className="mt-4 px-6 py-2.5 bg-[var(--color-primary)] text-[var(--color-primary-text)] text-xs uppercase tracking-wider font-medium rounded-[4px] hover:opacity-90 transition-opacity"
+              className="mt-4 px-6 py-2.5 bg-primary text-primary-text text-xs uppercase tracking-wider font-medium rounded-sm hover:opacity-90 transition-opacity"
             >
               Return to Sign In
             </button>

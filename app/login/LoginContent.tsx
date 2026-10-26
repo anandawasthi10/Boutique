@@ -75,7 +75,8 @@ export const LoginContent: React.FC = () => {
     if (!trimmed) {
       errors.email = 'Email address is required.';
     } else {
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+      // Linear-time email check preventing catastrophic backtracking
+      const isEmail = /^[^\s@]+@[^@\s.]+(\.[^@\s.]+)+$/.test(trimmed);
       const isPhone = /^[6-9]\d{9}$/.test(trimmed) || /^\d{10}$/.test(trimmed);
 
       if (!isEmail && !isPhone) {
@@ -102,7 +103,7 @@ export const LoginContent: React.FC = () => {
   };
 
   // Standard Email / Mobile & Password Submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
 
@@ -182,7 +183,7 @@ export const LoginContent: React.FC = () => {
   };
 
   // Google Authenticator (TOTP) Submission
-  const handleTotpSubmit = async (e: React.FormEvent) => {
+  const handleTotpSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (isTotpSubmitting) return;
 
@@ -228,17 +229,17 @@ export const LoginContent: React.FC = () => {
     : '/signup';
 
   return (
-    <div className="bg-[var(--color-bg)] min-h-[calc(100vh-200px)] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div className="bg-bg min-h-[calc(100vh-200px)] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
       <div className="w-full max-w-md">
         {/* Main Card */}
-        <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-8 shadow-soft">
+        <div className="bg-surface border border-border rounded-sm p-8 shadow-soft">
           
           {/* Header */}
           <div className="text-center mb-6">
-            <h1 className="text-h2 font-serif text-[var(--color-text)] mb-2">
+            <h1 className="text-h2 font-serif text-text mb-2">
               Welcome Back
             </h1>
-            <p className="text-body-small text-[var(--color-text-muted)]">
+            <p className="text-body-small text-text-muted">
               Sign in with Google, email, or mobile number.
             </p>
           </div>
@@ -248,7 +249,7 @@ export const LoginContent: React.FC = () => {
             <div
               role="alert"
               data-testid="login-general-error"
-              className="mb-6 p-4 rounded-[4px] bg-error/10 border border-error/20 flex items-start gap-2.5 text-xs text-[var(--color-error)]"
+              className="mb-6 p-4 rounded-sm bg-error/10 border border-error/20 flex items-start gap-2.5 text-xs text-error"
             >
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{formError}</span>
@@ -257,17 +258,17 @@ export const LoginContent: React.FC = () => {
 
           {/* Google Auth Success Banner */}
           {googleSuccessNotice && (
-            <div
-              role="status"
-              className="mb-6 p-4 rounded-[4px] bg-success/10 border border-success/20 flex items-start gap-2.5 text-xs text-[var(--color-success)]"
+            <output
+              aria-live="polite"
+              className="mb-6 p-4 rounded-sm bg-success/10 border border-success/20 flex items-start gap-2.5 text-xs text-success w-full"
             >
               <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{googleSuccessNotice}</span>
-            </div>
+            </output>
           )}
 
           {/* Sleek Mode Switcher */}
-          <div className="flex p-1 mb-6 rounded-[4px] bg-[var(--color-surface-alt)] border border-[var(--color-border)]">
+          <div className="flex p-1 mb-6 rounded-sm bg-surface-alt border border-border">
             <button
               type="button"
               onClick={() => {
@@ -276,8 +277,8 @@ export const LoginContent: React.FC = () => {
               }}
               className={`flex-1 py-1.5 px-3 text-xs font-medium rounded-[3px] transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                 authMode === 'standard'
-                  ? 'bg-[var(--color-surface)] text-[var(--color-text)] shadow-xs font-semibold'
-                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
+                  ? 'bg-surface text-text shadow-xs font-semibold'
+                  : 'text-text-muted hover:text-text'
               }`}
             >
               <KeyRound className="w-3.5 h-3.5" />
@@ -292,8 +293,8 @@ export const LoginContent: React.FC = () => {
               }}
               className={`flex-1 py-1.5 px-3 text-xs font-medium rounded-[3px] transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                 authMode === 'totp'
-                  ? 'bg-[var(--color-surface)] text-[var(--color-text)] shadow-xs font-semibold'
-                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
+                  ? 'bg-surface text-text shadow-xs font-semibold'
+                  : 'text-text-muted hover:text-text'
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -309,11 +310,11 @@ export const LoginContent: React.FC = () => {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={isGoogleLoading || isSubmitting}
-                className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-[4px] border border-[var(--color-border)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] active:bg-[var(--color-border)] text-sm font-medium text-[var(--color-text)] transition-all duration-150 shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group focus-visible:outline-2 focus-visible:outline-[var(--color-focus)]"
+                className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-sm border border-border bg-surface hover:bg-surface-alt active:bg-border text-sm font-medium text-text transition-all duration-150 shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group focus-visible:outline-2 focus-visible:outline-focus"
                 aria-label="Continue with Google"
               >
                 {isGoogleLoading ? (
-                  <Loader2 className="w-5 h-5 animate-spin text-[var(--color-primary)]" />
+                  <Loader2 className="w-5 h-5 animate-spin text-primary" />
                 ) : (
                   <GoogleIcon className="w-5 h-5 transition-transform group-hover:scale-105" />
                 )}
@@ -324,8 +325,8 @@ export const LoginContent: React.FC = () => {
 
               {/* Minimal Divider */}
               <div className="relative my-1 flex items-center justify-center">
-                <div className="w-full border-t border-[var(--color-border)]" />
-                <span className="absolute bg-[var(--color-surface)] px-3 text-[11px] uppercase tracking-wider font-medium text-[var(--color-text-muted)]">
+                <div className="w-full border-t border-border" />
+                <span className="absolute bg-surface px-3 text-[11px] uppercase tracking-wider font-medium text-text-muted">
                   or sign in with password
                 </span>
               </div>
@@ -375,7 +376,7 @@ export const LoginContent: React.FC = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                         aria-pressed={showPassword}
-                        className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] p-1 rounded transition-colors cursor-pointer"
+                        className="text-text-muted hover:text-text p-1 rounded transition-colors cursor-pointer"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -385,14 +386,14 @@ export const LoginContent: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setAuthMode('totp')}
-                      className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-primary)] font-medium inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs text-text-muted hover:text-primary font-medium inline-flex items-center gap-1 cursor-pointer"
                     >
                       <Smartphone className="w-3 h-3 text-[#00E599]" />
                       <span>Use 2FA code</span>
                     </button>
                     <Link
                       href="/forgot-password"
-                      className="text-xs text-[var(--color-primary)] hover:underline font-medium"
+                      className="text-xs text-primary hover:underline font-medium"
                     >
                       Forgot your password?
                     </Link>
@@ -419,13 +420,13 @@ export const LoginContent: React.FC = () => {
           {authMode === 'totp' && (
             <div className="flex flex-col gap-5">
               <div className="text-center">
-                <div className="inline-flex p-2.5 rounded-full bg-[var(--color-surface-alt)] border border-[var(--color-border)] mb-2 text-[#00875A]">
+                <div className="inline-flex p-2.5 rounded-full bg-surface-alt border border-border mb-2 text-[#00875A]">
                   <Smartphone className="w-5 h-5" />
                 </div>
-                <h2 className="text-sm font-semibold text-[var(--color-text)]">
+                <h2 className="text-sm font-semibold text-text">
                   Google Authenticator
                 </h2>
-                <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                <p className="text-xs text-text-muted mt-0.5">
                   Enter the 6-digit code from your Google Authenticator app.
                 </p>
               </div>
@@ -434,7 +435,7 @@ export const LoginContent: React.FC = () => {
               {totpError && (
                 <div
                   role="alert"
-                  className="p-3.5 rounded-[4px] bg-error/10 border border-error/20 flex items-start gap-2.5 text-xs text-[var(--color-error)]"
+                  className="p-3.5 rounded-sm bg-error/10 border border-error/20 flex items-start gap-2.5 text-xs text-error"
                 >
                   <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>{totpError}</span>
@@ -443,13 +444,13 @@ export const LoginContent: React.FC = () => {
 
               {/* TOTP Success Notice */}
               {totpSuccess && (
-                <div
-                  role="status"
-                  className="p-3.5 rounded-[4px] bg-success/10 border border-success/20 flex items-start gap-2.5 text-xs text-[var(--color-success)]"
+                <output
+                  aria-live="polite"
+                  className="p-3.5 rounded-sm bg-success/10 border border-success/20 flex items-start gap-2.5 text-xs text-success w-full"
                 >
                   <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>Code verified! Signing you in...</span>
-                </div>
+                </output>
               )}
 
               {/* Authenticator Form */}
@@ -470,11 +471,11 @@ export const LoginContent: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="totp-code"
-                    className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] flex items-center justify-between"
+                    className="text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center justify-between"
                   >
                     <span>6-Digit Verification Code</span>
-                    <span className="text-[11px] font-mono lowercase font-normal text-[var(--color-text-muted)]">
-                      resets in <strong className="text-[var(--color-text)]">{totpSecondsLeft}s</strong>
+                    <span className="text-[11px] font-mono lowercase font-normal text-text-muted">
+                      resets in <strong className="text-text">{totpSecondsLeft}s</strong>
                     </span>
                   </label>
                   <div className="relative">
@@ -502,10 +503,10 @@ export const LoginContent: React.FC = () => {
                         }
                       }}
                       placeholder="123 456"
-                      className="w-full text-center tracking-[0.3em] font-mono text-xl py-3 px-4 rounded-[4px] border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
+                      className="w-full text-center tracking-[0.3em] font-mono text-xl py-3 px-4 rounded-sm border border-border bg-surface text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                     />
                   </div>
-                  <div className="w-full bg-[var(--color-border)]/60 h-1 rounded-full overflow-hidden mt-1">
+                  <div className="w-full bg-border/60 h-1 rounded-full overflow-hidden mt-1">
                     <div
                       className="h-full bg-[#00E599] transition-all duration-1000 ease-linear"
                       style={{ width: `${(totpSecondsLeft / 30) * 100}%` }}
@@ -530,7 +531,7 @@ export const LoginContent: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAuthMode('standard')}
-                  className="text-center text-xs text-[var(--color-text-muted)] hover:text-[var(--color-primary)] font-medium mt-1 cursor-pointer transition-colors"
+                  className="text-center text-xs text-text-muted hover:text-primary font-medium mt-1 cursor-pointer transition-colors"
                 >
                   ← Back to standard login
                 </button>
@@ -539,11 +540,11 @@ export const LoginContent: React.FC = () => {
           )}
 
           {/* Footer Navigation */}
-          <div className="mt-8 pt-6 border-t border-[var(--color-border)] text-center text-xs text-[var(--color-text-muted)]">
+          <div className="mt-8 pt-6 border-t border-border text-center text-xs text-text-muted">
             <span>Don&apos;t have an account yet? </span>
             <Link
               href={signupLink}
-              className="text-[var(--color-primary)] hover:underline font-semibold"
+              className="text-primary hover:underline font-semibold"
             >
               Create an account
             </Link>
