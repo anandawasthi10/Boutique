@@ -45,6 +45,7 @@ backend/.env.local
 backend/.env.test
 backend/.env.production
 !.env.example
+!.env.local.example
 !backend/.env.example
 
 # vercel
