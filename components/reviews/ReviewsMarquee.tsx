@@ -105,7 +105,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
         aria-label="Continuous auto-scrolling customer reviews moving left to right"
       >
         <div
-          className={`reviews-marquee-track direction-${direction} py-2 ${
+          className={`reviews-marquee-track direction-${direction} py-4 ${
             isPaused ? 'is-paused' : ''
           } ${pauseOnHover ? 'pause-on-card-hover' : ''}`}
           style={
