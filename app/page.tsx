@@ -143,17 +143,17 @@ export default function HomePage() {
       <section
         id="explore-by-type"
         data-tone="light"
-        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
+        className="section-screen relative w-full border-b border-[var(--color-line)] bg-[var(--color-ivory)]"
       >
         <div className="container-custom flex flex-col justify-center space-y-6 my-auto">
-          <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-3 sm:pb-4">
+          <div className="flex items-end justify-between border-b border-[var(--color-line)] pb-3 sm:pb-4">
             <div>
-              <span className="text-label text-[var(--color-text-muted)]">Categories</span>
-              <h2 className="text-h2 text-[var(--color-text)] mt-1">Explore by Type</h2>
+              <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-rose-text)]">Categories</span>
+              <h2 className="text-h2 font-heading text-[var(--color-ink)] mt-1">Explore by Type</h2>
             </div>
             <NextLink
               href="/shop"
-              className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
+              className="text-body-small font-medium text-[var(--color-plum)] underline underline-offset-4 decoration-1 hidden sm:inline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] rounded-[2px]"
             >
               All products
             </NextLink>
@@ -185,23 +185,31 @@ export default function HomePage() {
                 <NextLink
                   key={cat.id}
                   href={`/shop?category=${cat.slug}`}
-                  className="group flex flex-col w-full min-h-[44px]"
+                  className="group flex flex-col w-full min-h-[44px] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                 >
-                  <div className="relative w-full aspect-4/5 rounded-[4px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
-                    <Image
-                      src={cat.image || '/images/placeholders/scrunchie-1.svg'}
-                      alt={cat.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    />
-                  </div>
+                  {cat.image ? (
+                    <div className="relative w-full aspect-4/5 rounded-[4px] overflow-hidden bg-[var(--color-surface)]">
+                      <Image
+                        src={cat.image}
+                        alt={cat.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover rounded-[4px]"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full aspect-4/5 rounded-[4px] bg-[var(--color-surface)] flex items-center justify-center p-4 select-none">
+                      <span className="text-[12px] text-[var(--color-muted)] font-medium text-center">
+                        Photo coming soon
+                      </span>
+                    </div>
+                  )}
                   <div className="mt-2.5 sm:mt-3 flex flex-col gap-0.5 sm:gap-1">
-                    <h3 className="text-h3 text-[var(--color-text)] font-medium group-hover:underline underline-offset-4 line-clamp-1">
+                    <h3 className="font-heading text-lg sm:text-xl font-medium text-[var(--color-ink)] [@media(hover:hover)]:group-hover:underline [@media(hover:hover)]:group-hover:decoration-[var(--color-plum)] underline-offset-4 decoration-1 line-clamp-1">
                       {cat.name}
                     </h3>
                     {cat.description && (
-                      <p className="text-body-small text-[var(--color-text-muted)] line-clamp-2">
+                      <p className="text-body-small text-[var(--color-muted)] line-clamp-2">
                         {cat.description}
                       </p>
                     )}
@@ -213,10 +221,11 @@ export default function HomePage() {
 
           {/* Mobile All Products Outline Button */}
           <div className="sm:hidden pt-2">
-            <NextLink href="/shop" className="w-full block">
-              <Button variant="secondary" className="w-full min-h-[44px]">
-                All products
-              </Button>
+            <NextLink
+              href="/shop"
+              className="w-full min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-transparent border border-[var(--color-plum)] text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-plum)] [@media(hover:hover)]:hover:text-[var(--color-ivory)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
+            >
+              All products
             </NextLink>
           </div>
         </div>

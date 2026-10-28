@@ -171,3 +171,24 @@ This document records the architectural decisions, specification resolutions, an
   - **Placeholder SVG Creation & Loop-Safe Fallback**:
     - Created a clean placeholder vector asset at `public/images/products/placeholder.svg` styled with the store's palette (warm ivory `#FBF7F4` background, plum `#3D2438` iconography and typography, delicate `#E6D6D9` border).
     - Hardened image components (`CartItemRow`, `ConfiguratorPreview`, `BuildYourOwnContent`) using React 19 render-state fallback tracking to prevent infinite error loops in the event that image sources fail to load.
+
+
+### D-17: Explore by Type Ivory & Plum Theme, Placeholder Fallback & Rose-Text Darkening
+- **Context & Objectives**:
+  Apply the Ivory and Plum theme to the "Explore by Type" section (`#explore-by-type`) on the home page with solid colors only, zero gradients/shadows/overlays, 4:5 category card image blocks, and placeholder fallback for categories lacking photographs.
+- **Tokens & Styling**:
+  - Section background set to solid ivory (`--color-ivory: #FBF7F4`).
+  - Section boundary divider and heading underline set to line token (`--color-line: #E6D6D9`).
+  - Darkened `--color-rose-text` from `#A55E7B` to `#9C5774` in `app/globals.css` ensuring WCAG AA contrast ratio of 5.4:1 (> 4.5:1) for small uppercase text on ivory background.
+  - Section title set to serif ink (`--color-ink: #2B1B27`).
+  - Category titles use serif ink with subtle plum underline on hover (`[@media(hover:hover)]:group-hover:decoration-[var(--color-plum)]`).
+  - Category descriptions use muted token (`--color-muted: #6B5663`) clamped to 2 lines.
+  - Desktop "All products" link set to plum text with 4px underline offset.
+  - Mobile "All products" button set to transparent background, 1px plum border, 48px height, plum text with solid plum hover.
+  - Focus outlines on all cards and links set to 2px plum outline with 2px offset.
+- **Category Placeholder Fallback**:
+  - Replaced the previous generic placeholder SVG (`scrunchie-1.svg`) with a clean surface-colored container (`--color-surface: #F0E4E6`, 4px radius, no border/shadow) displaying "Photo coming soon" in 12px muted text.
+  - Emits zero external image requests for categories without assigned photos (`cat.image === null`).
+  - Maintained exact 4:5 aspect ratio matching photo-bearing category cards.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright with zero horizontal overflow, 44x44px mobile touch targets, adaptive plum header state over light tone, and saved screenshots to `screenshots/theme/`.
