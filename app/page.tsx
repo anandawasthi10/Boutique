@@ -100,20 +100,20 @@ export default function HomePage() {
           <div className="order-1 lg:order-1 lg:col-span-7 flex flex-col items-start gap-3 sm:gap-4 lg:gap-6">
             <div className="inline-flex items-center px-3 py-1 bg-transparent border border-[rgba(251,247,244,0.45)] rounded-[4px]">
               <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-ivory)]">
-                Handmade Accessories
+                Handmade in India
               </span>
             </div>
 
             <h1 className="font-heading text-[var(--color-ivory)] text-[clamp(2rem,5vw,3.75rem)] leading-[1.1] tracking-tight [text-wrap:balance]">
-              Crafted in fabric,{' '}
+              Made by hand,{' '}
               <span className="font-script text-[var(--color-rose-light)] font-normal italic block sm:inline">
-                tailored by you.
+                made for you.
               </span>
             </h1>
 
             <p className="text-[rgba(251,247,244,0.82)] text-base leading-[1.6] max-w-xl">
-              Choose your fabric, size, and finishes for hair ties, everyday pouches, and tech sleeves.
-              Made by hand with tactile materials, designed to last.
+              Pick your fabric, colour and finish. Every
+              scrunchie, pouch and sleeve is stitched by hand, just for you.
             </p>
 
             <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 sm:pt-2">
@@ -121,13 +121,13 @@ export default function HomePage() {
                 href="/shop"
                 className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-[var(--color-ivory)] text-[var(--color-plum)] hover:bg-[var(--color-surface)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
               >
-                Shop All Collection
+                Explore the Collection
               </NextLink>
               <NextLink
                 href="/build-your-own"
                 className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-transparent border border-[var(--color-ivory)] text-[var(--color-ivory)] hover:bg-[var(--color-ivory)] hover:text-[var(--color-plum)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
               >
-                Build Your Own
+                Design Your Own
               </NextLink>
             </div>
           </div>
