@@ -134,7 +134,7 @@ test.describe('Featured Pieces - Ivory and Plum Theme Verification', () => {
         return {
           headingColor: headingStyle.color,
           headingFont: headingStyle.fontFamily,
-          headingClamp: headingStyle.webkitLineClamp || headingStyle.lineClamp,
+          headingClamp: (headingStyle as any).webkitLineClamp || (headingStyle as any).lineClamp,
           priceColor: priceStyle.color,
           priceWeight: priceStyle.fontWeight,
         };
