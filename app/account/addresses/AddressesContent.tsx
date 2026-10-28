@@ -165,7 +165,7 @@ export const AddressesContent: React.FC = () => {
       {/* Top Header / Action Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-5 sm:p-6">
         <div>
-          <h2 className="text-h3 font-serif text-[var(--color-text)] mb-1">
+          <h2 className="text-h3 text-[var(--color-text)] mb-1">
             Saved Addresses
           </h2>
           <p className="text-body-small text-[var(--color-text-muted)]">
@@ -226,7 +226,7 @@ export const AddressesContent: React.FC = () => {
           <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center">
             <MapPin className="w-6 h-6" />
           </div>
-          <h3 className="text-h3 font-serif text-[var(--color-text)] mb-2">
+          <h3 className="text-h3 text-[var(--color-text)] mb-2">
             No Saved Addresses Yet
           </h3>
           <p className="text-body-small text-[var(--color-text-muted)] max-w-md mx-auto mb-6 leading-relaxed">

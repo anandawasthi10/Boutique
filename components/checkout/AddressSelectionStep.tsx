@@ -71,7 +71,7 @@ export const AddressSelectionStep: React.FC<AddressSelectionStepProps> = ({
     <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-6 sm:p-8 shadow-xs">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 mb-6 border-b border-[var(--color-border)]">
         <div>
-          <h2 className="text-h3 font-serif text-[var(--color-text)] mb-1">
+          <h2 className="text-h3 text-[var(--color-text)] mb-1">
             Delivery Address
           </h2>
           <p className="text-body-small text-[var(--color-text-muted)]">

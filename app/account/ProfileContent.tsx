@@ -35,7 +35,7 @@ export const ProfileContent: React.FC = () => {
         <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-error/10 flex items-center justify-center text-[var(--color-error)]">
           <AlertCircle className="w-6 h-6" />
         </div>
-        <h2 className="text-h3 font-serif text-[var(--color-text)] mb-2">
+        <h2 className="text-h3 text-[var(--color-text)] mb-2">
           Unable to Load Profile
         </h2>
         <p className="text-body-small text-[var(--color-text-muted)] mb-6 max-w-md mx-auto">
@@ -72,7 +72,7 @@ export const ProfileContent: React.FC = () => {
       data-testid="profile-content"
     >
       <div className="border-b border-[var(--color-border)] pb-6 mb-6">
-        <h2 className="text-h3 font-serif text-[var(--color-text)] mb-1">
+        <h2 className="text-h3 text-[var(--color-text)] mb-1">
           Profile Details
         </h2>
         <p className="text-body-small text-[var(--color-text-muted)]">

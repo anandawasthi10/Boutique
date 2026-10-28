@@ -76,7 +76,7 @@ export default function AuthCallbackPage() {
         {status === 'verifying' && (
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            <h2 className="text-h3 font-serif text-text">
+            <h2 className="text-h3 text-text">
               Verifying Authentication
             </h2>
             <p className="text-body-small text-text-muted">
@@ -88,7 +88,7 @@ export default function AuthCallbackPage() {
         {status === 'success' && (
           <div className="flex flex-col items-center gap-4">
             <CheckCircle className="w-10 h-10 text-success" />
-            <h2 className="text-h3 font-serif text-text">
+            <h2 className="text-h3 text-text">
               Authentication Confirmed
             </h2>
             <p className="text-body-small text-text-muted">
@@ -100,7 +100,7 @@ export default function AuthCallbackPage() {
         {status === 'error' && (
           <div className="flex flex-col items-center gap-4">
             <AlertCircle className="w-10 h-10 text-error" />
-            <h2 className="text-h3 font-serif text-text">
+            <h2 className="text-h3 text-text">
               Authentication Notice
             </h2>
             <p className="text-body-small text-text-muted">

@@ -78,7 +78,7 @@ export const AboutContent: React.FC = () => {
           <div className="mb-3">
             <h2
               id="artisan-note-heading"
-              className="font-serif text-xl sm:text-2xl font-normal"
+              className="text-xl sm:text-2xl font-medium"
               style={{ color: 'var(--color-text)' }}
             >
               {content.artisanNoteTitle}
@@ -123,7 +123,7 @@ export const AboutContent: React.FC = () => {
               >
                 <div>
                   <h3
-                    className="font-serif text-xl font-medium mb-3"
+                    className="text-xl font-medium mb-3"
                     style={{ color: 'var(--color-text)' }}
                   >
                     {section.title}

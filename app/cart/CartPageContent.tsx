@@ -173,7 +173,7 @@ export const CartPageContent: React.FC = () => {
                 data-testid="cart-order-summary"
                 className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] p-6 shadow-xs flex flex-col gap-6"
               >
-                <h2 className="text-h3 font-serif text-[var(--color-text)] border-b border-[var(--color-border)] pb-3">
+                <h2 className="text-h3 text-[var(--color-text)] border-b border-[var(--color-border)] pb-3">
                   Order Summary
                 </h2>
 

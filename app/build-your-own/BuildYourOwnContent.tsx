@@ -222,7 +222,7 @@ export const BuildYourOwnContent: React.FC = () => {
       {/* State 4: Product Picker Grid (when no product is currently active) */}
       {!selectedProductSlug && !isLoadingProducts && !productsError && products.length > 0 && (
         <div data-testid="product-picker-section" className="py-4">
-          <h2 className="text-h3 font-heading text-[var(--color-text)] mb-6">
+          <h2 className="text-h3 text-[var(--color-text)] mb-6">
             Step 1: Choose your base accessory
           </h2>
 

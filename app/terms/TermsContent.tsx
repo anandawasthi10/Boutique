@@ -45,7 +45,7 @@ export const TermsContent: React.FC = () => {
         >
           <h2
             id="terms-notice-heading"
-            className="font-serif text-xl sm:text-2xl font-normal mb-3"
+            className="text-xl sm:text-2xl font-medium mb-3"
             style={{ color: 'var(--color-text)' }}
           >
             Draft Terms Notice
@@ -74,7 +74,7 @@ export const TermsContent: React.FC = () => {
               }}
             >
               <h2
-                className="font-serif text-xl sm:text-2xl font-medium mb-3"
+                className="text-xl sm:text-2xl font-medium mb-3"
                 style={{ color: 'var(--color-text)' }}
               >
                 {section.title}
