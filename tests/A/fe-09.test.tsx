@@ -10,15 +10,12 @@ describe('FE-09: Homepage', () => {
     vi.stubEnv('NEXT_PUBLIC_USE_MOCK_API', 'true');
   });
 
-  it('renders editorial hero with call to actions and framework image', async () => {
+  it('renders editorial hero with call to actions', async () => {
     render(<HomePage />);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/crafted in fabric/i);
     expect(screen.getByRole('link', { name: /shop all collection/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /build your own/i })).toBeInTheDocument();
-
-    const heroImg = screen.getByAltText(/handmade accessories featured collection/i);
-    expect(heroImg).toBeInTheDocument();
   });
 
   it('loads and displays categories and featured products from the API layer', async () => {

@@ -96,22 +96,8 @@ export default function HomePage() {
         className="section-screen relative w-full bg-[var(--color-plum)] text-[var(--color-ivory)] overflow-hidden"
       >
         <div className="container-custom grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center my-auto">
-          {/* Top on mobile, right on desktop: Hero Image */}
-          <div className="order-1 lg:order-2 lg:col-span-5 w-full flex items-center justify-center lg:justify-end">
-            <div className="relative w-full h-[28svh] min-h-[160px] sm:h-[38svh] max-h-[42svh] lg:h-auto lg:aspect-4/5 lg:max-h-[calc(100svh-var(--header-h)-96px)] rounded-[4px] overflow-hidden">
-              <Image
-                src="/images/productimages/pouch-and-scrunchies.jpg"
-                alt="Handmade accessories featured collection: floral pouch and fabric scrunchies"
-                fill
-                priority
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 42vw"
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Bottom on mobile, left on desktop: Text Column */}
-          <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col items-start gap-3 sm:gap-4 lg:gap-6">
+          {/* Left on desktop: Text Column */}
+          <div className="order-1 lg:order-1 lg:col-span-7 flex flex-col items-start gap-3 sm:gap-4 lg:gap-6">
             <div className="inline-flex items-center px-3 py-1 bg-transparent border border-[rgba(251,247,244,0.45)] rounded-[4px]">
               <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-ivory)]">
                 Handmade Accessories
@@ -144,6 +130,11 @@ export default function HomePage() {
                 Build Your Own
               </NextLink>
             </div>
+          </div>
+
+          {/* Right-hand column container: Hero visual slot (to be filled) */}
+          <div className="hidden md:flex order-2 lg:order-2 lg:col-span-5 w-full items-center justify-center lg:justify-end">
+            {/* Hero visual slot (to be filled) */}
           </div>
         </div>
       </section>
