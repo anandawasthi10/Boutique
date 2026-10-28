@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
               Terms of Service
             </Link>
           </div>
-          <p className="text-script text-base text-[var(--color-text-muted)]">
+          <p className="text-body-small text-[var(--color-text-muted)]">
             Handmade accessories
           </p>
         </div>

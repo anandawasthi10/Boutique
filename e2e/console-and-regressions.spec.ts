@@ -51,7 +51,7 @@ test.describe('PART 3: Storefront Console Errors & Regressions', () => {
         await menuBtn.click();
         const mobileNav = page.getByRole('navigation', { name: 'Mobile Navigation' });
         await expect(mobileNav).toBeVisible();
-        await mobileNav.getByRole('link', { name: 'Shop All' }).click();
+        await mobileNav.getByRole('link', { name: 'Collection', exact: true }).click();
       } else {
         await page.locator('header nav a[href="/shop"]').click();
       }

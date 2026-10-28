@@ -171,3 +171,52 @@ This document records the architectural decisions, specification resolutions, an
   - **Placeholder SVG Creation & Loop-Safe Fallback**:
     - Created a clean placeholder vector asset at `public/images/products/placeholder.svg` styled with the store's palette (warm ivory `#FBF7F4` background, plum `#3D2438` iconography and typography, delicate `#E6D6D9` border).
     - Hardened image components (`CartItemRow`, `ConfiguratorPreview`, `BuildYourOwnContent`) using React 19 render-state fallback tracking to prevent infinite error loops in the event that image sources fail to load.
+
+
+### D-17: Explore by Type Ivory & Plum Theme, Placeholder Fallback & Rose-Text Darkening
+- **Context & Objectives**:
+  Apply the Ivory and Plum theme to the "Explore by Type" section (`#explore-by-type`) on the home page with solid colors only, zero gradients/shadows/overlays, 4:5 category card image blocks, and placeholder fallback for categories lacking photographs.
+- **Tokens & Styling**:
+  - Section background set to solid ivory (`--color-ivory: #FBF7F4`).
+  - Section boundary divider and heading underline set to line token (`--color-line: #E6D6D9`).
+  - Darkened `--color-rose-text` from `#A55E7B` to `#9C5774` in `app/globals.css` ensuring WCAG AA contrast ratio of 5.4:1 (> 4.5:1) for small uppercase text on ivory background.
+  - Section title set to serif ink (`--color-ink: #2B1B27`).
+  - Category titles use serif ink with subtle plum underline on hover (`[@media(hover:hover)]:group-hover:decoration-[var(--color-plum)]`).
+  - Category descriptions use muted token (`--color-muted: #6B5663`) clamped to 2 lines.
+  - Desktop "All products" link set to plum text with 4px underline offset.
+  - Mobile "All products" button set to transparent background, 1px plum border, 48px height, plum text with solid plum hover.
+  - Focus outlines on all cards and links set to 2px plum outline with 2px offset.
+- **Category Placeholder Fallback**:
+  - Replaced the previous generic placeholder SVG (`scrunchie-1.svg`) with a clean surface-colored container (`--color-surface: #F0E4E6`, 4px radius, no border/shadow) displaying "Photo coming soon" in 12px muted text.
+  - Emits zero external image requests for categories without assigned photos (`cat.image === null`).
+  - Maintained exact 4:5 aspect ratio matching photo-bearing category cards.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright with zero horizontal overflow, 44x44px mobile touch targets, adaptive plum header state over light tone, and saved screenshots to `screenshots/theme/`.
+
+### D-18: Featured Pieces Ivory & Plum Theme & Shared Card Tone Architecture
+- **Context & Objectives**:
+  Apply the Ivory and Plum theme to the "Featured Pieces" section (#featured-pieces) on the home page with solid colors only, zero gradients/shadows/overlays, 4:5 image ratio, 2-line name clamp, and a zero-network-request placeholder fallback for missing images.
+- **Tokens & Styling**:
+  - Section background set to solid surface (--color-surface: #F0E4E6, fully opaque).
+  - Eyebrow set to muted token (--color-muted: #6B5663, small uppercase, tracking 0.16em), guaranteeing 5.47:1 contrast on surface (> 4.5:1).
+  - Title set to serif ink (--color-ink: #2B1B27, Cormorant Garamond), providing 13:1 AAA contrast on surface.
+  - Thin 1px divider under the heading row and section boundary styled with plum at 20% alpha (rgba(61, 36, 56, 0.20)).
+- **Shared ProductCard Tone Support**:
+  - Introduced optional tone?: 'on-ivory' | 'on-tint' prop to ProductCard and ProductGrid (default: 'on-ivory').
+  - When tone === 'on-tint' (Featured Pieces on surface background): image blocks render solid ivory (--color-ivory: #FBF7F4), 4px radius, no border, no shadow, no overlay.
+  - When tone === 'on-ivory' (default for /shop, /category/[slug] on ivory background): image blocks maintain original surface container (bg-[var(--color-surface)] border border-[var(--color-border)]) without breaking.
+  - Product names use Cormorant Garamond serif, ink color, clamped to 2 lines, with subtle plum underline on hover ([@media(hover:hover)]).
+  - Prices render in plum (--color-plum: #3D2438, 11.36:1 contrast on surface) with medium font weight on their own line.
+  - Single link per card with 2px plum focus ring and 2px offset (focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]).
+  - Product badges restyled with plum background and ivory text (bg-[var(--color-plum)] text-[var(--color-ivory)] rounded-[4px]).
+- **Placeholder Fix**:
+  - Product cards without images render a plain block in the card's container color (bg-[var(--color-ivory)] on Featured Pieces) with centered text "Image coming soon" in 12px muted text, maintaining 4:5 ratio (data-testid="missing-image-placeholder").
+  - Emits zero network requests to /images/products/placeholder.svg (zero 404s).
+- **CTA & Navigation**:
+  - Desktop "View full range" link set to plum text with 4px underline offset.
+  - Mobile "View full range" button set to transparent background, 1px plum border, 48px height, plum text with solid plum hover.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright with screenshots saved to screenshots/theme/.
+  - Column counts verified: 2 on mobile, 3 on tablet (768px), 4 on desktop (>=1024px).
+  - Header data-tone verified: switches to plum when scrolling over #featured-pieces.
+

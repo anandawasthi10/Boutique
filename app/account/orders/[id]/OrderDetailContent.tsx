@@ -265,7 +265,7 @@ export const OrderDetailContent: React.FC<OrderDetailContentProps> = ({ orderId 
             <Package className="w-5 h-5" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
             <h2
               id="detail-items-heading"
-              className="font-serif text-xl font-medium"
+              className="text-xl font-medium"
               style={{ color: 'var(--color-text)' }}
             >
               Order Items ({order.items.reduce((s, i) => s + i.quantity, 0)})
@@ -314,7 +314,7 @@ export const OrderDetailContent: React.FC<OrderDetailContentProps> = ({ orderId 
               <MapPin className="w-4 h-4" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
               <h2
                 id="detail-address-heading"
-                className="font-serif text-lg font-medium"
+                className="text-lg font-medium"
                 style={{ color: 'var(--color-text)' }}
               >
                 Delivery Address
@@ -345,7 +345,7 @@ export const OrderDetailContent: React.FC<OrderDetailContentProps> = ({ orderId 
           >
             <h2
               id="detail-totals-heading"
-              className="font-serif text-lg font-medium mb-3"
+              className="text-lg font-medium mb-3"
               style={{ color: 'var(--color-text)' }}
             >
               Order Summary

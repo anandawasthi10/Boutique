@@ -18,6 +18,7 @@ export interface ProductGridProps {
   emptyDescription?: string;
   headingLevel?: 'h2' | 'h3' | 'h4';
   className?: string;
+  tone?: 'on-ivory' | 'on-tint';
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({
@@ -30,6 +31,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   emptyDescription = 'There are no items matching this criteria at the moment.',
   headingLevel,
   className = '',
+  tone = 'on-ivory',
 }) => {
   const router = useRouter();
 
@@ -54,7 +56,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       >
         {Array.from({ length: skeletonCount }).map((_, i) => (
           <div key={i} className="flex flex-col gap-3">
-            <Skeleton className="aspect-4/5 w-full rounded-[4px]" />
+            <Skeleton className={`aspect-4/5 w-full rounded-[4px] ${tone === 'on-tint' ? 'bg-[var(--color-ivory)]' : ''}`} />
             <Skeleton width="75%" height={20} />
             <Skeleton width="40%" height={16} />
           </div>
@@ -84,7 +86,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 ${className}`.trim()}
     >
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} headingLevel={headingLevel} />
+        <ProductCard key={product.id} product={product} headingLevel={headingLevel} tone={tone} />
       ))}
     </div>
   );

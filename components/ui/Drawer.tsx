@@ -123,7 +123,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-line)]">
-          <h2 id="drawer-title" className="text-h3 font-heading font-medium text-[var(--color-ink)]">
+          <h2 id="drawer-title" className="text-h3 font-medium text-[var(--color-ink)]">
             {title}
           </h2>
           <button

@@ -48,7 +48,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
           {/* Main 4.3 Score Column */}
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start text-center sm:text-left gap-4 border-b lg:border-b-0 lg:border-r border-white/15 pb-6 lg:pb-0 lg:pr-8">
             <div className="flex items-center gap-3">
-              <span className="text-5xl sm:text-6xl font-serif font-bold text-[var(--color-on-primary)] tracking-tight">
+              <span className="text-5xl sm:text-6xl font-bold text-[var(--color-on-primary)] tracking-tight">
                 4.3
               </span>
               <div className="flex flex-col items-start">

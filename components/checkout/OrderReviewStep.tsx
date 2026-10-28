@@ -215,7 +215,7 @@ export const OrderReviewStep: React.FC<OrderReviewStepProps> = ({
                   Total Payable
                 </span>
                 <span
-                  className="text-h3 font-serif font-bold text-[var(--color-primary)]"
+                  className="text-h3 font-bold text-[var(--color-primary)]"
                   data-testid="checkout-total"
                 >
                   {formatCurrency(cart.total)}

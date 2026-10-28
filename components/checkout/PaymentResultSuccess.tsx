@@ -80,7 +80,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
             <Package className="w-5 h-5" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
             <h2
               id="order-items-heading"
-              className="font-serif text-xl font-medium"
+              className="text-xl font-medium"
               style={{ color: 'var(--color-text)' }}
             >
               Purchased Accessories
@@ -129,7 +129,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
               <MapPin className="w-4 h-4" style={{ color: 'var(--color-primary)' }} aria-hidden="true" />
               <h2
                 id="delivery-address-heading"
-                className="font-serif text-lg font-medium"
+                className="text-lg font-medium"
                 style={{ color: 'var(--color-text)' }}
               >
                 Delivery Address
@@ -160,7 +160,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
           >
             <h2
               id="order-totals-heading"
-              className="font-serif text-lg font-medium mb-3"
+              className="text-lg font-medium mb-3"
               style={{ color: 'var(--color-text)' }}
             >
               Payment Summary
@@ -209,7 +209,7 @@ export const PaymentResultSuccess: React.FC<PaymentResultSuccessProps> = ({ orde
           <div className="mb-2">
             <h2
               id="what-next-heading"
-              className="font-serif text-lg font-medium"
+              className="text-lg font-medium"
               style={{ color: 'var(--color-text)' }}
             >
               What Happens Next

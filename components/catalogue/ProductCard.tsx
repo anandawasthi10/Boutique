@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ImageOff } from 'lucide-react';
 import { ProductSummary } from '@/lib/types';
 import { formatCurrency } from '@/lib/format/currency';
 import { usePreferences } from '@/lib/hooks/usePreferences';
@@ -12,18 +11,22 @@ export interface ProductCardProps {
   product: ProductSummary;
   headingLevel?: 'h2' | 'h3' | 'h4';
   className?: string;
+  tone?: 'on-ivory' | 'on-tint';
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   headingLevel = 'h3',
   className = '',
+  tone = 'on-ivory',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { reducedMotion } = usePreferences();
 
-  const images = product.images || [];
+  const images = (product.images || []).filter(
+    (img) => img && img.url && !img.url.includes('placeholder.svg')
+  );
   const hasImages = images.length > 0 && !imageError;
   const mainImage = images[0];
   const secondaryImage = images[1];
@@ -31,6 +34,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const transitionClass = reducedMotion
     ? 'transition-none duration-0'
     : 'transition-opacity duration-300 motion-reduce:transition-none motion-reduce:duration-0';
+
+  const imageContainerClass =
+    tone === 'on-tint'
+      ? 'relative aspect-4/5 w-full overflow-hidden bg-[var(--color-ivory)] rounded-[4px]'
+      : 'relative aspect-4/5 w-full overflow-hidden bg-[var(--color-surface)] rounded-[4px] border border-[var(--color-border)]';
+
+  const badge = (product as unknown as { badge?: string }).badge;
 
   return (
     <Link
@@ -40,17 +50,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
-      className={`group block text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] rounded-[4px] select-none ${className}`.trim()}
+      className={`group block text-[var(--color-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] rounded-[4px] select-none ${className}`.trim()}
     >
       {/* 4:5 Aspect Ratio Container */}
-      <div className="relative aspect-4/5 w-full overflow-hidden bg-[var(--color-surface)] rounded-[4px] border border-[var(--color-border)]">
+      <div className={imageContainerClass}>
+        {badge && (
+          <span className="absolute top-2 left-2 z-10 px-2 py-0.5 text-[11px] font-medium bg-[var(--color-plum)] text-[var(--color-ivory)] rounded-[4px]">
+            {badge}
+          </span>
+        )}
         {!hasImages ? (
           <div
             data-testid="missing-image-placeholder"
-            className="w-full h-full flex flex-col items-center justify-center bg-[var(--color-surface-alt)] text-[var(--color-text-muted)] p-4 text-center"
+            className="w-full h-full flex flex-col items-center justify-center p-4 text-center select-none"
           >
-            <ImageOff className="w-8 h-8 opacity-40 mb-2" aria-hidden="true" />
-            <span className="text-[13px] font-medium tracking-wide">Image coming soon</span>
+            <span className="text-[12px] font-medium text-[var(--color-muted)]">Image coming soon</span>
           </div>
         ) : (
           <>
@@ -86,11 +100,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           headingLevel,
           {
             className:
-              'text-h3 font-medium text-[var(--color-text)] group-hover:underline underline-offset-4 line-clamp-2',
+              '!font-heading text-lg sm:text-xl font-medium text-[var(--color-ink)] [@media(hover:hover)]:group-hover:underline [@media(hover:hover)]:group-hover:decoration-[var(--color-plum)] underline-offset-4 line-clamp-2 decoration-1',
           },
           product.name
         )}
-        <p className="text-price text-[var(--color-text-muted)]">
+        <p className="text-price font-medium text-[var(--color-plum)]">
           From {formatCurrency(product.basePrice)}
         </p>
       </div>

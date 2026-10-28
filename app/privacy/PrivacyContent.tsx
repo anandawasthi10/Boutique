@@ -45,7 +45,7 @@ export const PrivacyContent: React.FC = () => {
         >
           <h2
             id="privacy-notice-heading"
-            className="font-serif text-xl sm:text-2xl font-normal mb-3"
+            className="text-xl sm:text-2xl font-medium mb-3"
             style={{ color: 'var(--color-text)' }}
           >
             Draft Policy Notice
@@ -74,7 +74,7 @@ export const PrivacyContent: React.FC = () => {
               }}
             >
               <h2
-                className="font-serif text-xl sm:text-2xl font-medium mb-3"
+                className="text-xl sm:text-2xl font-medium mb-3"
                 style={{ color: 'var(--color-text)' }}
               >
                 {section.title}

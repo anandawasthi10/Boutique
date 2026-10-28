@@ -11,7 +11,7 @@ import { CartProvider } from "@/lib/hooks/useCart";
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["500", "600", "700"],
+  weight: ["500", "600"],
   display: "swap",
   fallback: ["Georgia", "serif"],
 });
@@ -27,7 +27,7 @@ const dmSans = DM_Sans({
 const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-script",
-  weight: ["400", "600"],
+  weight: ["400"],
   display: "swap",
   fallback: ["cursive"],
 });
