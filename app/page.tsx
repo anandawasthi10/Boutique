@@ -235,17 +235,21 @@ export default function HomePage() {
       <section
         id="featured-pieces"
         data-tone="light"
-        className="section-screen relative w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]"
+        className="section-screen relative w-full border-b border-[rgba(61,36,56,0.20)] bg-[var(--color-surface)]"
       >
         <div className="container-custom flex flex-col justify-center space-y-6 my-auto">
-          <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-3 sm:pb-4">
+          <div className="flex items-end justify-between border-b border-[rgba(61,36,56,0.20)] pb-3 sm:pb-4">
             <div>
-              <span className="text-label text-[var(--color-text-muted)]">Catalogue</span>
-              <h2 className="text-h2 text-[var(--color-text)] mt-1">Featured Pieces</h2>
+              <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                Catalogue
+              </span>
+              <h2 className="text-h2 font-heading text-[var(--color-ink)] mt-1">
+                Featured Pieces
+              </h2>
             </div>
             <NextLink
               href="/shop"
-              className="text-body-small font-medium text-[var(--color-primary)] hover:underline underline-offset-4 hidden sm:inline"
+              className="text-body-small font-medium text-[var(--color-plum)] underline underline-offset-4 decoration-1 hidden sm:inline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] rounded-[2px]"
             >
               View full range
             </NextLink>
@@ -256,21 +260,23 @@ export default function HomePage() {
             isLoading={productsLoading}
             error={productsError}
             onRetry={loadData}
+            tone="on-tint"
             emptyTitle="No featured products"
             emptyDescription="We are updating our catalogue. Please check back shortly."
           />
 
           {/* Mobile View Full Range Outline Button */}
           <div className="sm:hidden pt-2">
-            <NextLink href="/shop" className="w-full block">
-              <Button variant="secondary" className="w-full min-h-[44px]">
-                View full range
-              </Button>
+            <NextLink
+              href="/shop"
+              className="w-full min-h-[48px] px-6 py-3 rounded-[4px] font-medium text-[15px] bg-transparent border border-[var(--color-plum)] text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-plum)] [@media(hover:hover)]:hover:text-[var(--color-ivory)] transition-colors inline-flex items-center justify-center text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
+            >
+              View full range
             </NextLink>
           </div>
         </div>
       </section>
- 
+
       {/* 4. RATINGS & REVIEWS SECTION */}
       <ReviewsSection />
  
