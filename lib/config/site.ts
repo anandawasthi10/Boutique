@@ -8,9 +8,9 @@ export const SITE_CONFIG = {
   tagline: 'Handmade Accessories',
   logoText: 'Brand Name',
   navLinks: [
-    { label: 'Shop All', href: '/shop' },
-    { label: 'Build Your Own', href: '/build-your-own' },
-    { label: 'About', href: '/about' },
+    { label: 'Collection', href: '/shop' },
+    { label: 'Customise', href: '/build-your-own' },
+    { label: 'Our Story', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ],
   footerLinks: [
