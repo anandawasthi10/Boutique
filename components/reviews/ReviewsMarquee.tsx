@@ -41,9 +41,6 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
   }, [externalContainerRef]);
 
   // Speeds in seconds for a full 50% loop
-  // 'fast': 18s (lively smooth continuous scroll)
-  // 'turbo': 10s (ultra fast)
-  // 'normal': 32s (relaxed leisurely reading pace)
   const durationMap: Record<SpeedMode, number> = {
     turbo: 10,
     fast: 18,
@@ -52,8 +49,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
 
   const durationSec = durationMap[speed] || 18;
 
-  // Ensure each group has at least 8 items so even filtered views (e.g. 2 reviews)
-  // comfortably fill the widest screens with zero blank gaps before looping.
+  // Ensure each group has at least 8 items so even filtered views comfortably fill wide screens
   const groupItems = useMemo(() => {
     if (!reviews || reviews.length === 0) return [];
     let items = [...reviews];
@@ -119,17 +115,7 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
         ))}
       </div>
 
-      {/* DESKTOP ONLY: Left and Right gradient fades for luxury boutique depth */}
-      <div
-        className="hidden lg:block pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[var(--color-primary)] to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className="hidden lg:block pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[var(--color-primary)] to-transparent"
-        aria-hidden="true"
-      />
-
-      {/* DESKTOP ONLY: Continuous Marquee Wrapper */}
+      {/* DESKTOP ONLY: Continuous Marquee Wrapper (Gradients removed per hard solid colours rule) */}
       <div
         ref={desktopContainerRef}
         className="hidden lg:block reviews-marquee-container w-full overflow-x-hidden no-scrollbar"
@@ -175,17 +161,17 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
       </div>
 
       {/* Desktop status hint */}
-      <div className="hidden lg:flex items-center justify-center gap-3 mt-3 text-xs text-[var(--color-on-primary)]/80 flex-wrap px-4">
+      <div className="hidden lg:flex items-center justify-center gap-3 mt-3 text-xs text-[rgba(251,247,244,0.82)] flex-wrap px-4">
         <div className="flex items-center gap-1.5">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-medium text-[var(--color-on-primary)]">
+          <span className="inline-block w-2 h-2 rounded-full bg-[var(--color-rose-light)]" />
+          <span className="font-medium text-[var(--color-ivory)]">
             Continuous Stream
           </span>
-          <span className="text-[var(--color-accent)] font-medium">
+          <span className="text-[var(--color-rose-pale)] font-medium">
             ({direction === 'ltr' ? 'Moving Left → Right' : 'Moving Right → Left'})
           </span>
         </div>
-        <span className="opacity-30">•</span>
+        <span className="text-[rgba(251,247,244,0.30)]">•</span>
         <span>Use controls above to toggle direction, speed or pause</span>
       </div>
     </div>

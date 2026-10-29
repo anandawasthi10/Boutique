@@ -220,3 +220,25 @@ This document records the architectural decisions, specification resolutions, an
   - Column counts verified: 2 on mobile, 3 on tablet (768px), 4 on desktop (>=1024px).
   - Header data-tone verified: switches to plum when scrolling over #featured-pieces.
 
+
+### D-19: Ratings & Reviews Ivory & Plum Theme Refinement
+- **Context & Objectives**:
+  Apply the Ivory and Plum theme to the "Ratings & Reviews" section (`#reviews-section`) on the home page. Enforce solid colors only with zero gradients, blur, glows, or box-shadows. Ensure high contrast (text >= 4.5:1, icons/fills >= 3:1) and adaptive dark tone behavior (`data-tone="dark"`).
+- **New Tokens & Color System**:
+  - Added `--color-rose-pale: #EBC6D2` in `app/globals.css` (in `:root` and `@theme`) for small accent text, tags, and icons on plum surfaces (9.11:1 on plum, 5.14:1 on plum-raised).
+  - Section background set to solid plum (`--color-plum: #3D2438`).
+  - Section boundaries and dividers set to 1px ivory at 20% alpha (`border-[rgba(251,247,244,0.20)]`).
+  - Rating summary box and review cards set to solid plum-raised (`--color-plum-raised: #604B5C`), 4px radius, no border, no shadow, no blur.
+  - Initial avatars use `bg-[var(--color-rose-light)]` with `text-[var(--color-plum)]` font-semibold.
+  - Stars and progress bar fills use `var(--color-rose-light)`. Progress bar tracks use `rgba(251,247,244,0.22)`.
+  - Removed all legacy Tailwind navy, slate, amber, orange, yellow, and emerald classes across review components.
+  - Removed left/right gradient edge-fade overlays from `ReviewsMarquee.tsx`; cards clip at the container boundary.
+- **Controls & Accessibility**:
+  - Filter pills and desktop controls (Speed, Flow, Pause, Prev, Next) use ivory outline treatment (`border-[rgba(251,247,244,0.45)]`), with active/selected state using solid ivory background and plum text.
+  - "Write a Review" button: solid ivory background with plum text; "View on Google": transparent with 1px ivory border; both >= 48px height with 4px radius.
+  - Focus rings on all interactive elements: 2px ivory outline with 2px offset (`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]`).
+  - Like (heart) and share buttons have >= 44x44px touch targets. Liked state uses filled rose-light icon.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/reviews-section-theme.spec.ts`.
+  - Mobile swipeable row with snap verified; desktop marquee verified; adaptive ivory header over dark tone verified.
+  - Zero console errors; screenshots saved to `screenshots/theme/`.

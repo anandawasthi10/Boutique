@@ -51,7 +51,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
 
   return (
     <div
-      className={`group relative flex flex-col justify-between shrink-0 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] rounded-xl p-5 border border-white/15 shadow-lg hover:border-[var(--color-accent)]/50 transition-all duration-300 select-none ${className || 'w-[340px] sm:w-[380px]'}`}
+      className={`relative flex flex-col justify-between shrink-0 bg-[var(--color-plum-raised)] text-[var(--color-ivory)] rounded-[4px] p-5 select-none ${className || 'w-[340px] sm:w-[380px]'}`}
       data-testid={`review-card-${review.id}`}
     >
       {/* Top Header */}
@@ -61,7 +61,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
             {/* Avatar */}
             <div className="relative shrink-0">
               {review.avatarImage ? (
-                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/20">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden">
                   <Image
                     src={review.avatarImage}
                     alt={review.author}
@@ -72,7 +72,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 </div>
               ) : (
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-[var(--color-on-primary)] font-semibold text-base ${review.avatarBg || 'bg-[var(--color-primary)]'}`}
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--color-rose-light)] text-[var(--color-plum)] font-semibold text-base"
                 >
                   {review.avatarText || review.author.charAt(0)}
                 </div>
@@ -82,7 +82,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
               {review.isLocalGuide && (
                 <div
                   title="Local Guide"
-                  className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-[var(--color-primary)] shadow-sm border border-[var(--color-plum-raised)]"
+                  className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[var(--color-rose-light)] flex items-center justify-center text-[var(--color-plum)]"
                 >
                   <Star className="w-2.5 h-2.5 fill-current" />
                 </div>
@@ -92,11 +92,11 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
             {/* Author info */}
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-medium text-[15px] text-[var(--color-on-primary)] tracking-wide">
+                <span className="font-medium text-[15px] text-[var(--color-ivory)] tracking-wide">
                   {review.author}
                 </span>
               </div>
-              <p className="text-[12px] text-[var(--color-on-primary)]/75 leading-tight line-clamp-1">
+              <p className="text-[12px] text-[rgba(251,247,244,0.78)] leading-tight line-clamp-1">
                 {review.meta}
               </p>
             </div>
@@ -105,7 +105,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
           {/* Right menu / Google icon */}
           <div className="relative flex items-center gap-1">
             <svg
-              className="w-4 h-4 opacity-80 hover:opacity-100 transition-opacity"
+              className="w-4 h-4"
               viewBox="0 0 24 24"
               aria-label="Google Review"
             >
@@ -134,22 +134,22 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 setShowMenu(!showMenu);
               }}
               aria-label="Review options"
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--color-on-primary)]/75 hover:text-[var(--color-on-primary)] rounded hover:bg-white/10 transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[rgba(251,247,244,0.78)] [@media(hover:hover)]:hover:text-[var(--color-ivory)] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] transition-colors"
             >
               <MoreVertical className="w-4 h-4" />
             </button>
 
             {showMenu && (
-              <div className="absolute right-0 top-10 z-20 w-36 bg-[var(--color-primary)] border border-white/20 rounded-md shadow-xl py-1 text-xs text-[var(--color-on-primary)]">
+              <div className="absolute right-0 top-10 z-20 w-36 bg-[var(--color-plum)] border border-[rgba(251,247,244,0.20)] rounded-[4px] py-1 text-xs text-[var(--color-ivory)]">
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="w-full text-left px-3 py-2 hover:bg-white/10 flex items-center gap-2 min-h-[44px]"
+                  className="w-full text-left px-3 py-2 [@media(hover:hover)]:hover:bg-[rgba(251,247,244,0.10)] flex items-center gap-2 min-h-[44px] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
                 >
                   <Share2 className="w-3.5 h-3.5" />
                   <span>Copy Review</span>
                 </button>
-                <div className="px-3 py-1 text-[11px] text-[var(--color-on-primary)]/70 border-t border-white/15 mt-1">
+                <div className="px-3 py-1 text-[11px] text-[rgba(251,247,244,0.78)] border-t border-[rgba(251,247,244,0.20)] mt-1">
                   Google Verified
                 </div>
               </div>
@@ -157,7 +157,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
           </div>
         </div>
 
-        {/* Stars and Date */}
+        {/* Stars, Date, and Tag Chip */}
         <div className="flex items-center gap-2 mb-2.5">
           <div className="flex items-center gap-0.5" role="img" aria-label={`${review.rating} out of 5 stars`}>
             {[...Array(5)].map((_, i) => (
@@ -165,22 +165,22 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 key={i}
                 className={`w-3.5 h-3.5 ${
                   i < review.rating
-                    ? 'fill-[var(--color-accent)] text-[var(--color-accent)]'
-                    : 'fill-transparent text-white/25'
+                    ? 'fill-[var(--color-rose-light)] text-[var(--color-rose-light)] stroke-[var(--color-rose-light)]'
+                    : 'fill-transparent text-[rgba(251,247,244,0.22)]'
                 }`}
               />
             ))}
           </div>
-          <span className="text-[12px] text-[var(--color-on-primary)]/75 font-normal">
+          <span className="text-[12px] text-[rgba(251,247,244,0.78)] font-normal">
             {review.timeAgo}
           </span>
-          <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-primary)] border border-white/15 text-[var(--color-on-primary)] font-medium tracking-wide">
+          <span className="ml-auto text-[10px] px-2 py-0.5 rounded-[4px] bg-transparent border border-[var(--color-rose-pale)] text-[var(--color-rose-pale)] font-medium tracking-wide">
             {review.categoryTag}
           </span>
         </div>
 
         {/* Review Content */}
-        <div className="mt-2 text-[13.5px] leading-relaxed text-[var(--color-on-primary)]/90 font-normal">
+        <div className="mt-2 text-[13.5px] leading-[1.6] text-[rgba(251,247,244,0.88)] font-normal">
           <p className="inline">
             {displayedContent}
           </p>
@@ -191,7 +191,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
-              className="inline-block ml-1.5 text-xs text-[var(--color-on-primary)] hover:underline font-medium underline underline-offset-2 min-h-[44px] py-1"
+              className="inline-block ml-1.5 text-xs text-[var(--color-rose-pale)] underline underline-offset-2 min-h-[44px] py-1 font-medium rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
             >
               {isExpanded ? 'Show less' : 'More'}
             </button>
@@ -200,23 +200,23 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
       </div>
 
       {/* Footer Reaction Bar */}
-      <div className="pt-4 mt-4 border-t border-white/15 flex items-center justify-between text-xs text-[var(--color-on-primary)]/75">
+      <div className="pt-4 mt-4 border-t border-[rgba(251,247,244,0.20)] flex items-center justify-between text-xs text-[rgba(251,247,244,0.78)]">
         <div className="flex items-center gap-3">
           {/* Heart button */}
           <button
             type="button"
             onClick={handleLike}
             aria-label="React with heart"
-            className="group/btn flex items-center gap-1.5 py-2 px-3 min-h-[44px] rounded-full hover:bg-white/10 transition-colors"
+            className="flex items-center gap-1.5 py-2 px-3 min-h-[44px] rounded-[4px] [@media(hover:hover)]:hover:bg-[rgba(251,247,244,0.10)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
           >
             <Heart
-              className={`w-4 h-4 transition-transform group-hover/btn:scale-110 ${
+              className={`w-4 h-4 ${
                 liked
-                  ? 'fill-[var(--color-accent)] text-[var(--color-accent)]'
-                  : 'text-[var(--color-on-primary)]/70 hover:text-[var(--color-accent)]'
+                  ? 'fill-[var(--color-rose-light)] text-[var(--color-rose-light)]'
+                  : 'text-[var(--color-ivory)] fill-transparent'
               }`}
             />
-            <span className={liked ? 'text-[var(--color-accent)] font-medium' : 'text-[var(--color-on-primary)]/75'}>
+            <span className={liked ? 'text-[var(--color-rose-light)] font-medium' : 'text-[var(--color-ivory)]'}>
               {likeCount > 0 ? likeCount : 'React'}
             </span>
           </button>
@@ -226,22 +226,22 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
             type="button"
             onClick={handleShare}
             aria-label="Share review"
-            className="flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)]"
+            className="flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-[4px] [@media(hover:hover)]:hover:bg-[rgba(251,247,244,0.10)] transition-colors text-[var(--color-ivory)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-                <span className="text-[11px] text-[var(--color-accent)] font-medium ml-1">Copied!</span>
+                <Check className="w-3.5 h-3.5 text-[var(--color-rose-light)]" />
+                <span className="text-[11px] text-[var(--color-rose-light)] font-medium ml-1">Copied!</span>
               </>
             ) : (
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-4 h-4 text-[var(--color-ivory)]" />
             )}
           </button>
         </div>
 
         {/* Verified boutique client label */}
-        <div className="flex items-center gap-1 text-[11px] text-[var(--color-on-primary)]/75 font-normal">
-          <Sparkles className="w-3 h-3 text-[var(--color-accent)]" />
+        <div className="flex items-center gap-1 text-[11px] text-[rgba(251,247,244,0.78)] font-normal">
+          <Sparkles className="w-3 h-3 text-[var(--color-rose-pale)]" />
           <span>Verified Client</span>
         </div>
       </div>
