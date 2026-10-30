@@ -280,14 +280,16 @@ export default function HomePage() {
       <section
         id="about-the-studio"
         data-tone="dark"
-        className="w-full bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16 md:py-24"
+        className="w-full bg-[var(--color-plum)] text-[var(--color-ivory)] border-y border-[rgba(251,247,244,0.20)] py-16 md:py-24"
       >
-        <div className="max-w-[960px] mx-auto px-4 sm:px-8 text-center space-y-6">
-          <span className="text-label text-[var(--color-text-muted)]">About The Studio</span>
-          <h2 className="text-h2 text-[var(--color-text)] font-normal leading-tight">
+        <div className="max-w-[42rem] mx-auto px-4 sm:px-8 text-center space-y-6 [&_a]:text-[var(--color-ivory)] [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-4 [&_a]:focus-visible:outline-2 [&_a]:focus-visible:outline-offset-2 [&_a]:focus-visible:outline-[var(--color-ivory)] [&_button]:text-[var(--color-ivory)] [&_button]:underline [&_button]:decoration-1 [&_button]:underline-offset-4 [&_button]:focus-visible:outline-2 [&_button]:focus-visible:outline-offset-2 [&_button]:focus-visible:outline-[var(--color-ivory)]">
+          <span className="text-[11px] font-medium sm:font-semibold uppercase tracking-[0.16em] text-[var(--color-rose-pale)] block">
+            About The Studio
+          </span>
+          <h2 className="text-h2 font-heading text-[var(--color-ivory)] font-normal leading-tight [text-wrap:balance]">
             Thoughtful accessories made from tactile fabrics. Designed for everyday use.
           </h2>
-          <p className="text-body text-[var(--color-text-muted)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[rgba(251,247,244,0.82)] leading-[1.7] text-base">
             Every item in our collection begins with carefully chosen textiles: washed corduroy, cotton florals,
             check patterns, and natural linen. We build pieces you can configure with your choice of fabric, size,
             zipper, and finishes.
