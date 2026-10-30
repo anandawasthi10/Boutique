@@ -5,7 +5,6 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { productsApi, categoriesApi } from '@/lib/api';
 import { ProductSummary, CategorySummary } from '@/lib/types';
-import { Button } from '@/components/ui/Button';
 import { ProductGrid } from '@/components/catalogue/ProductGrid';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
@@ -292,28 +291,6 @@ export default function HomePage() {
             check patterns, and natural linen. We build pieces you can configure with your choice of fabric, size,
             zipper, and finishes.
           </p>
-        </div>
-      </section>
-
-      {/* 5. BUILD YOUR OWN CTA */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 w-full">
-        <div className="p-8 sm:p-12 md:p-16 bg-[var(--color-surface-alt)] border border-[var(--color-border)] rounded-[4px] flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="text-label text-[var(--color-text-muted)]">Interactive Customiser</span>
-            <h2 className="text-h2 text-[var(--color-text)]">
-              Build your own accessory in three simple steps.
-            </h2>
-            <p className="text-body text-[var(--color-text-muted)]">
-              Choose your product, pick your fabric texture and dimensions, and see your price update as you choose before ordering.
-            </p>
-          </div>
-          <div className="shrink-0">
-            <NextLink href="/build-your-own">
-              <Button variant="primary" size="lg">
-                Customise an Item
-              </Button>
-            </NextLink>
-          </div>
         </div>
       </section>
     </div>
