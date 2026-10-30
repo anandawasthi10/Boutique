@@ -276,11 +276,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. RATINGS & REVIEWS SECTION */}
-      <ReviewsSection />
- 
-      {/* 5. BRAND STORY BAND */}
-      <section className="w-full bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16 md:py-24">
+      {/* 4. ABOUT THE STUDIO / BRAND STORY BAND */}
+      <section
+        id="about-the-studio"
+        data-tone="dark"
+        className="w-full bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16 md:py-24"
+      >
         <div className="max-w-[960px] mx-auto px-4 sm:px-8 text-center space-y-6">
           <span className="text-label text-[var(--color-text-muted)]">About The Studio</span>
           <h2 className="text-h2 text-[var(--color-text)] font-normal leading-tight">
@@ -293,6 +294,9 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* 5. RATINGS & REVIEWS SECTION */}
+      <ReviewsSection />
     </div>
   );
 }

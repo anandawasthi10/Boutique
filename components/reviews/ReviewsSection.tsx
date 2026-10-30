@@ -90,7 +90,7 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section
       id="reviews-section"
-      data-tone="dark"
+      data-tone="light"
       className="section-screen relative w-full bg-[var(--color-plum)] text-[var(--color-ivory)] border-y border-[rgba(251,247,244,0.20)] overflow-hidden"
       aria-label="Client Ratings and Reviews"
     >

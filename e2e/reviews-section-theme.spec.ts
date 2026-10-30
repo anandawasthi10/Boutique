@@ -35,7 +35,7 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
       // 1. Wait for #reviews-section
       const section = page.locator('#reviews-section');
       await expect(section).toBeVisible({ timeout: 15000 });
-      expect(await section.getAttribute('data-tone')).toBe('dark');
+      expect(await section.getAttribute('data-tone')).toBe('light');
 
       // 2. Verify section background is exactly plum (rgb(61, 36, 56)) and opaque
       const sectionStyles = await section.evaluate((el) => {
@@ -203,7 +203,7 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
         const header = document.querySelector('header');
         return header?.getAttribute('data-header-state');
       });
-      expect(headerState).toBe('ivory');
+      expect(headerState).toBe('plum');
 
       // 11. Zero console errors
       expect(consoleErrors).toHaveLength(0);
