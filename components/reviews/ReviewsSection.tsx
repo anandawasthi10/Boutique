@@ -70,7 +70,6 @@ export const ReviewsSection: React.FC = () => {
       rating: ratingVal,
       timeAgo: 'Just now',
       avatarText: authorName.charAt(0).toUpperCase(),
-      avatarBg: 'bg-emerald-600',
       content: reviewBody.trim(),
       initialLikes: 0,
       categoryTag: 'Customer Review',
@@ -91,24 +90,24 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section
       id="reviews-section"
-      data-tone="dark"
-      className="section-screen relative w-full bg-[var(--color-primary)] text-[var(--color-on-primary)] border-y border-[var(--color-border)] overflow-hidden"
+      data-tone="light"
+      className="section-screen relative w-full bg-[var(--color-ivory)] text-[var(--color-ink)] border-y border-[var(--color-line)] overflow-hidden"
       aria-label="Client Ratings and Reviews"
     >
       <div className="container-custom flex flex-col justify-center gap-6 sm:gap-8 my-auto w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/15 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--color-line)] pb-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--color-plum-raised)] border border-white/20 rounded-full">
-              <Star className="w-3.5 h-3.5 text-[var(--color-accent)] fill-[var(--color-accent)]" />
-              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-on-primary)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-transparent border border-[var(--color-plum)] rounded-full">
+              <Star className="w-3.5 h-3.5 text-[var(--color-rose-text)] fill-[var(--color-rose-text)]" />
+              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-plum)]">
                 Verified Google Reviews
               </span>
             </div>
-            <h2 className="text-h1 text-[var(--color-on-primary)] font-normal tracking-tight">
+            <h2 className="text-h1 text-[var(--color-ink)] font-heading font-normal tracking-tight">
               Ratings & Reviews
             </h2>
-            <p className="text-body text-[var(--color-on-primary)]/80 max-w-xl">
+            <p className="text-body text-[var(--color-muted)] max-w-xl">
               Authentic stories from clients who trust Jyoti & Sakshi for bespoke tailoring,
               outfit styling, and artisanal craft.
             </p>
@@ -119,7 +118,7 @@ export const ReviewsSection: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-on-primary)] text-[var(--color-primary)] text-xs font-semibold hover:bg-[var(--color-surface)] transition-colors shadow-sm"
+              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-[var(--color-plum)] text-[var(--color-ivory)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-plum-hover)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
             >
               <Plus className="w-4 h-4" />
               <span>Write a Review</span>
@@ -128,10 +127,10 @@ export const ReviewsSection: React.FC = () => {
               href="https://maps.google.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-white/20 bg-[var(--color-plum-raised)] text-[var(--color-on-primary)] text-xs font-medium hover:bg-white/10 transition-colors"
+              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[4px] border border-[var(--color-plum)] bg-transparent text-[var(--color-plum)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-plum)] [@media(hover:hover)]:hover:text-[var(--color-ivory)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
             >
               <span>View on Google</span>
-              <ExternalLink className="w-3.5 h-3.5 text-[var(--color-on-primary)]/70" />
+              <ExternalLink className="w-3.5 h-3.5 text-current" />
             </a>
           </div>
         </div>
@@ -165,22 +164,22 @@ export const ReviewsSection: React.FC = () => {
       {/* Write a Review Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 animate-in fade-in duration-200"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="w-full max-w-md bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl p-6 sm:p-8 shadow-2xl relative text-[var(--color-text)]"
+            className="w-full max-w-md bg-[var(--color-ivory)] border border-[var(--color-line)] rounded-[4px] p-6 sm:p-8 relative text-[var(--color-ink)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--color-border)]">
+            <div className="flex items-center justify-between pb-4 border-b border-[var(--color-line)]">
               <div className="flex items-center gap-2">
-                <MessageSquareQuote className="w-5 h-5 text-[var(--color-accent-text)]" />
-                <h3 className="text-h3 font-medium">Leave a Review</h3>
+                <MessageSquareQuote className="w-5 h-5 text-[var(--color-plum)]" />
+                <h3 className="text-h3 font-heading font-medium text-[var(--color-ink)]">Leave a Review</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] text-xl font-bold p-1"
+                className="text-[var(--color-muted)] hover:text-[var(--color-ink)] text-xl font-bold p-1 rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                 aria-label="Close review dialog"
               >
                 ✕
@@ -189,18 +188,18 @@ export const ReviewsSection: React.FC = () => {
 
             {newReviewSubmitted ? (
               <div className="py-8 flex flex-col items-center justify-center text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-[var(--color-surface)] flex items-center justify-center text-[var(--color-primary)]">
+                <div className="w-12 h-12 rounded-full bg-[var(--color-surface)] flex items-center justify-center text-[var(--color-plum)]">
                   <Check className="w-6 h-6 stroke-[3]" />
                 </div>
-                <h4 className="text-lg font-medium">Thank You!</h4>
-                <p className="text-xs text-[var(--color-text-muted)] max-w-xs">
+                <h4 className="text-lg font-heading font-medium text-[var(--color-ink)]">Thank You!</h4>
+                <p className="text-xs text-[var(--color-muted)] max-w-xs">
                   Your review has been verified and added to the customer showcase.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleNewReviewSubmit} className="space-y-4 pt-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">
                     Your Name
                   </label>
                   <input
@@ -209,12 +208,12 @@ export const ReviewsSection: React.FC = () => {
                     value={authorName}
                     onChange={(e) => setAuthorName(e.target.value)}
                     placeholder="e.g. Nikita, Priya, Ritu"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-base focus:outline-hidden focus:border-[var(--color-primary)]"
+                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-line)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">
                     Rating
                   </label>
                   <div className="flex items-center gap-1">
@@ -223,25 +222,25 @@ export const ReviewsSection: React.FC = () => {
                         key={star}
                         type="button"
                         onClick={() => setRatingVal(star)}
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-1 hover:scale-110 transition-transform"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-1 rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                       >
                         <Star
                           className={`w-6 h-6 ${
                             star <= ratingVal
-                              ? 'fill-[var(--color-accent)] text-[var(--color-accent)]'
-                              : 'fill-transparent text-[var(--color-border)]'
+                              ? 'fill-[var(--color-plum)] text-[var(--color-plum)]'
+                              : 'fill-transparent text-[var(--color-line)]'
                           }`}
                         />
                       </button>
                     ))}
-                    <span className="text-xs font-medium text-[var(--color-text-muted)] ml-2">
+                    <span className="text-xs font-medium text-[var(--color-muted)] ml-2">
                       {ratingVal} Stars
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-1">
                     Your Experience
                   </label>
                   <textarea
@@ -250,7 +249,7 @@ export const ReviewsSection: React.FC = () => {
                     value={reviewBody}
                     onChange={(e) => setReviewBody(e.target.value)}
                     placeholder="Share your thoughts about Jyoti & Sakshi's designs, fitting, fabric quality, and service..."
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-base focus:outline-hidden focus:border-[var(--color-primary)] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-line)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] resize-none"
                   />
                 </div>
 
@@ -258,11 +257,15 @@ export const ReviewsSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="min-h-[44px] px-4 py-2 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                    className="min-h-[44px] px-4 py-2 text-xs font-medium text-[var(--color-muted)] hover:text-[var(--color-ink)] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                   >
                     Cancel
                   </button>
-                  <Button variant="primary" type="submit" className="min-h-[44px]">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="min-h-[44px] bg-[var(--color-plum)] text-[var(--color-ivory)] [@media(hover:hover)]:hover:bg-[var(--color-plum-hover)] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
+                  >
                     Submit Review
                   </Button>
                 </div>

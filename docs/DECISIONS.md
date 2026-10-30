@@ -220,3 +220,50 @@ This document records the architectural decisions, specification resolutions, an
   - Column counts verified: 2 on mobile, 3 on tablet (768px), 4 on desktop (>=1024px).
   - Header data-tone verified: switches to plum when scrolling over #featured-pieces.
 
+
+### D-19: Ratings & Reviews Ivory & Plum Theme Refinement
+- **Context & Objectives**:
+  Apply the Ivory and Plum theme to the "Ratings & Reviews" section (`#reviews-section`) on the home page. Enforce solid colors only with zero gradients, blur, glows, or box-shadows. Ensure high contrast (text >= 4.5:1, icons/fills >= 3:1) and adaptive dark tone behavior (`data-tone="dark"`).
+- **New Tokens & Color System**:
+  - Added `--color-rose-pale: #EBC6D2` in `app/globals.css` (in `:root` and `@theme`) for small accent text, tags, and icons on plum surfaces (9.11:1 on plum, 5.14:1 on plum-raised).
+  - Section background set to solid plum (`--color-plum: #3D2438`).
+  - Section boundaries and dividers set to 1px ivory at 20% alpha (`border-[rgba(251,247,244,0.20)]`).
+  - Rating summary box and review cards set to solid plum-raised (`--color-plum-raised: #604B5C`), 4px radius, no border, no shadow, no blur.
+  - Initial avatars use `bg-[var(--color-rose-light)]` with `text-[var(--color-plum)]` font-semibold.
+  - Stars and progress bar fills use `var(--color-rose-light)`. Progress bar tracks use `rgba(251,247,244,0.22)`.
+  - Removed all legacy Tailwind navy, slate, amber, orange, yellow, and emerald classes across review components.
+  - Removed left/right gradient edge-fade overlays from `ReviewsMarquee.tsx`; cards clip at the container boundary.
+- **Controls & Accessibility**:
+  - Filter pills and desktop controls (Speed, Flow, Pause, Prev, Next) use ivory outline treatment (`border-[rgba(251,247,244,0.45)]`), with active/selected state using solid ivory background and plum text.
+  - "Write a Review" button: solid ivory background with plum text; "View on Google": transparent with 1px ivory border; both >= 48px height with 4px radius.
+  - Focus rings on all interactive elements: 2px ivory outline with 2px offset (`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]`).
+  - Like (heart) and share buttons have >= 44x44px touch targets. Liked state uses filled rose-light icon.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/reviews-section-theme.spec.ts`.
+  - Mobile swipeable row with snap verified; desktop marquee verified; adaptive ivory header over dark tone verified.
+  - Zero console errors; screenshots saved to `screenshots/theme/`.
+
+### D-20: Homepage Ending Rework (About the Studio, Ratings & Reviews, Footer)
+- **Context & Objectives**:
+  Rework the end of the homepage (`app/page.tsx`, `components/reviews/`, `components/layout/Footer.tsx`) with the Ivory and Plum theme, establishing clean visual rhythm and monotonic section tone transitions. Remove the interactive customiser block from the homepage.
+- **Section Order & Adaptive Tone System**:
+  - Final page order:
+    1. Header (`Header.tsx`, sticky adaptive)
+    2. Hero (`#hero`, `data-tone="dark"` -> header turns ivory)
+    3. Explore by Type (`#explore-by-type`, `data-tone="light"` -> header turns plum)
+    4. Featured Pieces (`#featured-pieces`, `data-tone="light"` -> header turns plum)
+    5. About the Studio (`#about-the-studio`, `data-tone="dark"` -> header turns ivory)
+    6. Ratings & Reviews (`#reviews-section`, `data-tone="light"` -> header turns plum)
+    7. Footer (`footer`, `data-tone="dark"` -> header turns ivory)
+- **Specific Component Restyling**:
+  - **Customiser Removal**: Removed inline "Build your own accessory in three simple steps" block from `app/page.tsx`. Nav links to `/build-your-own` remain active in Header and MobileNav.
+  - **About the Studio**: Solid plum background (`var(--color-plum)`), centered max-width `42rem` container, rose-pale eyebrow (`text-[11px] uppercase tracking-[0.16em]`), ivory serif heading with balanced wrapping, 82% rgba ivory body copy, ivory links with underline and 2px ivory outline with 2px offset.
+  - **Ratings & Reviews**: Inverted section background to solid ivory (`var(--color-ivory)`), divider lines in line token (`var(--color-line)`), top verified pill transparent with 1px plum border and rose-text star icon, ink serif heading, muted intro copy, plum primary button, surface summary box with ink 4.3 score, and solid plum review cards with 4px radius, no border, no shadow.
+  - **Footer**: Solid plum-deep background (`var(--color-plum-deep)`), 1px plum-line border (`var(--color-plum-line)`), ivory serif logo, 85% rgba ivory tagline, rose-pale column headings (`Explore`, `Studio`), 85% rgba ivory links with hover underline, email and phone permanently underlined with 44px min-height, bottom bar with 1px plum-line divider and 75% rgba ivory text. Deduplicated legal links by filtering out "Privacy Policy" and "Terms of Service" from the Explore column.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/task6-final-verification.spec.ts` (14/14 passed) and `e2e/task5-footer-theme.spec.ts` (6/6 passed).
+  - Screenshots saved for all sections per viewport to `screenshots/theme/`.
+  - Next.js production build (`next build`) passed with 28/28 static pages generated.
+  - Full unit test suite passed with 290/290 tests matching baseline.
+- **Scope Boundaries**:
+  - Nothing blocked or skipped. Inner storefront pages (shop, product detail, build your own, cart, checkout, login) intentionally left for subsequent project milestones.
