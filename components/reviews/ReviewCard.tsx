@@ -51,7 +51,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
 
   return (
     <div
-      className={`relative flex flex-col justify-between shrink-0 bg-[var(--color-plum-raised)] text-[var(--color-ivory)] rounded-[4px] p-5 select-none ${className || 'w-[340px] sm:w-[380px]'}`}
+      className={`relative flex flex-col justify-between shrink-0 bg-[var(--color-plum)] text-[var(--color-ivory)] rounded-[4px] p-5 select-none ${className || 'w-[340px] sm:w-[380px]'}`}
       data-testid={`review-card-${review.id}`}
     >
       {/* Top Header */}
@@ -207,7 +207,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
             type="button"
             onClick={handleLike}
             aria-label="React with heart"
-            className="flex items-center gap-1.5 py-2 px-3 min-h-[44px] rounded-[4px] [@media(hover:hover)]:hover:bg-[rgba(251,247,244,0.10)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+            className="flex items-center gap-1.5 py-2 px-3 min-h-[44px] min-w-[44px] rounded-[4px] [@media(hover:hover)]:hover:bg-[rgba(251,247,244,0.10)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
           >
             <Heart
               className={`w-4 h-4 ${
@@ -216,7 +216,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
                   : 'text-[var(--color-ivory)] fill-transparent'
               }`}
             />
-            <span className={liked ? 'text-[var(--color-rose-light)] font-medium' : 'text-[var(--color-ivory)]'}>
+            <span className="text-[var(--color-ivory)] font-medium">
               {likeCount > 0 ? likeCount : 'React'}
             </span>
           </button>

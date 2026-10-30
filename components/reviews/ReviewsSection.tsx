@@ -91,23 +91,23 @@ export const ReviewsSection: React.FC = () => {
     <section
       id="reviews-section"
       data-tone="light"
-      className="section-screen relative w-full bg-[var(--color-plum)] text-[var(--color-ivory)] border-y border-[rgba(251,247,244,0.20)] overflow-hidden"
+      className="section-screen relative w-full bg-[var(--color-ivory)] text-[var(--color-ink)] border-y border-[var(--color-line)] overflow-hidden"
       aria-label="Client Ratings and Reviews"
     >
       <div className="container-custom flex flex-col justify-center gap-6 sm:gap-8 my-auto w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[rgba(251,247,244,0.20)] pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--color-line)] pb-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-transparent border border-[rgba(251,247,244,0.45)] rounded-full">
-              <Star className="w-3.5 h-3.5 text-[var(--color-rose-light)] fill-[var(--color-rose-light)]" />
-              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-ivory)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-transparent border border-[var(--color-plum)] rounded-full">
+              <Star className="w-3.5 h-3.5 text-[var(--color-rose-text)] fill-[var(--color-rose-text)]" />
+              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-plum)]">
                 Verified Google Reviews
               </span>
             </div>
-            <h2 className="text-h1 text-[var(--color-ivory)] font-heading font-normal tracking-tight">
+            <h2 className="text-h1 text-[var(--color-ink)] font-heading font-normal tracking-tight">
               Ratings & Reviews
             </h2>
-            <p className="text-body text-[rgba(251,247,244,0.82)] max-w-xl">
+            <p className="text-body text-[var(--color-muted)] max-w-xl">
               Authentic stories from clients who trust Jyoti & Sakshi for bespoke tailoring,
               outfit styling, and artisanal craft.
             </p>
@@ -118,7 +118,7 @@ export const ReviewsSection: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] text-[var(--color-plum)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-surface)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-[var(--color-plum)] text-[var(--color-ivory)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-plum-hover)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
             >
               <Plus className="w-4 h-4" />
               <span>Write a Review</span>
@@ -127,7 +127,7 @@ export const ReviewsSection: React.FC = () => {
               href="https://maps.google.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[4px] border border-[var(--color-ivory)] bg-transparent text-[var(--color-ivory)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-ivory)] [@media(hover:hover)]:hover:text-[var(--color-plum)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[4px] border border-[var(--color-plum)] bg-transparent text-[var(--color-plum)] text-xs font-medium [@media(hover:hover)]:hover:bg-[var(--color-plum)] [@media(hover:hover)]:hover:text-[var(--color-ivory)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
             >
               <span>View on Google</span>
               <ExternalLink className="w-3.5 h-3.5 text-current" />
@@ -168,10 +168,10 @@ export const ReviewsSection: React.FC = () => {
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="w-full max-w-md bg-[var(--color-ivory)] border border-[var(--color-border)] rounded-[4px] p-6 sm:p-8 relative text-[var(--color-ink)]"
+            className="w-full max-w-md bg-[var(--color-ivory)] border border-[var(--color-line)] rounded-[4px] p-6 sm:p-8 relative text-[var(--color-ink)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--color-border)]">
+            <div className="flex items-center justify-between pb-4 border-b border-[var(--color-line)]">
               <div className="flex items-center gap-2">
                 <MessageSquareQuote className="w-5 h-5 text-[var(--color-plum)]" />
                 <h3 className="text-h3 font-heading font-medium text-[var(--color-ink)]">Leave a Review</h3>
@@ -208,7 +208,7 @@ export const ReviewsSection: React.FC = () => {
                     value={authorName}
                     onChange={(e) => setAuthorName(e.target.value)}
                     placeholder="e.g. Nikita, Priya, Ritu"
-                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-border)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
+                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-line)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                   />
                 </div>
 
@@ -228,7 +228,7 @@ export const ReviewsSection: React.FC = () => {
                           className={`w-6 h-6 ${
                             star <= ratingVal
                               ? 'fill-[var(--color-plum)] text-[var(--color-plum)]'
-                              : 'fill-transparent text-[var(--color-border)]'
+                              : 'fill-transparent text-[var(--color-line)]'
                           }`}
                         />
                       </button>
@@ -249,7 +249,7 @@ export const ReviewsSection: React.FC = () => {
                     value={reviewBody}
                     onChange={(e) => setReviewBody(e.target.value)}
                     placeholder="Share your thoughts about Jyoti & Sakshi's designs, fitting, fabric quality, and service..."
-                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-border)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-[4px] bg-[var(--color-ivory)] border border-[var(--color-line)] text-base text-[var(--color-ink)] focus:outline-hidden focus:border-[var(--color-plum)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] resize-none"
                   />
                 </div>
 
@@ -264,7 +264,7 @@ export const ReviewsSection: React.FC = () => {
                   <Button
                     variant="primary"
                     type="submit"
-                    className="min-h-[44px] bg-[var(--color-plum)] text-[var(--color-ivory)] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
+                    className="min-h-[44px] bg-[var(--color-plum)] text-[var(--color-ivory)] [@media(hover:hover)]:hover:bg-[var(--color-plum-hover)] rounded-[4px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
                   >
                     Submit Review
                   </Button>

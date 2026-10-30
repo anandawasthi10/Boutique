@@ -44,28 +44,28 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
   return (
     <div className="w-full flex flex-col gap-6">
       {/* Top Banner / Rating Summary Box */}
-      <div className="bg-[var(--color-plum-raised)] rounded-[4px] p-6 sm:p-8 text-[var(--color-ivory)]">
+      <div className="bg-[var(--color-surface)] rounded-[4px] p-6 sm:p-8 text-[var(--color-ink)]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Main 4.3 Score Column */}
-          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start text-center sm:text-left gap-4 border-b lg:border-b-0 lg:border-r border-[rgba(251,247,244,0.20)] pb-6 lg:pb-0 lg:pr-8">
+          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start text-center sm:text-left gap-4 border-b lg:border-b-0 lg:border-r border-[var(--color-line)] pb-6 lg:pb-0 lg:pr-8">
             <div className="flex items-center gap-3">
-              <span className="text-5xl sm:text-6xl font-heading font-medium text-[var(--color-ivory)] tracking-tight">
+              <span className="text-5xl sm:text-6xl font-heading font-medium text-[var(--color-ink)] tracking-tight">
                 4.3
               </span>
               <div className="flex flex-col items-start">
                 <div
-                  className="flex items-center gap-1 text-[var(--color-rose-light)]"
+                  className="flex items-center gap-1 text-[var(--color-rose)]"
                   role="img"
                   aria-label="4.3 out of 5 stars"
                 >
                   {[...Array(4)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[var(--color-rose-light)] stroke-[var(--color-rose-light)]" />
+                    <Star key={i} className="w-5 h-5 fill-[var(--color-rose)] stroke-[var(--color-rose)]" />
                   ))}
                   {/* Partial 0.3 star visual */}
                   <div className="relative w-5 h-5">
-                    <Star className="w-5 h-5 text-[rgba(251,247,244,0.22)] fill-[rgba(251,247,244,0.22)] stroke-[rgba(251,247,244,0.22)]" />
+                    <Star className="w-5 h-5 text-[var(--color-line)] fill-[var(--color-line)] stroke-[var(--color-line)]" />
                     <div className="absolute inset-0 overflow-hidden w-[40%]">
-                      <Star className="w-5 h-5 text-[var(--color-rose-light)] fill-[var(--color-rose-light)] stroke-[var(--color-rose-light)]" />
+                      <Star className="w-5 h-5 text-[var(--color-rose)] fill-[var(--color-rose)] stroke-[var(--color-rose)]" />
                     </div>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                       d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                     />
                   </svg>
-                  <span className="text-xs font-semibold text-[var(--color-ivory)] tracking-wider uppercase">
+                  <span className="text-xs font-semibold text-[var(--color-ink)] tracking-wider uppercase">
                     Google Reviews
                   </span>
                 </div>
@@ -97,29 +97,29 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             </div>
 
             <div>
-              <p className="text-sm font-medium text-[var(--color-ivory)]">
-                Rated <span className="font-semibold text-[var(--color-ivory)]">4.3 / 5.0</span>
+              <p className="text-sm font-medium text-[var(--color-ink)]">
+                Rated <span className="font-semibold text-[var(--color-ink)]">4.3 / 5.0</span>
               </p>
-              <p className="text-xs text-[rgba(251,247,244,0.78)] mt-0.5">
+              <p className="text-xs text-[var(--color-muted)] mt-0.5">
                 Based on {RATING_SUMMARY.totalReviews} verified reviews
               </p>
             </div>
           </div>
 
           {/* Breakdown Bars Column */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-1.5 border-b lg:border-b-0 lg:border-r border-[rgba(251,247,244,0.20)] pb-6 lg:pb-0 lg:pr-8">
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-1.5 border-b lg:border-b-0 lg:border-r border-[var(--color-line)] pb-6 lg:pb-0 lg:pr-8">
             {RATING_SUMMARY.distribution.map((item) => (
               <div key={item.stars} className="flex items-center gap-3 text-xs">
-                <span className="w-8 font-medium text-[rgba(251,247,244,0.82)] text-right">
+                <span className="w-8 font-medium text-[var(--color-muted)] text-right">
                   {item.stars} ★
                 </span>
-                <div className="flex-1 h-2 bg-[rgba(251,247,244,0.22)] rounded-full overflow-hidden">
+                <div className="flex-1 h-2 bg-[var(--color-line)] rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[var(--color-rose-light)] rounded-full transition-all duration-500"
+                    className="h-full bg-[var(--color-plum)] rounded-full transition-all duration-500"
                     style={{ width: `${item.percentage}%` }}
                   />
                 </div>
-                <span className="w-10 text-[rgba(251,247,244,0.82)] text-right font-medium">
+                <span className="w-10 text-[var(--color-muted)] text-right font-medium">
                   {item.percentage}%
                 </span>
               </div>
@@ -128,24 +128,24 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
 
           {/* Highlights Column */}
           <div className="lg:col-span-3 flex flex-col justify-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-rose-pale)]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
               Customer Highlights
             </span>
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2 text-xs text-[var(--color-ivory)]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-rose-light)] shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-ink)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-plum)] shrink-0" />
                 <span>Custom Phone Measurements & Sizing</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-[var(--color-ivory)]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-rose-light)] shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-ink)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-plum)] shrink-0" />
                 <span>Jyoti & Sakshi Personal Consultations</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-[var(--color-ivory)]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-rose-light)] shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-ink)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-plum)] shrink-0" />
                 <span>Indian, Western & Indo-Western Fits</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-[var(--color-ivory)]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-rose-light)] shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-[var(--color-ink)]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-plum)] shrink-0" />
                 <span>Premium Quality Fabric & Fast Service</span>
               </div>
             </div>
@@ -163,10 +163,10 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                 key={tab.id}
                 type="button"
                 onClick={() => onFilterChange(tab.id)}
-                className={`text-xs px-4 min-h-[44px] rounded-full transition-colors shrink-0 inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] ${
+                className={`text-xs px-4 min-h-[44px] rounded-full transition-colors shrink-0 inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] ${
                   activeFilter === tab.id
-                    ? 'bg-[var(--color-ivory)] text-[var(--color-plum)] font-medium border border-[var(--color-ivory)]'
-                    : 'bg-transparent text-[var(--color-ivory)] border border-[rgba(251,247,244,0.45)] [@media(hover:hover)]:hover:border-[var(--color-ivory)]'
+                    ? 'bg-[var(--color-plum)] text-[var(--color-ivory)] font-medium border border-[var(--color-plum)]'
+                    : 'bg-transparent text-[var(--color-plum)] border border-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)]'
                 }`}
               >
                 {tab.label}
@@ -179,17 +179,17 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
         {/* Speed Controls & Navigation Controls */}
         <div className="flex items-center justify-end gap-3 w-full lg:w-auto ml-auto">
           {/* Speed Preset Selector - Hidden on mobile, visible on desktop */}
-          <div className="hidden lg:inline-flex items-center bg-transparent border border-[rgba(251,247,244,0.45)] rounded-[4px] p-1 text-xs">
-            <span className="px-2 text-[11px] font-semibold text-[rgba(251,247,244,0.82)] uppercase tracking-wider">
+          <div className="hidden lg:inline-flex items-center bg-transparent border border-[var(--color-plum)] rounded-[4px] p-1 text-xs">
+            <span className="px-2 text-[11px] font-semibold text-[var(--color-muted)] uppercase tracking-wider">
               Speed:
             </span>
             <button
               type="button"
               onClick={() => onSpeedChange('fast')}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] ${
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] ${
                 currentSpeed === 'fast'
-                  ? 'bg-[var(--color-ivory)] text-[var(--color-plum)] font-medium'
-                  : 'text-[rgba(251,247,244,0.82)] [@media(hover:hover)]:hover:text-[var(--color-ivory)]'
+                  ? 'bg-[var(--color-plum)] text-[var(--color-ivory)] font-medium'
+                  : 'text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)]'
               }`}
               title="Fast auto scroll"
             >
@@ -199,10 +199,10 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={() => onSpeedChange('turbo')}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] ${
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] ${
                 currentSpeed === 'turbo'
-                  ? 'bg-[var(--color-ivory)] text-[var(--color-plum)] font-medium'
-                  : 'text-[rgba(251,247,244,0.82)] [@media(hover:hover)]:hover:text-[var(--color-ivory)]'
+                  ? 'bg-[var(--color-plum)] text-[var(--color-ivory)] font-medium'
+                  : 'text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)]'
               }`}
               title="Ultra fast auto scroll"
             >
@@ -212,10 +212,10 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={() => onSpeedChange('normal')}
-              className={`px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] ${
+              className={`px-2.5 py-1.5 rounded-[4px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] ${
                 currentSpeed === 'normal'
-                  ? 'bg-[var(--color-ivory)] text-[var(--color-plum)] font-medium'
-                  : 'text-[rgba(251,247,244,0.82)] [@media(hover:hover)]:hover:text-[var(--color-ivory)]'
+                  ? 'bg-[var(--color-plum)] text-[var(--color-ivory)] font-medium'
+                  : 'text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)]'
               }`}
               title="Relaxed pace"
             >
@@ -228,7 +228,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={() => onDirectionChange(direction === 'ltr' ? 'rtl' : 'ltr')}
-              className="hidden lg:flex items-center gap-1.5 px-3 min-h-[44px] rounded-[4px] border border-[rgba(251,247,244,0.45)] bg-transparent text-xs font-medium text-[var(--color-ivory)] [@media(hover:hover)]:hover:border-[var(--color-ivory)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              className="hidden lg:flex items-center gap-1.5 px-3 min-h-[44px] rounded-[4px] border border-[var(--color-plum)] bg-transparent text-xs font-medium text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
               title={
                 direction === 'ltr'
                   ? 'Currently scrolling Left → Right (Click to switch)'
@@ -250,10 +250,10 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
           <button
             type="button"
             onClick={onTogglePause}
-            className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)] ${
+            className={`min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] border border-[var(--color-plum)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)] ${
               isPaused
-                ? 'bg-[var(--color-ivory)] text-[var(--color-plum)] border-[var(--color-ivory)] font-medium'
-                : 'bg-transparent text-[var(--color-ivory)] border-[rgba(251,247,244,0.45)] [@media(hover:hover)]:hover:border-[var(--color-ivory)]'
+                ? 'bg-[var(--color-plum)] text-[var(--color-ivory)] font-medium'
+                : 'bg-transparent text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)]'
             }`}
             title={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
             aria-label={isPaused ? 'Resume auto-scroll' : 'Pause auto-scroll'}
@@ -266,7 +266,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={onPrev}
-              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] bg-transparent border border-[rgba(251,247,244,0.45)] text-[var(--color-ivory)] [@media(hover:hover)]:hover:border-[var(--color-ivory)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] bg-transparent border border-[var(--color-plum)] text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
               title="Scroll left"
               aria-label="Previous review"
             >
@@ -275,7 +275,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             <button
               type="button"
               onClick={onNext}
-              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] bg-transparent border border-[rgba(251,247,244,0.45)] text-[var(--color-ivory)] [@media(hover:hover)]:hover:border-[var(--color-ivory)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ivory)]"
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-[4px] bg-transparent border border-[var(--color-plum)] text-[var(--color-plum)] [@media(hover:hover)]:hover:bg-[var(--color-surface)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-plum)]"
               title="Scroll right"
               aria-label="Next review"
             >

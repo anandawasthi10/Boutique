@@ -20,25 +20,26 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
   direction = 'ltr',
   isPaused,
   pauseOnHover = false,
-  containerRef: externalContainerRef,
+  containerRef,
 }) => {
   const desktopContainerRef = useRef<HTMLDivElement | null>(null);
   const mobileContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Synchronize external ref so that handlePrev/handleNext scrolls the active container
-  React.useEffect(() => {
-    if (!externalContainerRef) return;
-    const target = {
-      scrollBy: (options: ScrollToOptions) => {
-        if (window.innerWidth >= 1024) {
-          desktopContainerRef.current?.scrollBy(options);
-        } else {
-          mobileContainerRef.current?.scrollBy(options);
-        }
-      },
-    };
-    (externalContainerRef as any).current = target;
-  }, [externalContainerRef]);
+  React.useImperativeHandle(
+    containerRef,
+    () =>
+      ({
+        scrollBy: (options: ScrollToOptions) => {
+          if (window.innerWidth >= 1024) {
+            desktopContainerRef.current?.scrollBy(options);
+          } else {
+            mobileContainerRef.current?.scrollBy(options);
+          }
+        },
+      } as unknown as HTMLDivElement),
+    []
+  );
 
   // Speeds in seconds for a full 50% loop
   const durationMap: Record<SpeedMode, number> = {
@@ -161,17 +162,17 @@ export const ReviewsMarquee: React.FC<ReviewsMarqueeProps> = ({
       </div>
 
       {/* Desktop status hint */}
-      <div className="hidden lg:flex items-center justify-center gap-3 mt-3 text-xs text-[rgba(251,247,244,0.82)] flex-wrap px-4">
+      <div className="hidden lg:flex items-center justify-center gap-3 mt-3 text-xs text-[var(--color-muted)] flex-wrap px-4">
         <div className="flex items-center gap-1.5">
-          <span className="inline-block w-2 h-2 rounded-full bg-[var(--color-rose-light)]" />
-          <span className="font-medium text-[var(--color-ivory)]">
+          <span className="inline-block w-2 h-2 rounded-full bg-[var(--color-plum)]" />
+          <span className="font-medium text-[var(--color-ink)]">
             Continuous Stream
           </span>
-          <span className="text-[var(--color-rose-pale)] font-medium">
+          <span className="text-[var(--color-plum)] font-medium">
             ({direction === 'ltr' ? 'Moving Left → Right' : 'Moving Right → Left'})
           </span>
         </div>
-        <span className="text-[rgba(251,247,244,0.30)]">•</span>
+        <span className="text-[var(--color-line)]">•</span>
         <span>Use controls above to toggle direction, speed or pause</span>
       </div>
     </div>

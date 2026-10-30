@@ -37,7 +37,7 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
       await expect(section).toBeVisible({ timeout: 15000 });
       expect(await section.getAttribute('data-tone')).toBe('light');
 
-      // 2. Verify section background is exactly plum (rgb(61, 36, 56)) and opaque
+      // 2. Verify section background is exactly ivory (rgb(251, 247, 244)) and opaque
       const sectionStyles = await section.evaluate((el) => {
         const computed = window.getComputedStyle(el);
         return {
@@ -47,7 +47,7 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
           backdropFilter: computed.backdropFilter,
         };
       });
-      expect(sectionStyles.backgroundColor).toBe('rgb(61, 36, 56)');
+      expect(sectionStyles.backgroundColor).toBe('rgb(251, 247, 244)');
       expect(sectionStyles.opacity).toBe('1');
       expect(sectionStyles.boxShadow).toBe('none');
 
@@ -57,8 +57,8 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
       });
       expect(hasHorizontalScroll).toBe(false);
 
-      // 4. Verify summary box is solid plum-raised (rgb(96, 75, 92)), 4px radius, no shadow
-      const summaryBox = section.locator('.bg-\\[var\\(--color-plum-raised\\)\\]').first();
+      // 4. Verify summary box is solid surface (rgb(240, 228, 230)), 4px radius, no shadow
+      const summaryBox = section.locator('.bg-\\[var\\(--color-surface\\)\\]').first();
       await expect(summaryBox).toBeVisible();
       const summaryStyles = await summaryBox.evaluate((el) => {
         const computed = window.getComputedStyle(el);
@@ -69,17 +69,17 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
           opacity: computed.opacity,
         };
       });
-      expect(summaryStyles.backgroundColor).toBe('rgb(96, 75, 92)');
+      expect(summaryStyles.backgroundColor).toBe('rgb(240, 228, 230)');
       expect(summaryStyles.borderRadius).toBe('4px');
       expect(summaryStyles.boxShadow).toBe('none');
       expect(summaryStyles.opacity).toBe('1');
 
-      // 5. Verify Big Score 4.3 color is ivory
+      // 5. Verify Big Score 4.3 color is ink (rgb(43, 27, 39))
       const scoreEl = section.locator('span:has-text("4.3")').first();
       const scoreColor = await scoreEl.evaluate((el) => window.getComputedStyle(el).color);
-      expect(scoreColor).toBe('rgb(251, 247, 244)');
+      expect(scoreColor).toBe('rgb(43, 27, 39)');
 
-      // 6. Verify Review cards styling
+      // 6. Verify Review cards styling: solid plum (rgb(61, 36, 56)), 4px radius, no border, no shadow
       const cards = section.locator('[data-testid^="review-card-"]');
       const cardCount = await cards.count();
       expect(cardCount).toBeGreaterThanOrEqual(1);
@@ -93,7 +93,7 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
           borderWidth: computed.borderWidth,
         };
       });
-      expect(firstCardStyles.backgroundColor).toBe('rgb(96, 75, 92)'); // plum-raised
+      expect(firstCardStyles.backgroundColor).toBe('rgb(61, 36, 56)'); // plum
       expect(firstCardStyles.borderRadius).toBe('4px');
       expect(firstCardStyles.boxShadow).toBe('none');
       expect(firstCardStyles.borderWidth).toBe('0px');
@@ -130,8 +130,8 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
           height: el.getBoundingClientRect().height,
         };
       });
-      expect(writeBtnStyles.backgroundColor).toBe('rgb(251, 247, 244)'); // ivory
-      expect(writeBtnStyles.color).toBe('rgb(61, 36, 56)'); // plum
+      expect(writeBtnStyles.backgroundColor).toBe('rgb(61, 36, 56)'); // plum
+      expect(writeBtnStyles.color).toBe('rgb(251, 247, 244)'); // ivory
       expect(writeBtnStyles.borderRadius).toBe('4px');
       expect(writeBtnStyles.height).toBeGreaterThanOrEqual(48);
 
@@ -146,7 +146,8 @@ test.describe('Ratings & Reviews - Ivory and Plum Theme Verification', () => {
           height: el.getBoundingClientRect().height,
         };
       });
-      expect(googleBtnStyles.color).toBe('rgb(251, 247, 244)');
+      expect(googleBtnStyles.color).toBe('rgb(61, 36, 56)'); // plum
+      expect(googleBtnStyles.borderColor).toBe('rgb(61, 36, 56)'); // plum border
       expect(googleBtnStyles.borderRadius).toBe('4px');
       expect(googleBtnStyles.height).toBeGreaterThanOrEqual(48);
 
