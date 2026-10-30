@@ -31,6 +31,7 @@
   --color-rose: #C98BA0;
   --color-rose-text: #9C5774;
   --color-rose-light: #D9A3B5;
+  --color-rose-pale: #EBC6D2;
 
   /* Focus & Status Tokens */
   --color-focus: #3D2438;
@@ -98,6 +99,7 @@
   --color-rose: var(--color-rose);
   --color-rose-text: var(--color-rose-text);
   --color-rose-light: var(--color-rose-light);
+  --color-rose-pale: var(--color-rose-pale);
 
   --color-focus: var(--color-focus);
   --color-focus-on-primary: var(--color-focus-on-primary);

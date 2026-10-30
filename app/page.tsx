@@ -5,7 +5,6 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { productsApi, categoriesApi } from '@/lib/api';
 import { ProductSummary, CategorySummary } from '@/lib/types';
-import { Button } from '@/components/ui/Button';
 import { ProductGrid } from '@/components/catalogue/ProductGrid';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/ErrorState';
@@ -277,17 +276,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. RATINGS & REVIEWS SECTION */}
-      <ReviewsSection />
- 
-      {/* 5. BRAND STORY BAND */}
-      <section className="w-full bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16 md:py-24">
-        <div className="max-w-[960px] mx-auto px-4 sm:px-8 text-center space-y-6">
-          <span className="text-label text-[var(--color-text-muted)]">About The Studio</span>
-          <h2 className="text-h2 text-[var(--color-text)] font-normal leading-tight">
+      {/* 4. ABOUT THE STUDIO / BRAND STORY BAND */}
+      <section
+        id="about-the-studio"
+        data-tone="dark"
+        className="w-full bg-[var(--color-plum)] text-[var(--color-ivory)] border-y border-[rgba(251,247,244,0.20)] py-16 md:py-24"
+      >
+        <div className="max-w-[42rem] mx-auto px-4 sm:px-8 text-center space-y-6 [&_a]:text-[var(--color-ivory)] [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-4 [&_a]:focus-visible:outline-2 [&_a]:focus-visible:outline-offset-2 [&_a]:focus-visible:outline-[var(--color-ivory)] [&_button]:text-[var(--color-ivory)] [&_button]:underline [&_button]:decoration-1 [&_button]:underline-offset-4 [&_button]:focus-visible:outline-2 [&_button]:focus-visible:outline-offset-2 [&_button]:focus-visible:outline-[var(--color-ivory)]">
+          <span className="text-[11px] font-medium sm:font-semibold uppercase tracking-[0.16em] text-[var(--color-rose-pale)] block">
+            About The Studio
+          </span>
+          <h2 className="text-h2 font-heading text-[var(--color-ivory)] font-normal leading-tight [text-wrap:balance]">
             Thoughtful accessories made from tactile fabrics. Designed for everyday use.
           </h2>
-          <p className="text-body text-[var(--color-text-muted)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[rgba(251,247,244,0.82)] leading-[1.7] text-base">
             Every item in our collection begins with carefully chosen textiles: washed corduroy, cotton florals,
             check patterns, and natural linen. We build pieces you can configure with your choice of fabric, size,
             zipper, and finishes.
@@ -295,27 +297,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. BUILD YOUR OWN CTA */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 w-full">
-        <div className="p-8 sm:p-12 md:p-16 bg-[var(--color-surface-alt)] border border-[var(--color-border)] rounded-[4px] flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="text-label text-[var(--color-text-muted)]">Interactive Customiser</span>
-            <h2 className="text-h2 text-[var(--color-text)]">
-              Build your own accessory in three simple steps.
-            </h2>
-            <p className="text-body text-[var(--color-text-muted)]">
-              Choose your product, pick your fabric texture and dimensions, and see your price update as you choose before ordering.
-            </p>
-          </div>
-          <div className="shrink-0">
-            <NextLink href="/build-your-own">
-              <Button variant="primary" size="lg">
-                Customise an Item
-              </Button>
-            </NextLink>
-          </div>
-        </div>
-      </section>
+      {/* 5. RATINGS & REVIEWS SECTION */}
+      <ReviewsSection />
     </div>
   );
 }
