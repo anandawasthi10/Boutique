@@ -20,3 +20,14 @@ See full architecture documentation in [docs/DECISIONS.md](docs/DECISIONS.md).
 - Eliminated all legacy navy, slate, amber, orange, emerald, and yellow styling.
 - All filter pills, action buttons, pause/playback, like, and share controls verified for 44px/48px min tap targets and 2px ivory focus rings with 2px offset.
 - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) with screenshots saved to `screenshots/theme/`.
+
+### Latest Decision: D-20 (Homepage Ending Rework: About the Studio, Ratings & Reviews, Footer)
+- Reworked homepage ending rhythm with sequential section tone transitions: About the Studio (`data-tone="dark"`, plum), Ratings & Reviews (`data-tone="light"`, ivory with plum cards), and Footer (`data-tone="dark"`, plum-deep).
+- Removed interactive customiser block from `app/page.tsx`. Nav links to `/build-your-own` remain intact in Header and MobileNav.
+- Moved About the Studio directly above Ratings & Reviews in `app/page.tsx`. Final sequence: Hero -> Explore -> Featured -> About -> Reviews -> Footer.
+- Styled About the Studio in solid plum with centered 42rem container, rose-pale uppercase eyebrow, ivory serif heading, 82% rgba ivory body copy, and 2px ivory focus rings with 2px offset.
+- Inverted Ratings & Reviews section to solid ivory with line dividers, transparent verified pill with rose-text star, ink serif heading, surface summary box with ink 4.3 score, and solid plum cards with 4px radius, no border, no shadow.
+- Restyled Footer in solid plum-deep with 1px plum-line border, ivory serif logo, 85% rgba ivory tagline and links with hover underline, permanently underlined email/phone, 75% rgba ivory bottom bar, and removed duplicate legal links from Explore column.
+- Added token `--color-rose-pale: #EBC6D2` in `app/globals.css`.
+- Verified across all 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/task6-final-verification.spec.ts` (14/14 passed) and full unit test suite (290/290 passed).
+- Screenshots saved to `screenshots/theme/`. Inner storefront pages (shop, product detail, build your own, cart, checkout, login) left for subsequent milestones.

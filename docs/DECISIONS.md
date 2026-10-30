@@ -242,3 +242,28 @@ This document records the architectural decisions, specification resolutions, an
   - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/reviews-section-theme.spec.ts`.
   - Mobile swipeable row with snap verified; desktop marquee verified; adaptive ivory header over dark tone verified.
   - Zero console errors; screenshots saved to `screenshots/theme/`.
+
+### D-20: Homepage Ending Rework (About the Studio, Ratings & Reviews, Footer)
+- **Context & Objectives**:
+  Rework the end of the homepage (`app/page.tsx`, `components/reviews/`, `components/layout/Footer.tsx`) with the Ivory and Plum theme, establishing clean visual rhythm and monotonic section tone transitions. Remove the interactive customiser block from the homepage.
+- **Section Order & Adaptive Tone System**:
+  - Final page order:
+    1. Header (`Header.tsx`, sticky adaptive)
+    2. Hero (`#hero`, `data-tone="dark"` -> header turns ivory)
+    3. Explore by Type (`#explore-by-type`, `data-tone="light"` -> header turns plum)
+    4. Featured Pieces (`#featured-pieces`, `data-tone="light"` -> header turns plum)
+    5. About the Studio (`#about-the-studio`, `data-tone="dark"` -> header turns ivory)
+    6. Ratings & Reviews (`#reviews-section`, `data-tone="light"` -> header turns plum)
+    7. Footer (`footer`, `data-tone="dark"` -> header turns ivory)
+- **Specific Component Restyling**:
+  - **Customiser Removal**: Removed inline "Build your own accessory in three simple steps" block from `app/page.tsx`. Nav links to `/build-your-own` remain active in Header and MobileNav.
+  - **About the Studio**: Solid plum background (`var(--color-plum)`), centered max-width `42rem` container, rose-pale eyebrow (`text-[11px] uppercase tracking-[0.16em]`), ivory serif heading with balanced wrapping, 82% rgba ivory body copy, ivory links with underline and 2px ivory outline with 2px offset.
+  - **Ratings & Reviews**: Inverted section background to solid ivory (`var(--color-ivory)`), divider lines in line token (`var(--color-line)`), top verified pill transparent with 1px plum border and rose-text star icon, ink serif heading, muted intro copy, plum primary button, surface summary box with ink 4.3 score, and solid plum review cards with 4px radius, no border, no shadow.
+  - **Footer**: Solid plum-deep background (`var(--color-plum-deep)`), 1px plum-line border (`var(--color-plum-line)`), ivory serif logo, 85% rgba ivory tagline, rose-pale column headings (`Explore`, `Studio`), 85% rgba ivory links with hover underline, email and phone permanently underlined with 44px min-height, bottom bar with 1px plum-line divider and 75% rgba ivory text. Deduplicated legal links by filtering out "Privacy Policy" and "Terms of Service" from the Explore column.
+- **Verification Across Viewports**:
+  - Verified across 7 viewports (360x640, 390x844, 430x932, 768x1024, 1024x768, 1366x768, 1920x1080) via Playwright in `e2e/task6-final-verification.spec.ts` (14/14 passed) and `e2e/task5-footer-theme.spec.ts` (6/6 passed).
+  - Screenshots saved for all sections per viewport to `screenshots/theme/`.
+  - Next.js production build (`next build`) passed with 28/28 static pages generated.
+  - Full unit test suite passed with 290/290 tests matching baseline.
+- **Scope Boundaries**:
+  - Nothing blocked or skipped. Inner storefront pages (shop, product detail, build your own, cart, checkout, login) intentionally left for subsequent project milestones.
